@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/12 17:11:01 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/08/23 14:58:39 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+#include <sys/types.h>//PID
+#include <sys/wait.h>// waitpid
+#include <fcntl.h>
 
 enum e_tokentype
 {
@@ -137,6 +140,8 @@ void		ft_history_add_back(t_history **lst, t_history *new);
 void		ft_free_history(t_history	**history);
 void		ft_history_print(t_history **history);
 //execution part:
-void		execute(t_parc **parc, t_env **env);
+//void		execute(t_parc **parc, t_env **env);
+char		**arg_to_array_converter(t_arg *arg , char *command);
+char		**env_to_array_converter(t_arg *env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:20:14 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/08/23 14:11:51 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/08/23 14:57:06 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 /*
 execve() function requires array to execute a commannd
 **/
-//convert linked_lst arg(t_arg) to an array of strings
+//convert linked_lst of arg(t_arg) to an array of strings
 char	**arg_to_array_converter(t_arg *arg , char *command)
 {
 	int	i;
@@ -42,4 +42,39 @@ char	**arg_to_array_converter(t_arg *arg , char *command)
 	}
 	argv[i] = NULL;//end of array
 	return(argv);
+}
+
+////convert linked_lst of environment var (t_env) to an array of strings
+char	**env_to_array_converter(t_arg *env)
+{
+	int	i;
+	int env_var_count;
+	t_env *cur_env;
+	char	**env_array;
+	
+	env_var_count = 0;
+	cur_env = env;
+	while (cur_env)
+	{
+		env_var_count++;
+		cur_env = cur_env->next;
+	}
+	env_array = (char **)malloc(sizeof(char *) * (env_var_count + 1));
+	if (!env_array)
+		return(NULL);
+	cur_env = env;
+	i = 0;
+	while (cur_env)
+	{
+		env_array[i] =(char *)malloc(ft_strlen(cur_env->key) + ft_strlen(cur_env->value) + 2);//allocate memory to the key=value str
+		if (!env_array[i])
+			return(NULL);
+		ft_strcpy(env_array[i], cur_env->key);//copy key To do
+		ft_strcat(env_array[i], "=");//To do
+		ft_strcat(env_array[i], cur_env->value);
+		cur_env = cur_env->next;//move to next var in the list
+		i++;
+	}
+	env_array[i] = NULL;//end of array
+	return(env_array);
 }
