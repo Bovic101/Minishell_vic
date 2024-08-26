@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/13 17:15:32 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/08/27 01:24:40 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	cmd_processing(char *s, t_env **env)
 	//ft_lst_print(&token);
 	parcer(&token, &parc, env);
 	ft_plst_print(&parc);
-	execute(&parc, env);
+	//execute(&parc, env);
 	freeall(&token, &parc);
 }
 

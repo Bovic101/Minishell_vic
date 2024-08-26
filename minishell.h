@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/23 14:58:39 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/08/25 20:38:45 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <sys/types.h>//PID
-#include <sys/wait.h>// waitpid
-#include <fcntl.h>
+# include <sys/types.h>//PID
+# include <sys/wait.h>// waitpid
+# include <fcntl.h>
+# include <stddef.h>
 
 enum e_tokentype
 {
@@ -143,5 +144,7 @@ void		ft_history_print(t_history **history);
 //void		execute(t_parc **parc, t_env **env);
 char		**arg_to_array_converter(t_arg *arg , char *command);
 char		**env_to_array_converter(t_arg *env);
+char		*ft_strcpy(char *dest, const char *src);
+char		*ft_strcat(char *dest, const char *src);
 
 #endif
