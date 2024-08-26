@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:20:14 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/08/25 20:39:15 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:53:00 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,9 @@ char	**env_to_array_converter(t_arg *env)
 	}
 	env_array[i] = NULL;//end of array
 	return(env_array);
+}
+//Locate the full path in which a command is stored in directories listed in PATH env-var
+char	*command_fullpath_finder(char *command, t_env **env)
+{
+	
 }
