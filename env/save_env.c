@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:49:12 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/13 16:44:54 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:04:19 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,15 @@ void	save_env(char **envp, t_env **env)
 
 void	save_env_empty(t_env **env)
 {
-	char	*key_oldpwd;
-	char	*key_pwd;
 	char	*value;
 	char	cwd[256];
 
-	key_pwd = ft_strdup("PWD");
-	add_env(key_pwd, ft_strdup(getcwd(cwd, sizeof(cwd))), env);
-	key_oldpwd = ft_strdup("OLDPWD");
-	add_env(key_oldpwd, NULL, env);
-	//add_env()
+	add_env(ft_strdup("PWD"), ft_strdup(getcwd(cwd, sizeof(cwd))), env);
+	add_env(ft_strdup("OLDPWD"), NULL, env);
+	add_env(ft_strdup("SHLVL"), ft_strdup("1"), env);
+	value = ft_strjoin(ft_strdup(getcwd(cwd, sizeof(cwd))), \
+		ft_strdup("./minishell"));
+	add_env(ft_strdup("_"), value, env);
 	add_exitstatus(env);
 }
 
@@ -79,5 +78,9 @@ void	save_environment(char **envp, t_env **env)
 	if (*envp == NULL)
 		save_env_empty(env);
 	else
+	{
 		save_env(envp, env);
+		/* to print right echo $_ :*/
+		set_value("_", ft_strdup("./minishell"), env);
+	}
 }
