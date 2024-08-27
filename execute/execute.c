@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/15 12:05:46 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:52:14 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 
 void	exe_pwd(t_parc *node, t_env **env)
 {
-	if (node->redirs == NULL)
+	if (node->redirs_in == NULL && node->redirs_out == NULL)
 		printf("%s\n", get_value("PWD", env));
 }
 
 void	exe_export(t_parc *node, t_env **env)
 {
-	if (node->args == NULL && node->redirs == NULL)
+	if (node->args == NULL && node->redirs_in == NULL \
+		&& node->redirs_out == NULL)
 		ft_env_sort_declare(*env);
 }
 
 void	exe_env(t_parc *node, t_env **env)
 {
-	if (node->redirs == NULL)
+	if (node->redirs_in == NULL && node->redirs_out == NULL)
 	{
 		ft_env_print(env);
 		set_value("_", ft_strdup("env"), env);
