@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/26 12:53:35 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:42:49 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ typedef struct s_parc
 {
 	char				*cmd;
 	struct s_arg		*args;
-	struct s_redirect	*redirs;
+	struct s_redirect	*redirs_in;
+	struct s_redirect	*redirs_out;
 	struct s_parc		*next;
 }	t_parc;
 
@@ -109,7 +110,8 @@ void		ft_lst_add_back(t_token **token, t_token *new);
 void		ft_lst_print(t_token **token);
 void		freeall(t_token **token, t_parc **parc);
 void		parcer(t_token **token, t_parc **parc, t_env **env);
-t_parc		*ft_plst_new(char *cmd, t_arg *args, t_redirect *redirs);
+t_parc		*ft_plst_new(char *cmd, t_arg *args, \
+				t_redirect *redirs_in, t_redirect *redirs_out);
 void		ft_plst_add_back(t_parc **parc, t_parc *new);
 void		ft_plst_print(t_parc **parc);
 void		add_redir(char *rtype, char	*rfile, t_redirect **redirs);
