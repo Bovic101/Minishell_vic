@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:33:46 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/11 15:37:41 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:26:19 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,20 @@ t_token	*save_redir(t_token *node, t_env **env, t_redirect **redirs)
 t_token	*save_pipe(t_token *node, char *cmd, t_env **env, t_parc **parc)
 {
 	t_arg		*args;
-	t_redirect	*redirs;
+	t_redirect	*redirs_in;
+	t_redirect	*redirs_out;
 
-	redirs = NULL;
+	redirs_in = NULL;
+	redirs_out = NULL;
 	args = NULL;
 	while (node != NULL && node->type != PIPE)
 	{
 		if (node != NULL && node->type == WORD && cmd == NULL)
 			cmd = save_cmd(node);
-		else if (node != NULL && \
-			(node->type == REDIR_IN || node->type == REDIR_IN2 \
-			|| node->type == REDIR_OUT || node->type == REDIR_OUT2))
-			node = save_redir(node, env, &redirs);
+		else if (node != NULL && (node->type == REDIR_IN || node->type == REDIR_IN2))
+			node = save_redir(node, env, &redirs_in);
+		else if (node != NULL && (node->type == REDIR_OUT || node->type == REDIR_OUT2))
+			node = save_redir(node, env, &redirs_out);
 		else if (node != NULL && node->type == WORD)
 			add_args(ft_strndup(node->ptr, node->len), &args);
 		else if (node != NULL && (node->type == EXPAND_VAR \
@@ -71,7 +73,7 @@ t_token	*save_pipe(t_token *node, char *cmd, t_env **env, t_parc **parc)
 			add_args(ft_strndup(" ", 1), &args);
 		node = node->next;
 	}
-	ft_plst_add_back(parc, ft_plst_new(cmd, args, redirs));
+	ft_plst_add_back(parc, ft_plst_new(cmd, args, redirs_in, redirs_out));
 	return (node);
 	//free redirs, args ?
 }
