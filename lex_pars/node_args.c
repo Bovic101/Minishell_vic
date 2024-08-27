@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:26:36 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/07 14:50:42 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:06:58 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,15 @@ void	add_args(char *value, t_arg **args)
 void	ft_arg_print(t_arg **args)
 {
 	t_arg	*node;
+	int		i;
 
 	node = *args;
+	i = 0;
 	while (node)
 	{
-		printf("%s", node->value);
+		printf("%i: %s\n", i, node->value);
 		node = node->next;
+		i++;
 	}
 	printf("\n");
 }
