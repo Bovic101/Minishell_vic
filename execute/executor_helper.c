@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:20:14 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/08/27 13:47:39 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:26:11 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**env_to_array_converter(t_arg *env)
 	{
 		env_array[i] = (char *)malloc(ft_strlen(cur_env->key)
 				+ ft_strlen(cur_env->value) + 2);
-			// allocate memory to the key=value str
+		// allocate memory to the key=value str
 		if (!env_array[i])
 			return (NULL);
 		ft_strcpy(env_array[i], cur_env->key); // copy key To do
@@ -85,5 +85,13 @@ char	**env_to_array_converter(t_arg *env)
 // Locate the full path in which a command is stored in directories listed in PATH env-var
 char	*command_fullpath_finder(char *command, t_env **env)
 {
-	
+	char *path_env;
+	char *complete_path;
+	char *tmp;
+	char *path;
+	if (path_env == NULL)
+	{
+		write(2, "PATH environment variable not found\n", 36);
+		return (NULL);
+	}
 }
