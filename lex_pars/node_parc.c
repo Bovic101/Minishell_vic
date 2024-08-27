@@ -6,13 +6,14 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:53:35 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/13 17:08:59 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:30:38 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_parc	*ft_plst_new(char *cmd, t_arg *args, t_redirect *redirs)
+t_parc	*ft_plst_new(char *cmd, t_arg *args, \
+	t_redirect *redirs_in, t_redirect *redirs_out)
 {
 	t_parc	*a;
 
@@ -21,7 +22,8 @@ t_parc	*ft_plst_new(char *cmd, t_arg *args, t_redirect *redirs)
 		return (NULL);
 	a->cmd = cmd;
 	a->args = args;
-	a->redirs = redirs;
+	a->redirs_in = redirs_in;
+	a->redirs_out = redirs_out;
 	a->next = NULL;
 	return (a);
 }
@@ -65,8 +67,10 @@ void	ft_plst_print(t_parc **parc)
 		printf("cmd: %s\n", node->cmd);
 		printf("args:\n");
 		ft_arg_print(&node->args);
-		printf("redirs:\n");
-		ft_redir_print(&node->redirs);
+		printf("redirs_in:\n");
+		ft_redir_print(&node->redirs_in);
+		printf("redirs_out:\n");
+		ft_redir_print(&node->redirs_out);
 		printf("\n");
 		node = node->next;
 	}
