@@ -6,23 +6,24 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:20:14 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/01 21:49:37 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/01 23:00:03 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /*
-execve() function requires array to execute a commannd
+execve() function requires array to execute a command
 **/
-// convert linked_lst of arg(t_arg) to an array of strings
+// convert linked list of arg (t_arg) to an array of strings
 char	**arg_to_array_converter(t_arg *arg, char *command)
 {
 	int		i;
 	char	**argv;
 	t_arg	*cur_arg;
+	int		arg_counter;
 
-	int arg_counter = 1; // starting from 1 as a first command
+	arg_counter = 1; // starting from 1 as the first element is the command
 	cur_arg = arg;
 	while (cur_arg)
 	{
@@ -46,8 +47,8 @@ char	**arg_to_array_converter(t_arg *arg, char *command)
 	return (argv);
 }
 
-////convert linked_lst of environment var (t_env) to an array of strings
-char	**env_to_array_converter(t_arg *env)
+//// convert linked list of environment var (t_env) to an array of strings
+char	**env_to_array_converter(t_env *env) // Corrected t_arg to t_env
 {
 	int		i;
 	int		env_var_count;
@@ -69,69 +70,81 @@ char	**env_to_array_converter(t_arg *env)
 	while (cur_env)
 	{
 		env_array[i] = (char *)malloc(ft_strlen(cur_env->key)
-				+ ft_strlen(cur_env->value) + 2);
-		// allocate memory to the key=value str
+				+ ft_strlen(cur_env->value) + 2); // +2 for '=' and null term
 		if (!env_array[i])
+		{
+			while (i > 0)
+				free(env_array[--i]);
+			free(env_array);
 			return (NULL);
-		ft_strcpy(env_array[i], cur_env->key); // copy key To do
-		ft_strcat(env_array[i], "=");          // To do
+		}
+		ft_strcpy(env_array[i], cur_env->key);
+		ft_strcat(env_array[i], "=");
 		ft_strcat(env_array[i], cur_env->value);
-		cur_env = cur_env->next; // move to next var in the list
+		cur_env = cur_env->next;
 		i++;
 	}
 	env_array[i] = NULL; // end of array
 	return (env_array);
 }
+
 // Locate the full path in which a command is stored in directories listed in PATH env-var
 char	*command_fullpath_finder(char *command, t_env **env)
 {
-	char *path_env;
-	char *complete_path;
-	char *tmp;
-	char *path;
-	
-	path_env = get_value("PATH",env);
-	char complete_path = NULL;
-	
+	char	*path_env;
+	char	*complete_path;
+	char	*tmp;
+	char	*path;
+	char	*path_env_copy;
+
+	path_env = get_value("PATH", env);
+	complete_path = NULL;
 	if (path_env == NULL)
 	{
 		write(2, "PATH environment variable not found\n", 36);
 		return (NULL);
 	}
-	
-	path = strtok(path_env, ":");//To do;
-	
+	path_env_copy = ft_strdup(path_env);// Create a duplicate of path_env to use with strtok
+	if (!path_env_copy)
+	{
+		perror("Failed to duplicate PATH environment variable");
+		return (NULL);
+	}
+
+	path = strtok(path_env_copy, ":");
 	while (path != NULL)
 	{
-		tmp = malloc(ft_strlen(path) + ft_strlen(command) + 2);//use for slach and null terminator
+		tmp = malloc(ft_strlen(path) + ft_strlen(command) + 2); // +2 for '/' and null terminator
 		if (!tmp)
 		{
-			perror("Failure to allocate full path");
-			return(NULL);
+			perror("Failure to allocate memory for full path");
+			free(path_env_copy);
+			return (NULL);
 		}
-		//implementation done manually
-		ft_strcpy(tmp,path);//copy dir path
-		ft_strcat(tmp, "/");//append a slash
-		ft_strcat(tmp, command);
-		//check if the cmd exits and is executable
+		ft_strcpy(tmp, path);   // copy dir path
+		ft_strcat(tmp, "/");    // append a slash
+		ft_strcat(tmp, command); // append the command
+
+		// check if the command exists and is executable
 		if (access(tmp, X_OK) == 0)
 		{
 			complete_path = tmp;
 			break;
 		}
 		free(tmp);
-		path = strtok(NULL, ":");//to do
+		path = strtok(NULL, ":");
 	}
-	return(complete_path);
+	free(path_env_copy);
+	return (complete_path);
 }
 
 void	redirection_func(t_redirect *in_redir, t_redirect *out_redir)
 {
 	int fd;
 
-	while (in_redir)//input redir 
+	while (in_redir) // input redirection
 	{
-		if (ft_strcmp(in_redir->rtype, "<")== 0)//input redirs
+		if (ft_strcmp(in_redir->rtype, "<") == 0) // input redir
 		{
 			fd = open(in_redir->rfile, O_RDONLY);
 			if (fd == -1)
@@ -139,77 +152,89 @@ void	redirection_func(t_redirect *in_redir, t_redirect *out_redir)
 				perror("open input redirection");
 				exit(EXIT_FAILURE);
 			}
-			dup2(fd,0); //redir s/0 to the file
+			dup2(fd, 0); // redirect stdin to the file
 			close(fd);
 		}
-		in_redir = in_redir->next;// e.g <<
-		
+		in_redir = in_redir->next;
 	}
-	
-	while (out_redir)//input redir 
+
+	while (out_redir) // output redirection
 	{
-		if (ft_strcmp(out_redir->rtype, ">")== 0)//input redirs
+		if (ft_strcmp(out_redir->rtype, ">") == 0) // output redir
 		{
-			fd = open(out_redir->rfile,O_WRONLY | O_CREAT |O_TRUNC, 0644);
+			fd = open(out_redir->rfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (fd == -1)
 			{
-				perror("open for output redirection");
+				perror("open output redirection");
 				exit(EXIT_FAILURE);
 			}
-			dup2(fd,1); //redir s/0 to the file
+			dup2(fd, 1); // redirect stdout to the file
 			close(fd);
 		}
-		out_redir = out_redir->next;// e.g >>
+		out_redir = out_redir->next;
 	}
 }
-//func conver cmd args& env in the l_list to array, find cmd path & exec
+
+// function to convert cmd args & env in the linked list to array, find cmd path & exec
 void	executor_func(t_parc *command, t_env **env)
 {
 	char **argv;
-	char *env_list;
+	char **env_list; // corrected to char**
 	char *command_path;
 	char *error_msg;
-	
+
 	argv = arg_to_array_converter(command->args, command->cmd);
 	env_list = env_to_array_converter(*env);
 	if (!argv || !env_list)
 	{
 		perror("Memory allocation failed");
+		free(argv);
+		free(env_list);
 		exit(EXIT_FAILURE);
 	}
+
 	command_path = command_fullpath_finder(command->cmd, env);
 	if (command_path == NULL)
 	{
-		error_msg = "Command not found:";
+		error_msg = "Command not found: ";
 		write(STDERR_FILENO, error_msg, ft_strlen(error_msg));
-		write(STDERR_FILENO,command->cmd, ft_strlen(command->cmd));
-		write(STDERR_FILENO, "\n",1);
+		write(STDERR_FILENO, command->cmd, ft_strlen(command->cmd));
+		write(STDERR_FILENO, "\n", 1);
+		free(argv);
+		free(env_list);
 		exit(EXIT_FAILURE);
 	}
-	if (execve(command_path,argv,env_list) == -1)
+	if (execve(command_path, argv, env_list) == -1)
 	{
 		perror("execve");
+		free(argv);
+		free(env_list);
+		free(command_path);
 		exit(EXIT_FAILURE);
 	}
+	free(argv);
+	free(env_list);
+	free(command_path);
 }
+
 /* 
- * Function create pipes between commands.
+ * Function to create pipes between commands.
  * fork processes
  * manage i/o redir
  **/
 void	pipe_func(t_parc *command, t_env **env)
-/**{
+{
 	t_parc *cur_command;
 	int fd_pipe[2];
 	int input_fd;
 	pid_t pid;
 	int status;
-	
+
 	cur_command = command;
 	input_fd = 0;
 	while (cur_command)
 	{
-		if (cur_command->next)//cteate pipe if theirs in nxt cmd
+		if (cur_command->next) // create pipe if there's a next command
 		{
 			if (pipe(fd_pipe) == -1)
 			{
@@ -217,10 +242,10 @@ void	pipe_func(t_parc *command, t_env **env)
 				exit(EXIT_FAILURE);
 			}
 		}
-		pid = fork();//fork new process for cmd
+		pid = fork(); // fork new process for command
 		if (pid == -1)
 		{
-			perror("child procees creation error");
+			perror("child process creation error");
 			exit(EXIT_FAILURE);
 		}
 		else if (pid == 0)
@@ -232,14 +257,26 @@ void	pipe_func(t_parc *command, t_env **env)
 			}
 			if (cur_command->next)
 			{
-				dup2(fd_pipe[1],1);
+				dup2(fd_pipe[1], 1);
 				close(fd_pipe[1]);
 				close(fd_pipe[0]);
 			}
+			redirection_func(cur_command->redirs_in, cur_command->redirs_out);
+			executor_func(cur_command, env);
 		}
-		
-		
+		else
+		{
+			waitpid(pid, &status, 0);
+			if (input_fd != 0)
+			{
+				close(input_fd);
+			}
+			if (cur_command->next)
+			{
+				close(fd_pipe[1]);
+				input_fd = fd_pipe[0];
+			}
+			cur_command = cur_command->next;
+		}
 	}
-	
 }
-**/

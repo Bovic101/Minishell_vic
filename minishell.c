@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/27 01:24:40 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/01 23:02:57 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	cmd_processing(char *s, t_env **env)
 	parcer(&token, &parc, env);
 	ft_plst_print(&parc);
 	//execute(&parc, env);
+	executor_func(&parc, env);
 	freeall(&token, &parc);
 }
 
