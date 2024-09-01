@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:20:14 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/08/30 22:25:59 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/01 19:53:04 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,4 +169,43 @@ void	redirection_func(t_redirect *redir)
 		}
 		cur_redir = cur_redir->next;
 	}
+}
+//func conver cmd args& env in the l_list to array, find cmd path & exec
+void	executor_func(t_parc *command, t_env **env)
+{
+	char **argv;
+	char *env_list;
+	char *command_path;
+	char *error_msg;
+	
+	argv = arg_to_array_converter(command->args, command->cmd);
+	env_list = env_to_array_converter(*env);
+	if (!argv || !env_list)
+	{
+		perror("Memory allocation failed");
+		exit(EXIT_FAILURE);
+	}
+	command_path = command_fullpath_finder(command->cmd, env);
+	if (command_path == NULL)
+	{
+		error_msg = "Command not found:";
+		write(STDERR_FILENO, error_msg, ft_strlen(error_msg));
+		write(STDERR_FILENO,command->cmd, ft_strlen(command->cmd));
+		write(STDERR_FILENO, "\n",1);
+		exit(EXIT_FAILURE);
+	}
+	if (execve(command_path,argv,env_list) == -1)
+	{
+		perror("execve");
+		exit(EXIT_FAILURE);
+	}
+}
+/* 
+ * Function create pipes between commands.
+ * fork processes
+ * manage i/o redir
+ **/
+void	pipe_func(t_parc *command, t_env **env)
+{
+	
 }
