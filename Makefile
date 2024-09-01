@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 14:24:13 by kdvarako          #+#    #+#              #
-#    Updated: 2024/08/08 12:20:29 by kdvarako         ###   ########.fr        #
+#    Updated: 2024/09/01 23:34:23 by vodebunm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,21 +25,18 @@ OBJ_4 = ${SRC_4:.c=.o}
 OBJ_5 = ${SRC_5:.c=.o}
 
 CC = cc
-
-CFlAGS = -Wall -Wextra -Werror -lreadline
+CFLAGS = -Wall -Wextra -Werror
+LIBS = -lreadline
 
 LIBFT = ./libft/libft.a
 
 all:	${NAME}
 
-.c.o:
-	${CC} -c $< -o ${<:.c=.o}
-
-$(LIBFT):
-	$(MAKE) -C ./libft
-
 ${NAME}:	${OBJ_1} ${OBJ_2} ${OBJ_3} ${OBJ_4} ${OBJ_5} ${LIBFT}
-	${CC} ${CFlAGS} ${OBJ_1} ${OBJ_2} ${OBJ_3} ${OBJ_4} ${OBJ_5} ${LIBFT} -o ${NAME}
+	${CC} ${CFLAGS} ${OBJ_1} ${OBJ_2} ${OBJ_3} ${OBJ_4} ${OBJ_5} ${LIBFT} ${LIBS} -o ${NAME}
+
+${LIBFT}:
+	$(MAKE) -C ./libft
 
 clean:
 	rm -f ${OBJ_1} ${OBJ_2} ${OBJ_3} ${OBJ_4} ${OBJ_5}

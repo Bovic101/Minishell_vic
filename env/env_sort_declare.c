@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_sort_declare.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:38:26 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/13 14:45:30 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/01 23:42:40 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	ft_sort_env_print(t_env **env)
 
 void	ft_copy_env(t_env *src, t_env **copy)
 {
-	t_env	*node;
 	t_env	*ptr;
 	char	*key;
 	char	*value;
@@ -50,6 +49,7 @@ void	ft_copy_env(t_env *src, t_env **copy)
 		ptr = ptr->next;
 	}
 }
+
 
 void	ft_sort_env(t_env **env)
 {

@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/27 16:52:14 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/02 00:28:32 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
 #include "../minishell.h"
 
 void	exe_pwd(t_parc *node, t_env **env)
@@ -50,3 +51,4 @@ void	execute(t_parc **parc, t_env **env)
 		node = node->next;
 	}
 }
+**/
