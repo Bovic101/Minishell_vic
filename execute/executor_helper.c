@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:20:14 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/01 19:53:04 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:49:37 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,18 +125,15 @@ char	*command_fullpath_finder(char *command, t_env **env)
 	return(complete_path);
 }
 
-void	redirection_func(t_redirect *redir)
+void	redirection_func(t_redirect *in_redir, t_redirect *out_redir)
 {
-	t_redirect *cur_redir;
 	int fd;
-	
-	cur_redir = redir;
-	//
-	while (cur_redir)
+
+	while (in_redir)//input redir 
 	{
-		if (ft_strcmp(cur_redir->rtype, "<")== 0)//input redirs
+		if (ft_strcmp(in_redir->rtype, "<")== 0)//input redirs
 		{
-			fd=open(cur_redir->rfile, O_RDONLY);
+			fd = open(in_redir->rfile, O_RDONLY);
 			if (fd == -1)
 			{
 				perror("open input redirection");
@@ -145,29 +142,24 @@ void	redirection_func(t_redirect *redir)
 			dup2(fd,0); //redir s/0 to the file
 			close(fd);
 		}
-		else if (ft_strcmp(cur_redir->rtype, ">") == 0)//output redir
+		in_redir = in_redir->next;// e.g <<
+		
+	}
+	
+	while (out_redir)//input redir 
+	{
+		if (ft_strcmp(out_redir->rtype, ">")== 0)//input redirs
 		{
-			fd=open(cur_redir->rfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			fd = open(out_redir->rfile,O_WRONLY | O_CREAT |O_TRUNC, 0644);
 			if (fd == -1)
 			{
-				perror("open output redirection");
+				perror("open for output redirection");
 				exit(EXIT_FAILURE);
 			}
-			dup2(fd, 1);
+			dup2(fd,1); //redir s/0 to the file
 			close(fd);
 		}
-		else if (ft_strcmp(cur_redir->rtype, ">>")==0)
-		{
-			fd = open(cur_redir->rfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (fd == -1)
-			{
-				perror("open file for append redirection");
-				exit(EXIT_FAILURE);
-			}
-			dup2(fd, 1);
-			close(fd);
-		}
-		cur_redir = cur_redir->next;
+		out_redir = out_redir->next;// e.g >>
 	}
 }
 //func conver cmd args& env in the l_list to array, find cmd path & exec
@@ -206,6 +198,48 @@ void	executor_func(t_parc *command, t_env **env)
  * manage i/o redir
  **/
 void	pipe_func(t_parc *command, t_env **env)
-{
+/**{
+	t_parc *cur_command;
+	int fd_pipe[2];
+	int input_fd;
+	pid_t pid;
+	int status;
+	
+	cur_command = command;
+	input_fd = 0;
+	while (cur_command)
+	{
+		if (cur_command->next)//cteate pipe if theirs in nxt cmd
+		{
+			if (pipe(fd_pipe) == -1)
+			{
+				perror("pipe creation error");
+				exit(EXIT_FAILURE);
+			}
+		}
+		pid = fork();//fork new process for cmd
+		if (pid == -1)
+		{
+			perror("child procees creation error");
+			exit(EXIT_FAILURE);
+		}
+		else if (pid == 0)
+		{
+			if (input_fd != 0)
+			{
+				dup2(input_fd, 0);
+				close(input_fd);
+			}
+			if (cur_command->next)
+			{
+				dup2(fd_pipe[1],1);
+				close(fd_pipe[1]);
+				close(fd_pipe[0]);
+			}
+		}
+		
+		
+	}
 	
 }
+**/
