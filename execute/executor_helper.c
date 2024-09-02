@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:20:14 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/02 01:20:59 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/02 02:51:44 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	**arg_to_array_converter(t_arg *arg, char *command)
 	argv[i] = NULL; // end of array
 	return (argv);
 }
-
 //// convert linked list of environment var (t_env) to an array of strings
 char	**env_to_array_converter(t_env *env) // Corrected t_arg to t_env
 {
@@ -104,7 +103,7 @@ char	*command_fullpath_finder(char *command, t_env **env)
 		write(2, "PATH environment variable not found\n", 36);
 		return (NULL);
 	}
-	path_env_copy = ft_strdup(path_env);// Create a duplicate of path_env to use with strtok
+	path_env_copy = ft_strdup(path_env);// Create a duplicate of path_env to use with str_token
 	if (!path_env_copy)
 	{
 		perror("Failed to duplicate PATH environment variable");
@@ -124,9 +123,7 @@ char	*command_fullpath_finder(char *command, t_env **env)
 		ft_strcpy(tmp, path);   // copy dir path
 		ft_strcat(tmp, "/");    // append a slash
 		ft_strcat(tmp, command); // append the command
-
-		// check if the command exists and is executable
-		if (access(tmp, X_OK) == 0)
+		if (access(tmp, X_OK) == 0)// check if the command exists and is executable
 		{
 			complete_path = tmp;
 			break;
