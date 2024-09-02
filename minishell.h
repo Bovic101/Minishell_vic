@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/01 23:00:53 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/02 01:56:09 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,4 +152,6 @@ char		*command_fullpath_finder(char *command, t_env **env);
 void		redirection_func(t_redirect *in_redir, t_redirect *out_redir);
 void		executor_func(t_parc *command, t_env **env);
 void		pipe_func(t_parc *command, t_env **env);
+void		redir_execute_command(t_parc *command, t_env **env);
+void		handle_error_msg(const char *cmd);
 #endif

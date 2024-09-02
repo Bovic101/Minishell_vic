@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:20:14 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/02 00:32:30 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/02 01:20:59 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,42 +138,53 @@ char	*command_fullpath_finder(char *command, t_env **env)
 	return (complete_path);
 }
 
-void	redirection_func(t_redirect *in_redir, t_redirect *out_redir)
+void redirection_func(t_redirect *in_redir, t_redirect *out_redir)
 {
-	int fd;
+    int fd;
 
-	while (in_redir) // input redirection
-	{
-		if (ft_strcmp(in_redir->rtype, "<") == 0) // input redir
-		{
-			fd = open(in_redir->rfile, O_RDONLY);
-			if (fd == -1)
-			{
-				perror("open input redirection");
-				exit(EXIT_FAILURE);
-			}
-			dup2(fd, 0); // redirect stdin to the file
-			close(fd);
-		}
-		in_redir = in_redir->next;
-	}
-
-	while (out_redir) // output redirection
-	{
-		if (ft_strcmp(out_redir->rtype, ">") == 0) // output redir
-		{
-			fd = open(out_redir->rfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fd == -1)
-			{
-				perror("open output redirection");
-				exit(EXIT_FAILURE);
-			}
-			dup2(fd, 1); // redirect stdout to the file
-			close(fd);
-		}
-		out_redir = out_redir->next;
-	}
+    while (in_redir)
+    {
+        if (ft_strcmp(in_redir->rtype, "<") == 0)
+        {
+            fd = open(in_redir->rfile, O_RDONLY);
+            if (fd == -1)
+            {
+                perror("open input redirection");
+                exit(EXIT_FAILURE);
+            }
+            dup2(fd, STDIN_FILENO); // Redirect stdin to the file
+            close(fd);
+        }
+        in_redir = in_redir->next;
+    }
+    while (out_redir)
+    {
+        if (ft_strcmp(out_redir->rtype, ">") == 0)
+        {
+            fd = open(out_redir->rfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            if (fd == -1)
+            {
+                perror("open output redirection");
+                exit(EXIT_FAILURE);
+            }
+            dup2(fd, STDOUT_FILENO);
+            close(fd);
+        }
+        else if (ft_strcmp(out_redir->rtype, ">>") == 0)
+        {
+            fd = open(out_redir->rfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+            if (fd == -1)
+            {
+                perror("open output redirection (append)");
+                exit(EXIT_FAILURE);
+            }
+            dup2(fd, STDOUT_FILENO);
+            close(fd);
+        }
+        out_redir = out_redir->next;
+    }
 }
+
 
 /* 
  * Function to create pipes between commands.
