@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/02 14:23:43 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:47:14 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,5 +152,10 @@ char		*ft_strcpy(char *dest, const char *src);
 char		*ft_strcat(char *dest, const char *src);
 char		*str_tokenizer(char *str, const char *delim);
 char		*command_fullpath_finder(char *command, t_env **env);
+//find size of structures (how many nodes) - in the file ft_list_size.c:
+int			ft_size_parc(t_parc *lst);
+int			ft_size_arg(t_arg *lst);
+int			ft_size_redirect(t_redirect *lst);
+int			ft_size_env(t_env *lst);
 
 #endif
