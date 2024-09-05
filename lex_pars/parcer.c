@@ -6,19 +6,23 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:33:46 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/27 16:26:19 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:19:23 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*save_cmd(t_token *node)
+int	if_any_word(enum e_tokentype type)
+{
+	if (type == WORD || type == EXPAND_VAR || type == EXPAND_VAR_Q)
+		return (1);
+	return (0);
+}
+
+char	*save_cmd(char *cmd)
 {
 	int		i;
-	char	*cmd;
 
-	cmd = NULL;
-	cmd = ft_strndup(node->ptr, node->len);
 	i = 0;
 	while (cmd[i] != '\0')
 	{
@@ -39,10 +43,9 @@ t_token	*save_redir(t_token *node, t_env **env, t_redirect **redirs)
 	node = node->next;
 	while (node->type == SEPARATOR)
 		node = node->next;
-	if (node->type == WORD)
-		rfile = ft_strndup(node->ptr, node->len);
-	else if (node->type == EXPAND_VAR)
-		rfile = expand(node->ptr, node->len, env, 6);
+	if (node->type == WORD || node->type == EXPAND_VAR \
+		|| node->type == EXPAND_VAR_Q)
+		rfile = save_word(&node, env);
 	add_redir(rtype, rfile, redirs);
 	return (node);
 }
@@ -58,24 +61,22 @@ t_token	*save_pipe(t_token *node, char *cmd, t_env **env, t_parc **parc)
 	args = NULL;
 	while (node != NULL && node->type != PIPE)
 	{
-		if (node != NULL && node->type == WORD && cmd == NULL)
-			cmd = save_cmd(node);
-		else if (node != NULL && (node->type == REDIR_IN || node->type == REDIR_IN2))
+		if (node != NULL && (if_any_word(node->type) == 1) && cmd == NULL)
+			cmd = save_cmd(save_word(&node, env));
+		else if (node != NULL && (node->type == REDIR_IN \
+			|| node->type == REDIR_IN2))
 			node = save_redir(node, env, &redirs_in);
-		else if (node != NULL && (node->type == REDIR_OUT || node->type == REDIR_OUT2))
+		else if (node != NULL && (node->type == REDIR_OUT \
+			|| node->type == REDIR_OUT2))
 			node = save_redir(node, env, &redirs_out);
-		else if (node != NULL && node->type == WORD)
-			add_args(ft_strndup(node->ptr, node->len), &args);
-		else if (node != NULL && (node->type == EXPAND_VAR \
-			|| node->type == EXPAND_VAR_Q))
-			add_args(expand(node->ptr, node->len, env, node->type), &args);
+		else if (node != NULL && (if_any_word(node->type) == 1))
+			add_args(save_word(&node, env), &args);
 		else if (node != NULL && node->type == SEPARATOR && args != NULL)
 			add_args(ft_strndup(" ", 1), &args);
 		node = node->next;
 	}
 	ft_plst_add_back(parc, ft_plst_new(cmd, args, redirs_in, redirs_out));
-	return (node);
-	//free redirs, args ?
+	return (node); /*free redirs, args ?*/
 }
 
 void	parcer(t_token **token, t_parc **parc, t_env **env)
