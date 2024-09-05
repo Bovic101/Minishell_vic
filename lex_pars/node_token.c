@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:43:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/05 15:13:36 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:30:12 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_lst_print(t_token **token)
 	while (node)
 	{
 		i = 0;
-		while (i < len)
+		while (i < node->len)
 		{
 			write(1, &node->ptr[i], 1);
 			i++;
