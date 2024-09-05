@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/02 14:58:52 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:27:31 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,21 +106,27 @@ typedef struct s_history
 	struct s_history	*prev;
 }	t_history;
 
+//lexer - tokenizer in lex_parc
 void		lexer(t_token **token, char *s);
 t_token		*ft_lst_new(int len, char *ptr, enum e_tokentype type);
 void		ft_lst_add_back(t_token **token, t_token *new);
 void		ft_lst_print(t_token **token);
+//free memory: token, parc
 void		freeall(t_token **token, t_parc **parc);
+//parcer in lex_parc
 void		parcer(t_token **token, t_parc **parc, t_env **env);
 t_parc		*ft_plst_new(char *cmd, t_arg *args, \
 				t_redirect *redirs_in, t_redirect *redirs_out);
 void		ft_plst_add_back(t_parc **parc, t_parc *new);
 void		ft_plst_print(t_parc **parc);
+char		*save_word(t_token **pnode, t_env **env);
+char		*expand(char *ptr, int len, t_env **env, int type);
 void		add_redir(char *rtype, char	*rfile, t_redirect **redirs);
 void		ft_redir_print(t_redirect **redirs);
 void		add_args(char *value, t_arg **args);
 void		ft_arg_print(t_arg **args);
 char		*ft_strndup(const char *str, size_t n);
+//environment
 void		save_environment(char **envp, t_env **env);
 t_env		*ft_env_new(char *key, char *value);
 void		ft_env_add_back(t_env **lst, t_env *new);
@@ -137,7 +143,6 @@ char		*get_value(char *key, t_env **env);
 void		set_value(char *key, char *new_value, t_env **env);
 //remove info from env
 void		remove_node(char *key, t_env **env);
-char		*expand(char *ptr, int len, t_env **env, int type);
 //funtions for the history of commands:
 void		save_history(char *s, t_history **history);
 t_history	*ft_history_new(char *rvalue);
