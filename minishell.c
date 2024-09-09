@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/09 06:52:33 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/09 07:08:35 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ int main(int argc, char **argv, char **envp)
 
     while (true)
     {
-        s = readline("Our_shell$ ");
+        s = readline("Our_shell:~$ ");
         if (s == NULL) // Handle Ctrl+D (EOF)
         {
-            //printf("\n");
             break;
         }
         if (*s == '\0')//redisplay cmd when enter is pressed
