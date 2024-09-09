@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/05 15:27:31 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/09 06:50:39 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stddef.h>
 # include <stdbool.h>
 # include <string.h>
+# include <signal.h>
 
 enum e_tokentype
 {
@@ -132,6 +133,7 @@ t_env		*ft_env_new(char *key, char *value);
 void		ft_env_add_back(t_env **lst, t_env *new);
 //to print env
 void		ft_env_print(t_env **env);
+void		prompt(void);
 //to sort and print env with declare
 void		ft_env_sort_declare(t_env *env);
 void		add_env(char *key, char *value, t_env **env);
@@ -167,5 +169,8 @@ int			ft_size_parc(t_parc *lst);
 int			ft_size_arg(t_arg *lst);
 int			ft_size_redirect(t_redirect *lst);
 int			ft_size_env(t_env *lst);
+//signals
 
+void		sigint_handler(int signal);
+void		sigquit_handler(int signal);
 #endif

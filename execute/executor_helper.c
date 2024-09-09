@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:20:14 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/02 02:51:44 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/09 05:32:20 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,14 +205,14 @@ void	pipe_func(t_parc *command, t_env **env)
 			if (pipe(fd_pipe) == -1)
 			{
 				perror("pipe creation error");
-				exit(EXIT_FAILURE);
+				return;
 			}
 		}
 		pid = fork(); // fork new process for command
 		if (pid == -1)
 		{
 			perror("child process creation error");
-			exit(EXIT_FAILURE);
+			return;
 		}
 		else if (pid == 0)
 		{
