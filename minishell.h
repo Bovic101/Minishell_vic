@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/09 06:50:39 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/09 07:16:40 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,6 @@ int			ft_size_arg(t_arg *lst);
 int			ft_size_redirect(t_redirect *lst);
 int			ft_size_env(t_env *lst);
 //signals
-
 void		sigint_handler(int signal);
 void		sigquit_handler(int signal);
 #endif

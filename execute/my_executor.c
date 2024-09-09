@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:19:40 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/02 02:00:33 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/09 08:54:59 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void executor_func(t_parc *command, t_env **env)
         free(env_list);
         free(command_path);
         exit(EXIT_FAILURE);
+        return;
     }
     free(argv);
     free(env_list);
