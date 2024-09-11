@@ -6,47 +6,48 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:19:40 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/09 08:54:59 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:27:28 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 // function to convert cmd args & env in the linked list to array, find cmd path & exec
-void executor_func(t_parc *command, t_env **env)
+void	executor_func(t_parc *command, t_env **env)
 {
-    char **argv;
-    char **env_list;
-    char *command_path;
+	char	**argv;
+	char	**env_list;
+	char	*command_path;
 
-    argv = arg_to_array_converter(command->args, command->cmd);
-    env_list = env_to_array_converter(*env);
+	argv = arg_to_array_converter(command->args, command->cmd);
+	env_list = env_to_array_converter(*env);
 
-    if (!argv || !env_list)
-    {
-        perror("Memory allocation failed");
-        free(argv);
-        free(env_list);
-        exit(EXIT_FAILURE);
-    }
-    command_path = command_fullpath_finder(command->cmd, env);
-    if (command_path == NULL)
-    {
-        handle_error_msg(command->cmd);
-        free(argv);
-        free(env_list);
-    }
-    if (execve(command_path, argv, env_list) == -1)
-    {
-        perror("execve failed");
-        free(argv);
-        free(env_list);
-        free(command_path);
-        exit(EXIT_FAILURE);
-        return;
-    }
-    free(argv);
-    free(env_list);
-    free(command_path);
+	if (!argv || !env_list)
+	{
+		perror("Memory allocation failed");
+		free(argv);
+		free(env_list);
+		exit(EXIT_FAILURE);
+	}
+	
+	command_path = command_fullpath_finder(command->cmd, env); // Find the full path of the command
+	if (command_path == NULL)
+	{
+		handle_error_msg(command->cmd);
+		free(argv);
+		free(env_list);
+		return;
+	}
+	if (execve(command_path, argv, env_list) == -1)// Execute the command using execve()
+	{
+		perror("execve failed");
+		free(argv);
+		free(env_list);
+		free(command_path);
+		exit(EXIT_FAILURE);  // Only the child process should exit
+	}
+	free(argv);
+	free(env_list);
+	free(command_path);
 }
   /* Handle redirections before executing the command
   *and execute the command + redirs

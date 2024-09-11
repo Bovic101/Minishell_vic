@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/09 15:25:22 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:20:21 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,26 @@ void	cmd_processing(char *s, t_env **env)
 
 	token = NULL;
 	parc = NULL;
+	
 	lexer(&token, s);
 	parcer(&token, &parc, env);
-	// execute(&parc, env);
-	executor_func(parc, env);
+
+	pid_t pid = fork();// Fork a new child_process to execute the command
+	if (pid == 0) // Child process
+	{
+		executor_func(parc, env);
+		freeall(&token, &parc);
+		exit(0);
+	}
+	else if (pid > 0) // Parent process
+	{
+		int status;
+		waitpid(pid, &status, 0);
+	}
+	else
+	{
+		perror("forking process failed");
+	}
 	freeall(&token, &parc);
 }
 
@@ -31,38 +47,44 @@ int	main(int argc, char **argv, char **envp)
 	char		*s;
 	t_env		*env;
 	t_history	*history;
-	int			loop_condition;
+	int	loop_condition;
 
 	loop_condition = 0;
+	
 	(void)argc;
 	(void)argv;
 	env = NULL;
 	history = NULL;
+
 	save_environment(envp, &env);
-	signal(SIGINT, sigint_handler); // Signal call for Ctrl+C
+
+	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
+
 	while (!loop_condition)
 	{
 		s = readline("Our_shell:~$ ");
-		if (s == NULL) // Handle Ctrl+D
+
+		
+		if (s == NULL) // Handle Ctrl+D (EOF)
 		{
 			loop_condition = 1;
+			continue; // Avoid further processing if s is NULL
 		}
-		else if (*s == '\0') // Redisplay cmd when enter is pressed
+		if (*s)
 		{
-			free(s);
-		}
-		else if (ft_strcmp(s, "exit") == 0)
-		{
-			free(s);
-			loop_condition = 1;
-		}
-		else
-		{
-			save_history(s, &history);
+			add_history(s); // Only add to history and process command if there's valid input
+
+			if (ft_strcmp(s, "exit") == 0)
+			{
+				free(s);
+				loop_condition = 1;
+				continue;
+			}
 			cmd_processing(s, &env);
-			free(s);
 		}
+
+		free(s);
 	}
 	ft_free_env(&env);
 	ft_free_history(&history);
