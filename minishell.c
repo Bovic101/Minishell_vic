@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/11 12:20:21 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/14 23:49:56 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,27 @@ void	cmd_processing(char *s, t_env **env)
 {
 	t_token	*token;
 	t_parc	*parc;
+	pid_t c_pid;
 
 	token = NULL;
 	parc = NULL;
 	
 	lexer(&token, s);
 	parcer(&token, &parc, env);
-
-	pid_t pid = fork();// Fork a new child_process to execute the command
-	if (pid == 0) // Child process
+	c_pid = fork();// Fork a new child_process to execute the command
+	if (c_pid == 0)
 	{
 		executor_func(parc, env);
 		freeall(&token, &parc);
 		exit(0);
 	}
-	else if (pid > 0) // Parent process
+	else if (c_pid > 0) // Parent process
 	{
 		int status;
-		waitpid(pid, &status, 0);
+		waitpid(c_pid, &status, 0);
 	}
 	else
-	{
 		perror("forking process failed");
-	}
 	freeall(&token, &parc);
 }
 
