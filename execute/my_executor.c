@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:19:40 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/15 12:35:16 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:44:37 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,7 @@ void	executor_func(t_parc *command, t_env **env)
 	free(env_list);
 	free(command_path);
 }
-/* Handle redirections before executing the command
- *and execute the command + redirs
- */
-void	redir_execute_command(t_parc *command, t_env **env)
-{
-	if (command->redirs_in || command->redirs_out)
-	{
-		redirection_func(command->redirs_in, command->redirs_out);
-	}
-	executor_func(command, env);
-}
+
 void	handle_error_msg(const char *cmd)
 {
 	const char	*error_msg;
