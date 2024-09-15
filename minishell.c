@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/15 12:33:01 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:45:49 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	cmd_processing(char *s, t_env **env)
 	c_pid = fork(); // Fork a new child_process to execute the command
 	if (c_pid == 0)
 	{
-		executor_func(parc, env);
+		main_pipe_proc(&parc, env);
+		//executor_func(parc, env);
 		freeall(&token, &parc);
 		exit(0);
 	}
