@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/15 12:45:10 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/15 13:30:51 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void		ft_history_print(t_history **history);
 //execution part:
 int			main_pipe_proc(t_parc **parc, t_env **env);
 //void		execute(t_parc **parc, t_env **env);
-char		**arg_to_array_converter(t_arg *arg , char *command);
+char		**arg_to_array_converter(t_arg *arg, char *command);
 char		**env_to_array_converter(t_env *env);
 char		*ft_strcpy(char *dest, const char *src);
 char		*ft_strcat(char *dest, const char *src);
