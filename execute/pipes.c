@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/15 12:41:33 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:56:18 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	main_pipe_proc(t_parc **parc, t_env **env)
 	// check if cmd exist -> if cmd not found - > err
 	int ncount = ft_size_parc(*parc);
 	if (ncount == 1)
-		execute_func(parc, env); //change here to check if from PATH or builtin
+		executor_func(*parc, env); //change here to check if from PATH or builtin
 	else
 		execute_proces(parc, ncount);
    // execute_proces(parc, env, ncount);
