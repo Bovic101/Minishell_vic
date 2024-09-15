@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/15 12:56:18 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:59:14 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	ft_tmp1(t_parc *parc)
 {
 	/*
 	check if from PATH or from builtins -> execute
+	*/
+	/*
+	Here just example: 
+	ls -l | grep mini | wc -l
 	*/
 	if (ft_strcmp(parc->cmd, "ls") == 0)
 		execlp("ls", "ls", "-l", (char *) NULL);
