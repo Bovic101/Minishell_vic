@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/14 23:49:56 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:33:01 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	cmd_processing(char *s, t_env **env)
 {
 	t_token	*token;
 	t_parc	*parc;
-	pid_t c_pid;
+	pid_t	c_pid;
+	int		status;
 
 	token = NULL;
 	parc = NULL;
-	
 	lexer(&token, s);
 	parcer(&token, &parc, env);
-	c_pid = fork();// Fork a new child_process to execute the command
+	c_pid = fork(); // Fork a new child_process to execute the command
 	if (c_pid == 0)
 	{
 		executor_func(parc, env);
@@ -32,7 +32,6 @@ void	cmd_processing(char *s, t_env **env)
 	}
 	else if (c_pid > 0) // Parent process
 	{
-		int status;
 		waitpid(c_pid, &status, 0);
 	}
 	else
@@ -45,43 +44,36 @@ int	main(int argc, char **argv, char **envp)
 	char		*s;
 	t_env		*env;
 	t_history	*history;
-	int	loop_condition;
+	int			loop_condition;
 
 	loop_condition = 0;
-	
 	(void)argc;
 	(void)argv;
 	env = NULL;
 	history = NULL;
-
 	save_environment(envp, &env);
-
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
-
 	while (!loop_condition)
 	{
 		s = readline("Our_shell:~$ ");
-
-		
 		if (s == NULL) // Handle Ctrl+D (EOF)
 		{
 			loop_condition = 1;
-			continue; // Avoid further processing if s is NULL
+			continue ; // Avoid further processing if s is NULL
 		}
 		if (*s)
 		{
-			add_history(s); // Only add to history and process command if there's valid input
-
+			add_history(s);
+			// Only add to history and process command if there's valid input
 			if (ft_strcmp(s, "exit") == 0)
 			{
 				free(s);
 				loop_condition = 1;
-				continue;
+				continue ;
 			}
 			cmd_processing(s, &env);
 		}
-
 		free(s);
 	}
 	ft_free_env(&env);
