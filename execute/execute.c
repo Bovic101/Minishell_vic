@@ -6,11 +6,12 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/16 16:01:57 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:19:44 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <limits.h>
 
 /*
 function checks if there is a flag "-n" or "-nnn..." &
@@ -35,39 +36,52 @@ int	ft_if_newline(char *s)
 	return (0);
 }
 
-void	exe_echo(t_parc *node, t_env **env)
+void	exe_echo(t_parc *node)
 {
 	t_arg	*arg;
 	int		fl_n;
+	int		len;
 
 	if (node->redirs_in == NULL && node->redirs_out == NULL)
 	{
-		//ft_putstr_fd("echo\n", 1);
 		arg = node->args;
+		len = ft_size_arg(arg) - 1;
 		fl_n = ft_if_newline(arg->value);
 		if (fl_n == 1)
+		{
 			arg = arg->next;
+			len--;
+		}
 		while (arg != NULL)
 		{
 			printf("%s", arg->value);
-			printf(" ");
+			if (len > 0)
+				printf(" ");
 			arg = arg->next;
+			len--;
 		}
 		if (fl_n == 0)
 			printf("\n");
 	}
-	if (env == NULL)
-		printf("tmp msg\n");
 }
 
 void	exe_cd(t_parc *node, t_env **env)
 {
-	if (node->redirs_in == NULL && node->redirs_out == NULL)
+	char	*cur_pwd;
+	char	buf[PATH_MAX];
+	int		res;
+
+	cur_pwd = get_value("PWD", env);
+	if (node->args == NULL)
+		res = chdir(get_value("HOME", env));
+	else
+		res = chdir(node->args->value);
+	if (res == 0)
 	{
-		ft_putstr_fd("cd\n", 1);
+		set_value("PWD", getcwd(buf, sizeof(buf)), env);
+		set_value("OLDPWD", cur_pwd, env);
+
 	}
-	if (env == NULL)
-		printf("tmp msg\n");
 }
 
 void	exe_pwd(t_parc *node, t_env **env)
@@ -128,7 +142,7 @@ int	if_builtin(char *cmd)
 void	execute_builtin(t_parc *node, t_env **env)
 {
 	if (ft_strcmp(node->cmd, "echo") == 0)
-		exe_echo(node, env);
+		exe_echo(node);
 	else if (ft_strcmp(node->cmd, "cd") == 0)
 		exe_cd(node, env);
 	else if (ft_strcmp(node->cmd, "pwd") == 0)
