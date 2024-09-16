@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/15 12:45:49 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:26:57 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*s;
 	t_env		*env;
-	t_history	*history;
+	//t_history	*history;
 	int			loop_condition;
 
 	loop_condition = 0;
 	(void)argc;
 	(void)argv;
 	env = NULL;
-	history = NULL;
+	//history = NULL;
 	save_environment(envp, &env);
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
@@ -78,6 +78,6 @@ int	main(int argc, char **argv, char **envp)
 		free(s);
 	}
 	ft_free_env(&env);
-	ft_free_history(&history);
+	//ft_free_history(&history);
 	return (0);
 }

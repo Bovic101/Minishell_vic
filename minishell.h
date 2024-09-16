@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/16 11:33:21 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:29:03 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ next - next cmd
 prev - privios cmd
 */
 
-typedef struct s_history
+/*typedef struct s_history
 {
 	char				*rvalue;
 	struct s_history	*next;
 	struct s_history	*prev;
-}	t_history;
+}	t_history;*/
 
 //lexer - tokenizer in lex_parc
 void		lexer(t_token **token, char *s);
@@ -146,11 +146,13 @@ void		set_value(char *key, char *new_value, t_env **env);
 //remove info from env
 void		remove_node(char *key, t_env **env);
 //funtions for the history of commands:
+/*
 void		save_history(char *s, t_history **history);
 t_history	*ft_history_new(char *rvalue);
 void		ft_history_add_back(t_history **lst, t_history *new);
 void		ft_free_history(t_history	**history);
 void		ft_history_print(t_history **history);
+*/
 //execution part:
 int			main_pipe_proc(t_parc **parc, t_env **env);
 void		execute_builtin(t_parc *parc, t_env **env);
