@@ -97,9 +97,39 @@ void	exe_pwd(t_parc *node, t_env **env)
 
 void	exe_export(t_parc *node, t_env **env)
 {
-	if (node->args == NULL && node->redirs_in == NULL \
-		&& node->redirs_out == NULL)
+	t_arg	*arg;
+	int		len;
+	int		fl;
+
+	/*if (node->args == NULL && node->redirs_in == NULL \
+		&& node->redirs_out == NULL)*/
+	if (node->args == NULL)
 		ft_env_sort_declare(*env);
+	else
+	{
+		arg = node->args;
+		while (arg != NULL)
+		{
+			len = 0;
+			fl = 0;
+			while (arg->value[len] != '\0')
+			{
+				if (arg->value[len] == '=')
+				{
+					fl = 1;
+					break ;
+				}
+				len++;
+			}
+			if (fl == 1)
+				add_env(ft_strndup(arg->value, len), &arg->value[len + 1], env);
+			else
+				add_env(ft_strndup(arg->value, len), NULL, env);
+			arg = arg->next;
+		}
+		//ft_env_sort_declare(*env);
+		//ft_env_print(env);
+	}
 }
 
 void	exe_unset(t_parc *node, t_env **env)
