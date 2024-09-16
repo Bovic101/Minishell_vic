@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/16 11:32:39 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:59:41 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	exe_echo(t_parc *node, t_env **env)
 	{
 		ft_putstr_fd("echo\n", 1);
 	}
+	if (env == NULL)
+		printf("tmp msg\n");
 }
 
 void	exe_cd(t_parc *node, t_env **env)
@@ -26,6 +28,8 @@ void	exe_cd(t_parc *node, t_env **env)
 	{
 		ft_putstr_fd("cd\n", 1);
 	}
+	if (env == NULL)
+		printf("tmp msg\n");
 }
 
 void	exe_pwd(t_parc *node, t_env **env)
@@ -46,7 +50,10 @@ void	exe_unset(t_parc *node, t_env **env)
 	/*if (node->args == NULL && node->redirs_in == NULL \
 		&& node->redirs_out == NULL)
 		*/
+	if (node->redirs_in == NULL && node->redirs_out == NULL)
 		ft_putstr_fd("unset\n", 1);
+	if (env == NULL)
+		printf("tmp msg\n");
 }
 
 void	exe_env(t_parc *node, t_env **env)
@@ -63,19 +70,19 @@ int	if_builtin(char *cmd)
 	/*
 	function returns 0 if cmd is one of builtin
 	*/
-	if (ft_strcmp(node->cmd, "echo") == 0)
+	if (ft_strcmp(cmd, "echo") == 0)
 		return (0);
-	if (ft_strcmp(node->cmd, "cd") == 0)
+	if (ft_strcmp(cmd, "cd") == 0)
 		return (0);
-	if (ft_strcmp(node->cmd, "pwd") == 0)
+	if (ft_strcmp(cmd, "pwd") == 0)
 		return (0);
-	if (ft_strcmp(node->cmd, "export") == 0)
+	if (ft_strcmp(cmd, "export") == 0)
 		return (0);
-	if (ft_strcmp(node->cmd, "unset") == 0)
+	if (ft_strcmp(cmd, "unset") == 0)
 		return (0);
-	if (ft_strcmp(node->cmd, "env") == 0)
+	if (ft_strcmp(cmd, "env") == 0)
 		return (0);
-	//if (ft_strcmp(node->cmd, "exit") == 0)
+	//if (ft_strcmp(cmd, "exit") == 0)
 		//return (0);
 	return (1);
 }

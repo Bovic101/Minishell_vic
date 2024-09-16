@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/16 11:35:45 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:00:03 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	main_pipe_proc(t_parc **parc, t_env **env)
 	int ncount = ft_size_parc(*parc);
 	if (ncount == 1)
 	{
-		if (if_builtin((*parc).cmd) == 0)
+		if (if_builtin((*parc)->cmd) == 0)
 			execute_builtin(*parc, env);
 		else
 			executor_func(*parc, env);
