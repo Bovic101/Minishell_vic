@@ -6,17 +6,55 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/16 12:30:26 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:01:57 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+/*
+function checks if there is a flag "-n" or "-nnn..." &
+returns 0 if not or 1 if yes
+*/
+int	ft_if_newline(char *s)
+{
+	unsigned int	i;
+
+	i = 1;
+	if (s != NULL && s[0] == '-')
+	{
+		while (s[i] != '\0')
+		{
+			if (s[i] != 'n')
+				break ;
+			i++;
+		}
+		if (i == ft_strlen(s))
+			return (1);
+	}
+	return (0);
+}
+
 void	exe_echo(t_parc *node, t_env **env)
 {
+	t_arg	*arg;
+	int		fl_n;
+
 	if (node->redirs_in == NULL && node->redirs_out == NULL)
 	{
-		ft_putstr_fd("echo\n", 1);
+		//ft_putstr_fd("echo\n", 1);
+		arg = node->args;
+		fl_n = ft_if_newline(arg->value);
+		if (fl_n == 1)
+			arg = arg->next;
+		while (arg != NULL)
+		{
+			printf("%s", arg->value);
+			printf(" ");
+			arg = arg->next;
+		}
+		if (fl_n == 0)
+			printf("\n");
 	}
 	if (env == NULL)
 		printf("tmp msg\n");
