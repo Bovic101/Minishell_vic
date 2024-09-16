@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/15 15:51:09 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:33:21 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,8 @@ void		ft_free_history(t_history	**history);
 void		ft_history_print(t_history **history);
 //execution part:
 int			main_pipe_proc(t_parc **parc, t_env **env);
-//void		execute(t_parc **parc, t_env **env);
+void		execute_builtin(t_parc *parc, t_env **env);
+int			if_builtin(char *cmd); // func returns 0 if cmd is builtin
 char		**arg_to_array_converter(t_arg *arg, char *command);
 char		**env_to_array_converter(t_env *env);
 char		*ft_strcpy(char *dest, const char *src);
