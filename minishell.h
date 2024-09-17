@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/09 14:30:45 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:09:57 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ next - next cmd
 prev - privios cmd
 */
 
-typedef struct s_history
+/*typedef struct s_history
 {
 	char				*rvalue;
 	struct s_history	*next;
 	struct s_history	*prev;
-}	t_history;
+}	t_history;*/
 
 //lexer - tokenizer in lex_parc
 void		lexer(t_token **token, char *s);
@@ -137,6 +137,7 @@ void		prompt(void);
 //to sort and print env with declare
 void		ft_env_sort_declare(t_env *env);
 void		add_env(char *key, char *value, t_env **env);
+void		add_set_env(char *key, char *value, t_env **env);
 int			ft_strcmp(char *s1, char *s2);
 void		ft_free_env(t_env	**env);
 //return value of the key-variable from env
@@ -145,24 +146,28 @@ char		*get_value(char *key, t_env **env);
 void		set_value(char *key, char *new_value, t_env **env);
 //remove info from env
 void		remove_node(char *key, t_env **env);
+//find key in env: 1-found, 0-not found
+int			find_key_env(char *key, t_env **env);
 //funtions for the history of commands:
+/*
 void		save_history(char *s, t_history **history);
 t_history	*ft_history_new(char *rvalue);
 void		ft_history_add_back(t_history **lst, t_history *new);
 void		ft_free_history(t_history	**history);
 void		ft_history_print(t_history **history);
+*/
 //execution part:
-//void		execute(t_parc **parc, t_env **env);
-char		**arg_to_array_converter(t_arg *arg , char *command);
+int			main_pipe_proc(t_parc **parc, t_env **env);
+void		execute_builtin(t_parc *parc, t_env **env);
+int			if_builtin(char *cmd); // func returns 0 if cmd is builtin
+char		**arg_to_array_converter(t_arg *arg, char *command);
 char		**env_to_array_converter(t_env *env);
 char		*ft_strcpy(char *dest, const char *src);
 char		*ft_strcat(char *dest, const char *src);
 char		*str_tokenizer(char *str, const char *delim);
 char		*command_fullpath_finder(char *command, t_env **env);
-void		redirection_func(t_redirect *in_redir, t_redirect *out_redir);
 void		pipe_func(t_parc *command, t_env **env);
 void		executor_func(t_parc *command, t_env **env);
-void		redir_execute_command(t_parc *command, t_env **env);
 void		handle_error_msg(const char *cmd);
 //find size of structures (how many nodes) - in the file ft_list_size.c:
 int			ft_size_parc(t_parc *lst);

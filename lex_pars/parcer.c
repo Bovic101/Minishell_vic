@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:33:46 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/05 15:19:23 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:43:23 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ t_token	*save_pipe(t_token *node, char *cmd, t_env **env, t_parc **parc)
 			node = save_redir(node, env, &redirs_out);
 		else if (node != NULL && (if_any_word(node->type) == 1))
 			add_args(save_word(&node, env), &args);
-		else if (node != NULL && node->type == SEPARATOR && args != NULL)
-			add_args(ft_strndup(" ", 1), &args);
+		//else if (node != NULL && node->type == SEPARATOR && args != NULL)
+			//add_args(ft_strndup(" ", 1), &args);
 		node = node->next;
 	}
 	ft_plst_add_back(parc, ft_plst_new(cmd, args, redirs_in, redirs_out));

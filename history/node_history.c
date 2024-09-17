@@ -6,10 +6,11 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 10:09:00 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/08 12:21:52 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:28:20 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
 #include "../minishell.h"
 
 t_history	*ft_history_new(char *rvalue)
@@ -82,13 +83,8 @@ void	ft_history_print(t_history **history)
 	while (node != NULL)
 	{
 		printf("%s\n", node->rvalue);
-		/*
-		if (node->prev != NULL)
-			printf("(previous: %s)\n", node->prev->rvalue);
-		if (node->next != NULL)
-			printf("(next: %s)\n", node->next->rvalue);
-		*/
 		node = node->next;
 	}
 	printf("\n");
 }
+*/

@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:17:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/05 15:17:19 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:41:41 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*save_word(t_token **pnode, t_env **env)
 	if (!value)
 		return (NULL);
 	value[0] = '\0';
-	while (node != NULL && node->type != SEPARATOR)
+	while (node != NULL && node->type != SEPARATOR && node->type != PIPE)
 	{
 		if (node->type == WORD)
 			str = ft_strndup(node->ptr, node->len);
