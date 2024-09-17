@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/16 12:29:03 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:09:57 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void		prompt(void);
 //to sort and print env with declare
 void		ft_env_sort_declare(t_env *env);
 void		add_env(char *key, char *value, t_env **env);
+void		add_set_env(char *key, char *value, t_env **env);
 int			ft_strcmp(char *s1, char *s2);
 void		ft_free_env(t_env	**env);
 //return value of the key-variable from env
@@ -145,6 +146,8 @@ char		*get_value(char *key, t_env **env);
 void		set_value(char *key, char *new_value, t_env **env);
 //remove info from env
 void		remove_node(char *key, t_env **env);
+//find key in env: 1-found, 0-not found
+int			find_key_env(char *key, t_env **env);
 //funtions for the history of commands:
 /*
 void		save_history(char *s, t_history **history);
