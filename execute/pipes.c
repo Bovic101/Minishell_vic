@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/17 17:07:03 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:18:26 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,7 @@ void	pipe_util(t_parc *node)
 	node->fd_0 = fd[0];
 	node->fd_1 = fd[1];
 }
-/*
-void	dup2_util(t_parc **parc, int n, int ncount)
-{
-	t_parc	*node;
-	
-}
-*/
+
 void	create_pipes(t_parc **parc)
 {
 	t_parc	*node;
