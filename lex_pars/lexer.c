@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:02:58 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/09 11:31:31 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:16:25 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ void	lexer(t_token **token, char *s)
 			}
 			type = SEPARATOR;
 		}
-		else if (s[i] == 34)
+		else if (s[i] == 34) //double quotes = 34
 		{
 			i++;
 			fl = 0;
 			ptr = &s[i];
-			while (s[i] != 34) //double quotes = 34
+			while (s[i] != 34)
 			{
 				if (s[i] == '$')
 					fl = 1;
@@ -106,7 +106,8 @@ void	lexer(t_token **token, char *s)
 		else
 		{
 			fl = 0;
-			while (s[i] != '\0' && s[i] != ' ' && s[i] != 34 && s[i] != 39)
+			while (s[i] != '\0' && s[i] != ' ' && s[i] != 34 && s[i] != 39 \
+				&& s[i] != '|')
 			{
 				if (s[i] == '$')
 					fl = 1;
