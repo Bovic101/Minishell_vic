@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/17 12:09:47 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:27:25 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,13 +134,21 @@ void	exe_export(t_parc *node, t_env **env)
 
 void	exe_unset(t_parc *node, t_env **env)
 {
+	t_arg	*arg;
 	/*if (node->args == NULL && node->redirs_in == NULL \
 		&& node->redirs_out == NULL)
 		*/
-	if (node->redirs_in == NULL && node->redirs_out == NULL)
-		ft_putstr_fd("unset\n", 1);
-	if (env == NULL)
-		printf("tmp msg\n");
+	if (node->args != NULL)
+	{
+		arg = node->args;
+		while (arg != NULL)
+		{
+			remove_node(arg->value, env);
+			arg = arg->next;
+		}
+	}
+	//ft_env_sort_declare(*env);
+	//ft_env_print(env);
 }
 
 void	exe_env(t_parc *node, t_env **env)
