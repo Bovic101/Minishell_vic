@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/16 12:26:57 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:11:33 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,30 @@ void	cmd_processing(char *s, t_env **env)
 
 	token = NULL;
 	parc = NULL;
+	
 	lexer(&token, s);
 	parcer(&token, &parc, env);
-	c_pid = fork(); // Fork a new child_process to execute the command
-	if (c_pid == 0)
+	if (parc && if_builtin(parc->cmd) == 0) // Check if the cmd is a built-in & execute
 	{
-		main_pipe_proc(&parc, env);
-		//executor_func(parc, env);
-		freeall(&token, &parc);
-		exit(0);
-	}
-	else if (c_pid > 0) // Parent process
-	{
-		waitpid(c_pid, &status, 0);
+		execute_builtin(parc, env);
 	}
 	else
-		perror("forking process failed");
+	{
+		c_pid = fork(); // Fork a new child_process to execute the command
+		if (c_pid == 0)
+		{
+			main_pipe_proc(&parc, env);
+			//executor_func(parc, env);
+			freeall(&token, &parc);
+			exit(0);  // Exit the child process
+		}
+		else if (c_pid > 0) //Parent process
+		{
+			waitpid(c_pid, &status, 0);
+		}
+		else
+			perror("forking process failed");
+	}
 	freeall(&token, &parc);
 }
 
