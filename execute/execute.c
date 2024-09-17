@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/16 17:19:44 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:09:47 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,9 @@ void	exe_export(t_parc *node, t_env **env)
 				len++;
 			}
 			if (fl == 1)
-				add_env(ft_strndup(arg->value, len), &arg->value[len + 1], env);
+				add_set_env(ft_strndup(arg->value, len), ft_strdup(&arg->value[len + 1]), env);
 			else
-				add_env(ft_strndup(arg->value, len), NULL, env);
+				add_set_env(ft_strndup(arg->value, len), NULL, env);
 			arg = arg->next;
 		}
 		//ft_env_sort_declare(*env);
