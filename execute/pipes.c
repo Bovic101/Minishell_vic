@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/17 17:18:26 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:27:15 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ void	pipe_util(t_parc *node)
 void	create_pipes(t_parc **parc)
 {
 	t_parc	*node;
-	int		i;
 
-	i = 0;
 	node = *parc;
 	while (node != NULL)
 	{
@@ -60,9 +58,8 @@ void	create_pipes(t_parc **parc)
 void	close_fds(t_parc **parc)
 {
 	t_parc	*node;
-	int		i;
+	//int		i;
 
-	i = 0;
 	node = *parc;
 	while (node != NULL)
 	{
