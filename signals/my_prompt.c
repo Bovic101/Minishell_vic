@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 12:56:13 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/09 15:26:28 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/15 00:10:59 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	prompt(void)
 void	sigint_handler(int signal)
 {
 	(void)signal;
-	printf("\n");
-	printf("Our_shell:~$ "); // Re-display the prompt
+	write(STDOUT_FILENO, "\nOur_shell:~$ ", 15);
 }
 
 void	sigquit_handler(int signal)
