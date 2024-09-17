@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/17 12:09:57 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:04:52 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ typedef struct s_parc
 	struct s_arg		*args;
 	struct s_redirect	*redirs_in;
 	struct s_redirect	*redirs_out;
+	int					fd_0;
+	int					fd_1;
 	struct s_parc		*next;
 }	t_parc;
 

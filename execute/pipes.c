@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/16 16:19:11 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:18:26 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,104 @@ void	ft_execute(t_parc *node, t_env **env)
 	else
 		executor_func(node, env);
 
-	/*Here just example: 
+	/*Here examples: 
 	ls -l | grep mini | wc -l
-	*//*
-	if (ft_strcmp(parc->cmd, "ls") == 0)
-		execlp("ls", "ls", "-l", (char *) NULL);
-	else if (ft_strcmp(parc->cmd, "grep") == 0)
-		execlp("grep", "grep", "mini", (char *) NULL);
-	else if (ft_strcmp(parc->cmd, "wc") == 0)
-		execlp("wc", "wc", "-l", (char *) NULL);
-		*/
+	env | wc -l
+	*/
+}
+void	pipe_util(t_parc *node)
+{
+	int	fd[2];
+	int	err;
+
+	err = pipe(fd);
+	if (err < 0)
+		return ;  //change to err handling
+	node->fd_0 = fd[0];
+	node->fd_1 = fd[1];
 }
 
+void	create_pipes(t_parc **parc)
+{
+	t_parc	*node;
+	int		i;
+
+	i = 0;
+	node = *parc;
+	while (node != NULL)
+	{
+		pipe_util(node);
+		node = node->next;
+	}
+}
+
+void	close_fds(t_parc **parc)
+{
+	t_parc	*node;
+	int		i;
+
+	i = 0;
+	node = *parc;
+	while (node != NULL)
+	{
+		close(node->fd_0);
+		close(node->fd_1);
+		node = node->next;
+	}
+}
+
+int	execute_proces(t_parc **parc, t_env **env, int ncount)
+{
+	t_parc	*node;
+	t_parc	*prev;
+	int		pid;
+	int		i;
+
+	node = *parc;
+	prev = NULL;
+	i = 0;
+	create_pipes(parc);
+	while (i < ncount)
+	{
+		pid = fork();
+		if (pid < 0)
+			return (1); //err handling
+		if (pid == 0)
+		{
+			if (i == 0)
+			{
+				dup2(node->fd_1, 1);
+				close_fds(parc);
+				ft_execute(node, env);
+				return (0);
+			}
+			else if (i == ncount - 1)
+			{
+				dup2(prev->fd_0, 0);
+				close_fds(parc);
+				ft_execute(node, env);
+				return (0);
+			}
+			else
+			{
+				dup2(prev->fd_0, 0);
+				dup2(node->fd_1, 1);
+				close_fds(parc);
+				ft_execute(node, env);
+				return (0);
+			}
+		}
+		prev = node;
+		node = node->next;
+		i++;
+	}
+	// parent
+	close_fds(parc);
+	waitpid(pid, NULL, 0);
+	return (0);
+}
+
+/*
 int	execute_proces(t_parc **parc, t_env **env, int ncount)
 {
 	t_parc	*node;
@@ -127,6 +213,7 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 	}
 	return (0);
 }
+*/
 
 int	main_pipe_proc(t_parc **parc, t_env **env)
 {

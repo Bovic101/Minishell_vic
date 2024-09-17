@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/17 12:27:25 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:15:49 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ void	exe_cd(t_parc *node, t_env **env)
 		//printf("old after: %s\n", get_value("OLDPWD", env));
 		set_value("OLDPWD", cur_pwd, env);
 		//printf("old after: %s\n", get_value("OLDPWD", env));
-
 	}
+	else
+		return ; //err hanling (file not found,..)
 }
 
 void	exe_pwd(t_parc *node, t_env **env)
