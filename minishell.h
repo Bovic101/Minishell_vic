@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/18 10:18:44 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:48:59 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <stdbool.h>
 # include <string.h>
 # include <signal.h>
+#include <limits.h> //used for cd
 
 enum e_tokentype
 {
@@ -180,4 +181,11 @@ int			ft_size_env(t_env *lst);
 //signals
 void		sigint_handler(int signal);
 void		sigquit_handler(int signal);
+//builtin
+void		exe_echo(t_parc *node);
+void		exe_cd(t_parc *node, t_env **env);
+void		exe_env(t_parc *node, t_env **env);
+void		exe_export(t_parc *node, t_env **env);
+void		exe_pwd(t_parc *node, t_env **env);
+void		exe_unset(t_parc *node, t_env **env);
 #endif
