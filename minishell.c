@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/17 17:11:33 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/18 10:31:54 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,29 @@ void	cmd_processing(char *s, t_env **env)
 	}
 	else
 	{
-		c_pid = fork(); // Fork a new child_process to execute the command
-		if (c_pid == 0)
+		if (parc && ft_strcmp(parc->cmd, "./minishell") == 0)//check if the cmd is minishell
 		{
-			main_pipe_proc(&parc, env);
-			//executor_func(parc, env);
-			freeall(&token, &parc);
-			exit(0);  // Exit the child process
-		}
-		else if (c_pid > 0) //Parent process
-		{
-			waitpid(c_pid, &status, 0);
+			run_2nd_minishell(parc, env);
 		}
 		else
-			perror("forking process failed");
+		{
+			c_pid = fork();
+			if (c_pid == 0)
+			{
+				main_pipe_proc(&parc, env); //handle pipes & exec cmd in child process
+				executor_func(parc, env);
+				freeall(&token, &parc);
+				exit(0);
+			}
+			else if (c_pid > 0)
+			{
+				waitpid(c_pid, &status, 0);
+			}
+			else
+			{
+				perror("Forking failed");
+			}
+		}
 	}
 	freeall(&token, &parc);
 }
