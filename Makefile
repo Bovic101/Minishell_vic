@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 14:24:13 by kdvarako          #+#    #+#              #
-#    Updated: 2024/09/09 08:06:06 by vodebunm         ###   ########.fr        #
+#    Updated: 2024/09/18 15:49:31 by kdvarako         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_1 = minishell.c
 SRC_2 = $(wildcard lex_pars/*.c)
 SRC_3 = $(wildcard execute/*.c)
 SRC_4 = $(wildcard env/*.c)
-SRC_5 = $(wildcard history/*.c)
+SRC_5 = $(wildcard builtins/*.c)
 SRC_6 = $(wildcard signals/*.c)
 
 OBJ_1 = ${SRC_1:.c=.o}
