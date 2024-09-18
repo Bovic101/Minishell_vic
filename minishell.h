@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/18 15:48:59 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:07:48 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,20 +96,6 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-/*
-structure to save a history of commands:
-rline - a current readline
-next - next cmd
-prev - privios cmd
-*/
-
-/*typedef struct s_history
-{
-	char				*rvalue;
-	struct s_history	*next;
-	struct s_history	*prev;
-}	t_history;*/
-
 //lexer - tokenizer in lex_parc
 void		lexer(t_token **token, char *s);
 t_token		*ft_lst_new(int len, char *ptr, enum e_tokentype type);
@@ -124,6 +110,7 @@ t_parc		*ft_plst_new(char *cmd, t_arg *args, \
 void		ft_plst_add_back(t_parc **parc, t_parc *new);
 void		ft_plst_print(t_parc **parc);
 char		*save_word(t_token **pnode, t_env **env);
+char		*ft_wordjoin(char *value, char *str);
 char		*expand(char *ptr, int len, t_env **env, int type);
 void		add_redir(char *rtype, char	*rfile, t_redirect **redirs);
 void		ft_redir_print(t_redirect **redirs);
