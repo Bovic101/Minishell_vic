@@ -41,13 +41,13 @@ void	execute_builtin(t_parc *node, t_env **env)
 	else if (ft_strcmp(node->cmd, "cd") == 0)
 		exe_cd(node, env);
 	else if (ft_strcmp(node->cmd, "pwd") == 0)
-		exe_pwd(node, env);
+		exe_pwd(env);
 	else if (ft_strcmp(node->cmd, "export") == 0)
 		exe_export(node, env);
 	else if (ft_strcmp(node->cmd, "unset") == 0)
 		exe_unset(node, env);
 	else if (ft_strcmp(node->cmd, "env") == 0)
-		exe_env(node, env);
+		exe_env(env);
 	//else if (ft_strcmp(node->cmd, "exit") == 0)
 		//exe_exit(node, env);
 }
