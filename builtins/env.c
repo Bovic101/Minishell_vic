@@ -14,9 +14,6 @@
 
 void	exe_env(t_parc *node, t_env **env)
 {
-	if (node->redirs_in == NULL && node->redirs_out == NULL)
-	{
-		ft_env_print(env);
-		set_value("_", ft_strdup("env"), env);
-	}
+	ft_env_print(env);
+	set_value("_", ft_strdup("env"), env);
 }
