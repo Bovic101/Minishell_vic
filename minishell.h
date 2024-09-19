@@ -77,8 +77,8 @@ typedef struct s_parc
 	struct s_arg		*args;
 	struct s_redirect	*redirs_in;
 	struct s_redirect	*redirs_out;
-	int					fd_0;
-	int					fd_1;
+	int					fd_0; //read
+	int					fd_1; //write
 	struct s_parc		*next;
 }	t_parc;
 
@@ -156,7 +156,7 @@ char		*ft_strcpy(char *dest, const char *src);
 char		*ft_strcat(char *dest, const char *src);
 char		*str_tokenizer(char *str, const char *delim);
 char		*command_fullpath_finder(char *command, t_env **env);
-void		pipe_func(t_parc *command, t_env **env);
+//void		pipe_func(t_parc *command, t_env **env);
 void		executor_func(t_parc *command, t_env **env);
 void		handle_error_msg(const char *cmd);
 void		run_2nd_minishell(t_parc *parc, t_env **env);
@@ -175,4 +175,6 @@ void		exe_env(t_parc *node, t_env **env);
 void		exe_export(t_parc *node, t_env **env);
 void		exe_pwd(t_parc *node, t_env **env);
 void		exe_unset(t_parc *node, t_env **env);
+//redirections
+int			ft_redirections(t_parc **parc);
 #endif
