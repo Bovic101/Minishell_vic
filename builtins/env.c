@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	exe_env(t_parc *node, t_env **env)
+void	exe_env(t_env **env)
 {
 	ft_env_print(env);
 	set_value("_", ft_strdup("env"), env);
