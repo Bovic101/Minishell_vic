@@ -171,9 +171,9 @@ void		sigquit_handler(int signal);
 //builtin
 void		exe_echo(t_parc *node);
 void		exe_cd(t_parc *node, t_env **env);
-void		exe_env(t_parc *node, t_env **env);
+void		exe_env(t_env **env);
 void		exe_export(t_parc *node, t_env **env);
-void		exe_pwd(t_parc *node, t_env **env);
+void		exe_pwd(t_env **env);
 void		exe_unset(t_parc *node, t_env **env);
 //redirections
 int			ft_redirections(t_parc **parc);
