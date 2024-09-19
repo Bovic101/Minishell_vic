@@ -14,6 +14,5 @@
 
 void	exe_pwd(t_parc *node, t_env **env)
 {
-	if (node->redirs_in == NULL && node->redirs_out == NULL)
-		printf("%s\n", get_value("PWD", env));
+	printf("%s\n", get_value("PWD", env));
 }
