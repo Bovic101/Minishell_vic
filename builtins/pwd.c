@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	exe_pwd(t_parc *node, t_env **env)
+void	exe_pwd(t_env **env)
 {
 	printf("%s\n", get_value("PWD", env));
 }
