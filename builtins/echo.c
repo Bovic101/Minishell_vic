@@ -41,25 +41,22 @@ void	exe_echo(t_parc *node)
 	int		fl_n;
 	int		len;
 
-	if (node->redirs_in == NULL && node->redirs_out == NULL)
+	arg = node->args;
+	len = ft_size_arg(arg) - 1;
+	fl_n = ft_if_newline(arg->value);
+	if (fl_n == 1)
 	{
-		arg = node->args;
-		len = ft_size_arg(arg) - 1;
-		fl_n = ft_if_newline(arg->value);
-		if (fl_n == 1)
-		{
-			arg = arg->next;
-			len--;
-		}
-		while (arg != NULL)
-		{
-			printf("%s", arg->value);
-			if (len > 0)
-				printf(" ");
-			arg = arg->next;
-			len--;
-		}
-		if (fl_n == 0)
-			printf("\n");
+		arg = arg->next;
+		len--;
 	}
+	while (arg != NULL)
+	{
+		printf("%s", arg->value);
+		if (len > 0)
+			printf(" ");
+		arg = arg->next;
+		len--;
+	}
+	if (fl_n == 0)
+		printf("\n");
 }
