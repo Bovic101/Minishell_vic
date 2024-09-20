@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/17 17:27:15 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:13:49 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,98 +120,51 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 	return (0);
 }
 
-/*
-int	execute_proces(t_parc **parc, t_env **env, int ncount)
-{
-	t_parc	*node;
-	int		pid[ncount];
-	int		fd[ncount - 1][2];
 
-	for (int i = 0; i < ncount - 1; i++)
+int	main_pipe_proc(t_parc **parc, t_env **env)
+{
+	pid_t	c_pid;
+	int		status;
+	int		fd_before;
+	// check if cmd exist -> if cmd not found - > err
+	int ncount = ft_size_parc(*parc);
+	if (ncount == 1)
 	{
-		if (pipe(fd[i]) < 0)
-			return (1);
-	}
-	node = *parc;
-	for (int i = 0; i < ncount; i++)
-	{
-		pid[i] = fork();
-		if (pid[i] < 0)
-			return (1);
-		if (pid[i] == 0)
+		if (if_builtin((*parc)->cmd) == 0)
 		{
-			if (i == 0)
+			fd_before = dup(1);
+			ft_redirections(parc);
+			execute_builtin(*parc, env);
+			dup2(fd_before, 1);
+		}
+		else
+		{
+			c_pid = fork();
+			if (c_pid == 0)
 			{
-				for (int j = 0; j < ncount - 1; j++)
-				{
-					if (j == 0)
-						close(fd[j][0]);
-					else
-					{
-						close(fd[j][0]);
-						close(fd[j][1]);
-					}
-				}
-				dup2(fd[0][1], 1);
-				close(fd[0][1]);
-				ft_execute(node, env);
-				return (0);
+				//ft_redirections(&parc);
+				executor_func(*parc, env);
+				exit(0);
 			}
-			else if (i == ncount - 1)
+			else if (c_pid > 0)
 			{
-				for (int j = 0; j < ncount - 1; j++)
-				{
-					if (j == ncount - 2)
-						close(fd[j][1]);
-					else
-					{
-						close(fd[j][0]);
-						close(fd[j][1]);
-					}
-				}
-				dup2(fd[ncount - 2][0], 0);
-				close(fd[ncount - 2][0]);
-				ft_execute(node, env);
-				return (0);
+				waitpid(c_pid, &status, 0);
 			}
 			else
 			{
-				for (int j = 0; j < ncount - 1; j++)
-				{
-					if (j == i - 1)
-						close(fd[j][1]);
-					else if (j == i)
-						close(fd[j][0]);
-					else
-					{
-						close(fd[j][0]);
-						close(fd[j][1]);
-					}
-				}
-				dup2(fd[i - 1][0], 0);
-				dup2(fd[i][1], 1);
-				close(fd[i - 1][0]);
-				close(fd[i][1]);
-				ft_execute(node, env);
-				return (0);
+				perror("Forking failed");
 			}
 		}
-		node = node->next;
 	}
-	// parent
-	for (int i = 0; i < ncount - 1; i++)
+	else
 	{
-		close(fd[i][0]);
-		close(fd[i][1]);
-	}
-	for (int i = 0; i < ncount; i++)
-	{
-		waitpid(pid[i], NULL, 0);
+		//ft_redirections(&parc);
+		execute_proces(parc, env, ncount);
 	}
 	return (0);
 }
-*/
 
+/* prev copy
 int	main_pipe_proc(t_parc **parc, t_env **env)
 {
 	// check if cmd exist -> if cmd not found - > err
@@ -227,3 +180,4 @@ int	main_pipe_proc(t_parc **parc, t_env **env)
 		execute_proces(parc, env, ncount);
 	return (0);
 }
+*/
