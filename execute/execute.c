@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/18 15:54:57 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:02:01 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	if_builtin(char *cmd)
 	return (1);
 }
 
-void	execute_builtin(t_parc *node, t_env **env)
+int	execute_builtin(t_parc *node, t_env **env)
 {
 	if (ft_strcmp(node->cmd, "echo") == 0)
 		exe_echo(node);
@@ -50,4 +50,5 @@ void	execute_builtin(t_parc *node, t_env **env)
 		exe_env(env);
 	//else if (ft_strcmp(node->cmd, "exit") == 0)
 		//exe_exit(node, env);
+		return (0);
 }
