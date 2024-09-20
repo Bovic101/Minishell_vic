@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:44:01 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/18 15:46:07 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:48:31 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ int	right_varname_e(char *str)
 
 	i = 1;
 
-	if (str[0] == '_' || (str[0] >= 'a' && str[0] <= 'z') || (str[0] >= 'A' && str[0] <= 'Z'))
+	if (str[0] == '_' || (str[0] >= 'a' && str[0] <= 'z') || \
+		(str[0] >= 'A' && str[0] <= 'Z'))
 	{
 		while (str[i] != '\0' && str[i] != '=')
 		{
 			if (!(str[i] == '_' || (str[i] >= 'a' && str[i] <= 'z') || \
-				(str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 0 && str[i] <= 9)))
+				(str[i] >= 'A' && str[i] <= 'Z') \
+					|| (str[i] >= 0 && str[i] <= 9)))
 				return (1);
 			i++;
 		}
@@ -39,8 +41,6 @@ void	exe_export(t_parc *node, t_env **env)
 	int		len;
 	int		fl;
 
-	/*if (node->args == NULL && node->redirs_in == NULL \
-		&& node->redirs_out == NULL)*/
 	if (node->args == NULL)
 		ft_env_sort_declare(*env);
 	else
@@ -68,8 +68,9 @@ void	exe_export(t_parc *node, t_env **env)
 			}
 			else
 			{
-				printf("export: `%s': not a valid identifier\n", arg->value);
-				//err handler ???
+				perror("export not a valid identifier\n");
+				//printf("export: `%s': not a valid identifier\n", arg->value);
+				//err handler
 			}
 			arg = arg->next;
 		}
