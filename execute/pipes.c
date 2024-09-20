@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/20 16:54:34 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:09:34 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,8 @@ int	main_pipe_proc(t_parc **parc, t_env **env)
 			c_pid = fork();
 			if (c_pid == 0)
 			{
-				fd0_before = dup(0);
-				fd1_before = dup(1);
 				ft_redirections(parc);
 				executor_func(*parc, env);
-				dup2(fd0_before, 0);
-				dup2(fd1_before, 1);
 				exit(0);
 			}
 			else if (c_pid > 0)
@@ -165,7 +161,7 @@ int	main_pipe_proc(t_parc **parc, t_env **env)
 	}
 	else
 	{
-		ft_redirections(parc);
+		//ft_redirections(parc);
 		execute_proces(parc, env, ncount);
 	}
 	return (0);
