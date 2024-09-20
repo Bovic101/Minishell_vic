@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:44:01 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/20 11:48:31 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:39:53 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	exe_export(t_parc *node, t_env **env)
 			else
 			{
 				perror("export not a valid identifier\n");
+				//write(2, "msg", len);
 				//printf("export: `%s': not a valid identifier\n", arg->value);
 				//err handler
 			}
