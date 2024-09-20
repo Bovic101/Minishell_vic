@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/20 13:04:17 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:32:55 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,4 +177,6 @@ void		exe_pwd(t_env **env);
 void		exe_unset(t_parc *node, t_env **env);
 //redirections
 int			ft_redirections(t_parc **parc);
+int			redir_out(t_parc *node);
+int			redir_in(t_parc *node);
 #endif
