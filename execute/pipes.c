@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/20 13:13:49 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:54:34 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_execute(t_parc *node, t_env **env)
 {
 	/*
 	check if from PATH or from builtins -> execute
+	!add if cmd == NULL
 	*/
 	if (if_builtin(node->cmd) == 0)
 		execute_builtin(node, env);
@@ -58,7 +59,6 @@ void	create_pipes(t_parc **parc)
 void	close_fds(t_parc **parc)
 {
 	t_parc	*node;
-	//int		i;
 
 	node = *parc;
 	while (node != NULL)
@@ -125,25 +125,32 @@ int	main_pipe_proc(t_parc **parc, t_env **env)
 {
 	pid_t	c_pid;
 	int		status;
-	int		fd_before;
+	int		fd0_before;
+	int		fd1_before;
 	// check if cmd exist -> if cmd not found - > err
 	int ncount = ft_size_parc(*parc);
 	if (ncount == 1)
 	{
 		if (if_builtin((*parc)->cmd) == 0)
 		{
-			fd_before = dup(1);
+			fd0_before = dup(0);
+			fd1_before = dup(1);
 			ft_redirections(parc);
 			execute_builtin(*parc, env);
-			dup2(fd_before, 1);
+			dup2(fd0_before, 0);
+			dup2(fd1_before, 1);
 		}
 		else
 		{
 			c_pid = fork();
 			if (c_pid == 0)
 			{
-				//ft_redirections(&parc);
+				fd0_before = dup(0);
+				fd1_before = dup(1);
+				ft_redirections(parc);
 				executor_func(*parc, env);
+				dup2(fd0_before, 0);
+				dup2(fd1_before, 1);
 				exit(0);
 			}
 			else if (c_pid > 0)
@@ -158,7 +165,7 @@ int	main_pipe_proc(t_parc **parc, t_env **env)
 	}
 	else
 	{
-		//ft_redirections(&parc);
+		ft_redirections(parc);
 		execute_proces(parc, env, ncount);
 	}
 	return (0);
