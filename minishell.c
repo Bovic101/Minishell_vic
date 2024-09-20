@@ -3,58 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/18 10:31:54 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:07:07 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cmd_processing(char *s, t_env **env)
+int	cmd_processing(char *s, t_env **env)
 {
 	t_token	*token;
 	t_parc	*parc;
-	pid_t	c_pid;
-	int		status;
 
 	token = NULL;
 	parc = NULL;
-	
+
 	lexer(&token, s);
 	parcer(&token, &parc, env);
-	if (parc && if_builtin(parc->cmd) == 0) // Check if the cmd is a built-in & execute
+	if (parc && ft_strcmp(parc->cmd, "./minishell") == 0)//check if the cmd is minishell
 	{
-		execute_builtin(parc, env);
+		run_2nd_minishell(parc, env);
 	}
-	else
-	{
-		if (parc && ft_strcmp(parc->cmd, "./minishell") == 0)//check if the cmd is minishell
-		{
-			run_2nd_minishell(parc, env);
-		}
-		else
-		{
-			c_pid = fork();
-			if (c_pid == 0)
-			{
-				main_pipe_proc(&parc, env); //handle pipes & exec cmd in child process
-				executor_func(parc, env);
-				freeall(&token, &parc);
-				exit(0);
-			}
-			else if (c_pid > 0)
-			{
-				waitpid(c_pid, &status, 0);
-			}
-			else
-			{
-				perror("Forking failed");
-			}
-		}
-	}
+	main_pipe_proc(&parc, env); //handle pipes & exec cmd in child process
 	freeall(&token, &parc);
+	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)
