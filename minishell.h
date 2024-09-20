@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/18 16:07:48 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:04:17 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void		ft_history_print(t_history **history);
 */
 //execution part:
 int			main_pipe_proc(t_parc **parc, t_env **env);
-void		execute_builtin(t_parc *parc, t_env **env);
+int			execute_builtin(t_parc *parc, t_env **env);
 int			if_builtin(char *cmd); // func returns 0 if cmd is builtin
 char		**arg_to_array_converter(t_arg *arg, char *command);
 char		**env_to_array_converter(t_env *env);
@@ -169,7 +169,7 @@ int			ft_size_env(t_env *lst);
 void		sigint_handler(int signal);
 void		sigquit_handler(int signal);
 //builtin
-void		exe_echo(t_parc *node);
+int			exe_echo(t_parc *node);
 void		exe_cd(t_parc *node, t_env **env);
 void		exe_env(t_env **env);
 void		exe_export(t_parc *node, t_env **env);
