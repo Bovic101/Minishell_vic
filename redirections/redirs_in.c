@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs_in.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:30:32 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/20 16:43:01 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/20 22:17:17 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ int redir_in(t_parc *node)
 	t_redirect  *r_in;
 	int         fd_file;
 	int         err_close;
-	char		*hdoc;
+	//char		*hdoc;
 
-	hdoc = save_last_hdoc(node);
+	//hdoc = save_last_hdoc(node);
 	//printf("%s", hdoc);
 	r_in = node->redirs_in;
 	while (r_in)
