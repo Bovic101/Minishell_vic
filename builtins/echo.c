@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:40:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/18 15:41:57 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:02:53 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ int	ft_if_newline(char *s)
 	return (0);
 }
 
-void	exe_echo(t_parc *node)
+int	exe_echo(t_parc *node)
 {
 	t_arg	*arg;
 	int		fl_n;
 	int		len;
 
+	if (node->args != NULL)
+	{
 	arg = node->args;
 	len = ft_size_arg(arg) - 1;
 	fl_n = ft_if_newline(arg->value);
@@ -59,4 +61,6 @@ void	exe_echo(t_parc *node)
 	}
 	if (fl_n == 0)
 		printf("\n");
+	}
+	return (0);
 }
