@@ -161,8 +161,21 @@ int	main_pipe_proc(t_parc **parc, t_env **env)
 	}
 	else
 	{
-		//ft_redirections(parc);
-		execute_proces(parc, env, ncount);
+		c_pid = fork();
+		if (c_pid == 0)
+		{
+			ft_redirections(parc);
+			execute_proces(parc, env, ncount);
+			exit(0);
+		}
+		else if (c_pid > 0)
+		{
+			waitpid(c_pid, &status, 0);
+		}
+		else
+		{
+			perror("Forking failed");
+		}
 	}
 	return (0);
 }
