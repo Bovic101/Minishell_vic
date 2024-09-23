@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/21 00:26:06 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:37:47 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,4 +180,5 @@ void		exe_unset(t_parc *node, t_env **env);
 int			ft_redirections(t_parc **parc);
 int			redir_out(t_parc *node);
 int			redir_in(t_parc *node);
+t_redirect	*ft_redir_last(t_redirect *r);
 #endif
