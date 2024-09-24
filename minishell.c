@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/21 00:28:42 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/24 22:16:56 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (*s)//Non_empty input
 		{
+			add_history(s); // Only add to history and process command if there's valid input
 			if (unclosed_quote_checker(s) != 0) //check unclosed quote before cmd processing
 			{
 				free(s);
 				continue;
 			}
-			add_history(s);
-			// Only add to history and process command if there's valid input
+			
 			if (ft_strcmp(s, "exit") == 0)
 			{
 				free(s);
