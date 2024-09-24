@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 14:24:13 by kdvarako          #+#    #+#              #
-#    Updated: 2024/09/20 16:36:11 by kdvarako         ###   ########.fr        #
+#    Updated: 2024/09/24 23:16:35 by vodebunm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,8 @@ all:	${NAME}
 
 ${NAME}:	${OBJ_1} ${OBJ_2} ${OBJ_3} ${OBJ_4} ${OBJ_5} ${OBJ_6} ${OBJ_7} ${LIBFT}
 	${CC} ${CFLAGS} ${OBJ_1} ${OBJ_2} ${OBJ_3} ${OBJ_4} ${OBJ_5} ${OBJ_6} ${OBJ_7} ${LIBFT} ${LIBS} -o ${NAME}
+	@rm -f ${OBJ_1} ${OBJ_2} ${OBJ_3} ${OBJ_4} ${OBJ_5} ${OBJ_6} ${OBJ_7}
+	@$(MAKE) clean -C ./libft
 
 ${LIBFT}:
 	$(MAKE) -C ./libft
