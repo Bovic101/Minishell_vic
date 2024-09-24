@@ -33,10 +33,10 @@ char	*ft_hdoc(char *s_end)
 		{
 			if (ft_strcmp(s, s_end) != 0)
 			{
-				if (ft_strlen(value) != 0)
-					value = ft_wordjoin(value, "\n");
+				//if (ft_strlen(value) != 0)
+					//value = ft_wordjoin(value, "\n");
 				value = ft_wordjoin(value, s);
-				//value = ft_wordjoin(value, "\n");
+				value = ft_wordjoin(value, "\n");
 				free(s);
 			}
 			else
@@ -63,6 +63,7 @@ char	*save_last_hdoc(t_parc *node)
 			if (value != NULL)
 				free(value);
 			value = ft_hdoc(r_in->rfile);
+			//printf("hdoc: %s |\n", value);
 		}
 		r_in = r_in->next;
 	}
@@ -77,7 +78,7 @@ int redir_in_hdoc(char *hdoc)
 	err = pipe(fd_h);
 	if (err < 0)
 		return (-1);  //err handling
-	if (write(fd_h[1], hdoc, sizeof(hdoc)) < 0)
+	if (write(fd_h[1], hdoc, ft_strlen(hdoc) + 1) < 0)
 			return (-1);  //err handling
 	dup2(fd_h[0], 0);
 	close(fd_h[0]);
