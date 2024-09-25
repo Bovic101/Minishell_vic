@@ -125,7 +125,7 @@ int	redir_in(t_parc *node)
 
 	hdoc = save_last_hdoc(node);
 	//printf("%s", hdoc);
-	//printf("\n");
+	//printf("|\n");
 	last = ft_redir_last(node->redirs_in);
 	//printf("last type: %s\n", last->rtype);
 	if (ft_strcmp(last->rtype, "<<") == 0)

@@ -181,4 +181,10 @@ int			ft_redirections(t_parc **parc);
 int			redir_out(t_parc *node);
 int			redir_in(t_parc *node);
 t_redirect	*ft_redir_last(t_redirect *r);
+int			redirections_in(t_parc **parc);
+char		*ft_hdoc(char *s_end);
+int 		redir_in_hdoc(char *hdoc);
+int redir_in_file(t_parc *node);
+t_parc	*ft_plst_last(t_parc *p);
+int	redirections_out(t_parc **parc);
 #endif

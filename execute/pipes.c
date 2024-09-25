@@ -164,7 +164,9 @@ int	main_pipe_proc(t_parc **parc, t_env **env)
 		c_pid = fork();
 		if (c_pid == 0)
 		{
-			ft_redirections(parc);
+			//ft_redirections(parc);
+			redirections_in(parc);
+			//redirections_out(parc);
 			execute_proces(parc, env, ncount);
 			exit(0);
 		}
