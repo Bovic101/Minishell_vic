@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/20 17:09:34 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:49:39 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,13 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 		{
 			if (i == 0)
 			{
-				dup2(node->fd_1, 1);
+				if (node->redirs_out != NULL)
+				{
+					//write(2, "!\n", 2);
+					redir_out(node);
+				}
+				else
+					dup2(node->fd_1, 1);
 				close_fds(parc);
 				ft_execute(node, env);
 				return (0);
@@ -97,6 +103,8 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 			else if (i == ncount - 1)
 			{
 				dup2(prev->fd_0, 0);
+				if (node->redirs_out != NULL)
+					redir_out(node);
 				close_fds(parc);
 				ft_execute(node, env);
 				return (0);
@@ -104,7 +112,10 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 			else
 			{
 				dup2(prev->fd_0, 0);
-				dup2(node->fd_1, 1);
+				if (node->redirs_out != NULL)
+					redir_out(node);
+				else
+					dup2(node->fd_1, 1);
 				close_fds(parc);
 				ft_execute(node, env);
 				return (0);
@@ -166,7 +177,6 @@ int	main_pipe_proc(t_parc **parc, t_env **env)
 		{
 			//ft_redirections(parc);
 			redirections_in(parc);
-			//redirections_out(parc);
 			execute_proces(parc, env, ncount);
 			exit(0);
 		}
@@ -181,21 +191,3 @@ int	main_pipe_proc(t_parc **parc, t_env **env)
 	}
 	return (0);
 }
-
-/* prev copy
-int	main_pipe_proc(t_parc **parc, t_env **env)
-{
-	// check if cmd exist -> if cmd not found - > err
-	int ncount = ft_size_parc(*parc);
-	if (ncount == 1)
-	{
-		if (if_builtin((*parc)->cmd) == 0)
-			execute_builtin(*parc, env);
-		else
-			executor_func(*parc, env);
-	}
-	else
-		execute_proces(parc, env, ncount);
-	return (0);
-}
-*/
