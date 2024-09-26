@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:33:30 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/23 15:56:55 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:36:50 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	redirections_in(t_parc **parc)
 		node = node->next;
 	}
 	last = ft_redir_last(ft_plst_last(*parc)->redirs_in);
-	if (ft_strcmp(last->rtype, "<<") == 0)
+	if (last != NULL && (ft_strcmp(last->rtype, "<<") == 0))
 	{
 		redir_in_hdoc(value);
 		free(value);
