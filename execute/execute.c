@@ -53,34 +53,29 @@ int	execute_builtin(t_parc *node, t_env **env)
 		return (0);
 }
 
+/*
+	check if from PATH or from builtins or cmd == NULL -> execute
+*/
 void	ft_execute(t_parc *node, t_env **env)
 {
 	pid_t	c_pid;
 	int		status;
 	int		fd0_before;
 	int		fd1_before;
-	/*
-	check if from PATH or from builtins or cmd == NULL -> execute
-	*/
+
+	fd0_before = dup(0);
+	fd1_before = dup(1);
 	if (node->cmd == NULL)
-	{	//redirs if there is + save before stdout&stdin???
+	{
 		ft_redirections(node);
 	}
 	else if (if_builtin(node->cmd) == 0)
 	{
-		//redirs if there is + save before stdout&stdin
-		fd0_before = dup(0);
-		fd1_before = dup(1);
 		ft_redirections(node);
 		execute_builtin(node, env);
-		dup2(fd0_before, 0);
-		dup2(fd1_before, 1);
 	}
 	else
 	{
-		//redirs if there is
-		fd0_before = dup(0);
-		fd1_before = dup(1);
 		ft_redirections(node);
 		c_pid = fork();
 		if (c_pid == 0)
@@ -96,10 +91,9 @@ void	ft_execute(t_parc *node, t_env **env)
 		{
 			perror("Forking failed");
 		}
-		dup2(fd0_before, 0);
-		dup2(fd1_before, 1);
-		//executor_func(node, env);
 	}
+	dup2(fd0_before, 0);
+	dup2(fd1_before, 1);
 
 	/*Here examples: 
 	ls -l | grep mini | wc -l

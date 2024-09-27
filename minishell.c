@@ -22,7 +22,7 @@ int	cmd_processing(char *s, t_env **env)
 
 	lexer(&token, s);
 	parcer(&token, &parc, env);
-	if (parc && ft_strcmp(parc->cmd, "./minishell") == 0)//check if the cmd is minishell
+	if (parc && parc->cmd != NULL && ft_strcmp(parc->cmd, "./minishell") == 0)//check if the cmd is minishell
 	{
 		run_2nd_minishell(parc, env);
 	}
