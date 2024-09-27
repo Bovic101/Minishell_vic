@@ -26,7 +26,8 @@ int	cmd_processing(char *s, t_env **env)
 	{
 		run_2nd_minishell(parc, env);
 	}
-	main_pipe_proc(&parc, env); //handle pipes & exec cmd in child process
+	start_execute(&parc, env);
+	//main_pipe_proc(&parc, env); //handle pipes & exec cmd in child process
 	freeall(&token, &parc);
 	return (0);
 }
