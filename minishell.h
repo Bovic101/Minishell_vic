@@ -79,6 +79,7 @@ typedef struct s_parc
 	struct s_redirect	*redirs_out;
 	int					fd_0; //read
 	int					fd_1; //write
+	char				*hdoc;
 	struct s_parc		*next;
 }	t_parc;
 
@@ -147,7 +148,7 @@ void		ft_free_history(t_history	**history);
 void		ft_history_print(t_history **history);
 */
 //execution part:
-int			main_pipe_proc(t_parc **parc, t_env **env);
+//int			main_pipe_proc(t_parc **parc, t_env **env);
 int			execute_builtin(t_parc *parc, t_env **env);
 int			if_builtin(char *cmd); // func returns 0 if cmd is builtin
 char		**arg_to_array_converter(t_arg *arg, char *command);
@@ -177,14 +178,11 @@ void		exe_export(t_parc *node, t_env **env);
 void		exe_pwd(t_env **env);
 void		exe_unset(t_parc *node, t_env **env);
 //redirections
-int			ft_redirections(t_parc **parc);
-int			redir_out(t_parc *node);
-int			redir_in(t_parc *node);
-t_redirect	*ft_redir_last(t_redirect *r);
-int			redirections_in(t_parc **parc);
-char		*ft_hdoc(char *s_end);
-int 		redir_in_hdoc(char *hdoc);
-int redir_in_file(t_parc *node);
-t_parc	*ft_plst_last(t_parc *p);
-int	redirections_out(t_parc **parc);
+int			save_all_hdoc(t_parc **parc);
+int			ft_redirections(t_parc *node);
+int 		redir_out(t_parc *node);
+int 		redir_in(t_parc *node);
+
+int			start_execute(t_parc **parc, t_env **env);
+void		ft_execute(t_parc *node, t_env **env);
 #endif
