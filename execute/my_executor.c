@@ -6,14 +6,15 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:19:40 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/15 14:44:37 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/27 21:57:05 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/*function to convert cmd args & env in the linked list to array
- *find cmd path & exec
+/*
+ * Function to execute external commands by converting arguments and env to arrays
+ * Finds the full path of the command and then executes it.
  */
 void	executor_func(t_parc *command, t_env **env)
 {
@@ -30,24 +31,27 @@ void	executor_func(t_parc *command, t_env **env)
 		free(env_list);
 		exit(EXIT_FAILURE);
 	}
-	command_path = command_fullpath_finder(command->cmd, env);
-		// Find the full path of the command
-	if (command_path == NULL)
+	if (command->cmd[0] == '/' || command->cmd[0] == '.') // If the command is absolute/relative path
 	{
-		handle_error_msg(command->cmd);
-		free(argv);
-		free(env_list);
-		return ;
+		command_path = ft_strdup(command->cmd);
 	}
-	if (execve(command_path, argv, env_list) == -1)
-		// Execute the command using execve()
+	else
 	{
-		perror("execve failed");
-		free(argv);
-		free(env_list);
-		free(command_path);
-		exit(EXIT_FAILURE); // Only the child process should exit
+		command_path = command_fullpath_finder(command->cmd, env); // Find the full path of the cmd in the PATH environment var
 	}
+	if (command_path != NULL && access(command_path, X_OK) == 0)// If the command path was found, it's executable
+	{
+		if (execve(command_path, argv, env_list) == -1)
+		{
+			perror("execve failed");
+			free(argv);
+			free(env_list);
+			free(command_path);
+			exit(EXIT_FAILURE); //child process should exit
+		}
+	}
+	else
+		handle_error_msg(command->cmd);// if cmd not found
 	free(argv);
 	free(env_list);
 	free(command_path);

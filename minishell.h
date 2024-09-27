@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/23 12:37:47 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/27 20:45:53 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,6 @@ int			save_all_hdoc(t_parc **parc);
 int			ft_redirections(t_parc *node);
 int 		redir_out(t_parc *node);
 int 		redir_in(t_parc *node);
-
 int			start_execute(t_parc **parc, t_env **env);
 void		ft_execute(t_parc *node, t_env **env);
 #endif

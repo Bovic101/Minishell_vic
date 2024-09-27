@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/24 23:18:48 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/27 22:07:17 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	cmd_processing(char *s, t_env **env)
 	if (parc && ft_strcmp(parc->cmd, "./minishell") == 0)//check if the cmd is minishell
 	{
 		run_2nd_minishell(parc, env);
+		freeall(&token, &parc);
+		return(0);
 	}
 	start_execute(&parc, env);
 	//main_pipe_proc(&parc, env); //handle pipes & exec cmd in child process
