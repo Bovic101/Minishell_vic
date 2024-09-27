@@ -12,64 +12,6 @@
 
 #include "../minishell.h"
 
-/*
-Function heredoc
-*/
-char	*ft_hdoc(char *s_end)
-{
-	char	*value;
-	char	*s;
-
-	s = NULL;
-	value = NULL;
-	value = malloc(1);
-	if (!value)
-		return (NULL);
-	value[0] = '\0';
-	while (1)
-	{
-		s = readline("> ");
-		if (s != NULL)
-		{
-			if (ft_strcmp(s, s_end) != 0)
-			{
-				//if (ft_strlen(value) != 0)
-					//value = ft_wordjoin(value, "\n");
-				value = ft_wordjoin(value, s);
-				value = ft_wordjoin(value, "\n");
-				free(s);
-			}
-			else
-			{
-				free(s);
-				break ;
-			}
-		}
-	}
-	return (value);
-}
-
-char	*save_last_hdoc(t_parc *node)
-{
-	t_redirect	*r_in;
-	char		*value;
-
-	value = NULL;
-	r_in = node->redirs_in;
-	while (r_in)
-	{
-		if (ft_strcmp(r_in->rtype, "<<") == 0)
-		{
-			if (value != NULL)
-				free(value);
-			value = ft_hdoc(r_in->rfile);
-			//printf("hdoc: %s |\n", value);
-		}
-		r_in = r_in->next;
-	}
-	return (value);
-}
-
 int redir_in_hdoc(char *hdoc)
 {
 	int	fd_h[2];
@@ -86,11 +28,11 @@ int redir_in_hdoc(char *hdoc)
 	return (0);
 }
 
-int redir_in_file(t_parc *node)
+int redir_in(t_parc *node)
 {
 	t_redirect  *r_in;
 	int         fd_file;
-	int         err_close;
+	//int         err_close;
 
 	r_in = node->redirs_in;
 	while (r_in)
@@ -100,24 +42,30 @@ int redir_in_file(t_parc *node)
 			fd_file = open(r_in->rfile, O_RDONLY, 0664);
 			if (fd_file == -1)
 			{
-				printf("no such file or directory: filename\n");
+				write(2, "no such file or directory\n", 26); //err print
 				return (-1); //err handling
 			}
 			if (r_in->next == NULL)
 				dup2(fd_file, 0);
-			err_close = close(fd_file);
-			if (err_close == -1)
+			close(fd_file);
+			/*if (err_close == -1)
 			{
 				printf("Error to close\n");
 				return (-1); //err handling
-			}
+			}*/
+		}
+		else
+		{
+			if (r_in->next == NULL)
+				redir_in_hdoc(node->hdoc);
+			//+err handler
 		}
 		r_in = r_in->next;
 	}
 	return (0);
 }
 
-
+/*
 int	redir_in(t_parc *node)
 {
 	char		*hdoc;
@@ -139,3 +87,5 @@ int	redir_in(t_parc *node)
 		return (-1);
 	return (0);
 }
+*/
+

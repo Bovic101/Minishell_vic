@@ -16,22 +16,6 @@
  * Function to create pipes between child proces
  */
 
-void	ft_execute(t_parc *node, t_env **env)
-{
-	/*
-	check if from PATH or from builtins -> execute
-	!add if cmd == NULL
-	*/
-	if (if_builtin(node->cmd) == 0)
-		execute_builtin(node, env);
-	else
-		executor_func(node, env);
-
-	/*Here examples: 
-	ls -l | grep mini | wc -l
-	env | wc -l
-	*/
-}
 void	pipe_util(t_parc *node)
 {
 	int	fd[2];
@@ -89,12 +73,12 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 		{
 			if (i == 0)
 			{
-				if (node->redirs_out != NULL)
-				{
+				//if (node->redirs_out != NULL)
+				//{
 					//write(2, "!\n", 2);
-					redir_out(node);
-				}
-				else
+					//redir_out(node);
+				//}
+				//else
 					dup2(node->fd_1, 1);
 				close_fds(parc);
 				ft_execute(node, env);
@@ -103,8 +87,8 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 			else if (i == ncount - 1)
 			{
 				dup2(prev->fd_0, 0);
-				if (node->redirs_out != NULL)
-					redir_out(node);
+				//if (node->redirs_out != NULL)
+					//redir_out(node);
 				close_fds(parc);
 				ft_execute(node, env);
 				return (0);
@@ -112,9 +96,9 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 			else
 			{
 				dup2(prev->fd_0, 0);
-				if (node->redirs_out != NULL)
-					redir_out(node);
-				else
+				//if (node->redirs_out != NULL)
+					//redir_out(node);
+				//else
 					dup2(node->fd_1, 1);
 				close_fds(parc);
 				ft_execute(node, env);
@@ -130,9 +114,8 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 	waitpid(pid, NULL, 0);
 	return (0);
 }
-
-
-int	main_pipe_proc(t_parc **parc, t_env **env)
+/*
+int	main_pipe_proc(t_parc **parc, t_env **env)  //remove
 {
 	pid_t	c_pid;
 	int		status;
@@ -177,6 +160,51 @@ int	main_pipe_proc(t_parc **parc, t_env **env)
 		{
 			//ft_redirections(parc);
 			redirections_in(parc);
+			execute_proces(parc, env, ncount);
+			exit(0);
+		}
+		else if (c_pid > 0)
+		{
+			waitpid(c_pid, &status, 0);
+		}
+		else
+		{
+			perror("Forking failed");
+		}
+	}
+	return (0);
+}
+*/
+void	print_all_hdoc(t_parc **parc) //remove -> tmp to print last hdocs
+{
+	t_parc *node;
+
+	node = *parc;
+	while (node)
+	{
+		printf("%s: %s\n", node->cmd, node->hdoc);
+		node = node->next;
+	}	
+}
+
+int	start_execute(t_parc **parc, t_env **env)
+{
+	int ncount;
+	pid_t	c_pid;
+	int		status;
+	
+	save_all_hdoc(parc);
+	//print_all_hdoc(parc);
+	ncount = ft_size_parc(*parc);
+	if (ncount == 1)
+	{
+		ft_execute(parc[0], env);
+	}
+	else
+	{
+		c_pid = fork();  //if needed??
+		if (c_pid == 0)
+		{
 			execute_proces(parc, env, ncount);
 			exit(0);
 		}

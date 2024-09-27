@@ -52,3 +52,58 @@ int	execute_builtin(t_parc *node, t_env **env)
 		//exe_exit(node, env);
 		return (0);
 }
+
+void	ft_execute(t_parc *node, t_env **env)
+{
+	pid_t	c_pid;
+	int		status;
+	int		fd0_before;
+	int		fd1_before;
+	/*
+	check if from PATH or from builtins or cmd == NULL -> execute
+	*/
+	if (node->cmd == NULL)
+	{	//redirs if there is + save before stdout&stdin???
+		ft_redirections(node);
+	}
+	else if (if_builtin(node->cmd) == 0)
+	{
+		//redirs if there is + save before stdout&stdin
+		fd0_before = dup(0);
+		fd1_before = dup(1);
+		ft_redirections(node);
+		execute_builtin(node, env);
+		dup2(fd0_before, 0);
+		dup2(fd1_before, 1);
+	}
+	else
+	{
+		//redirs if there is
+		fd0_before = dup(0);
+		fd1_before = dup(1);
+		ft_redirections(node);
+		c_pid = fork();
+		if (c_pid == 0)
+		{
+			executor_func(node, env);
+			exit(0);
+		}
+		else if (c_pid > 0)
+		{
+			waitpid(c_pid, &status, 0);
+		}
+		else
+		{
+			perror("Forking failed");
+		}
+		dup2(fd0_before, 0);
+		dup2(fd1_before, 1);
+		//executor_func(node, env);
+	}
+
+	/*Here examples: 
+	ls -l | grep mini | wc -l
+	env | wc -l
+	pwd | echo "abc" klm "$PWD"
+	*/
+}

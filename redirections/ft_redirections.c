@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
+/*
 //<< && <
 int	redirections_in(t_parc **parc)
 {
@@ -77,35 +77,21 @@ int	redirections_out(t_parc **parc)
 	}
 	return (0);
 }
-
-int	ft_redirections(t_parc **parc)
+*/
+int	ft_redirections(t_parc *node)
 {
-	t_parc	*node;
-	int		ret_inr;
+	//int		ret_inr;
 
 	//<< && <
-	node = *parc;
-	ret_inr = 0;
-	while (node)
+	//ret_inr = 0;
+	if (node->redirs_in != NULL)
 	{
-		if (node->redirs_in != NULL)
-		{
-			ret_inr = redir_in(node);
-		}
-		node = node->next;
+		redir_in(node);
 	}
-	//printf("ret_inr = %d\n", ret_inr);
 	//>> && >
-	node = *parc;
-	while (node)
+	if (node->redirs_out != NULL)
 	{
-		if (node->redirs_out != NULL)
-		{
-			redir_out(node);
-		}
-		node = node->next;
+		redir_out(node);
 	}
-	if (ret_inr == -1)
-		return (-1);
 	return (0);
 }
