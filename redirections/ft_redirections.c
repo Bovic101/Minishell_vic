@@ -80,13 +80,14 @@ int	redirections_out(t_parc **parc)
 */
 int	ft_redirections(t_parc *node)
 {
-	//int		ret_inr;
+	//int	return_in;
+	//int	return_out;
 
 	//<< && <
-	//ret_inr = 0;
 	if (node->redirs_in != NULL)
 	{
-		redir_in(node);
+		if (redir_in(node) != 0)
+			return (-1);
 	}
 	//>> && >
 	if (node->redirs_out != NULL)

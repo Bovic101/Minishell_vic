@@ -71,25 +71,27 @@ void	ft_execute(t_parc *node, t_env **env)
 	}
 	else if (if_builtin(node->cmd) == 0)
 	{
-		ft_redirections(node);
-		execute_builtin(node, env);
+		if (ft_redirections(node) == 0)
+			execute_builtin(node, env);
 	}
 	else
 	{
-		ft_redirections(node);
-		c_pid = fork();
-		if (c_pid == 0)
+		if (ft_redirections(node) == 0)
 		{
-			executor_func(node, env);
-			exit(0);
-		}
-		else if (c_pid > 0)
-		{
-			waitpid(c_pid, &status, 0);
-		}
-		else
-		{
-			perror("Forking failed");
+			c_pid = fork();
+			if (c_pid == 0)
+			{
+				executor_func(node, env);
+				exit(0);
+			}
+			else if (c_pid > 0)
+			{
+				waitpid(c_pid, &status, 0);
+			}
+			else
+			{
+				perror("Forking failed");
+			}
 		}
 	}
 	dup2(fd0_before, 0);
