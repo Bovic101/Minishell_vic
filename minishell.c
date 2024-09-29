@@ -22,12 +22,13 @@ int	cmd_processing(char *s, t_env **env)
 
 	lexer(&token, s);
 	parcer(&token, &parc, env);
-	if (parc && parc->cmd != NULL && ft_strcmp(parc->cmd, "./minishell") == 0)//check if the cmd is minishell
+	//we don't need this part anymore ?
+	/*if (parc && parc->cmd != NULL && ft_strcmp(parc->cmd, "./minishell") == 0)//check if the cmd is minishell
 	{
 		run_2nd_minishell(parc, env);
 		freeall(&token, &parc);
 		return(0);
-	}
+	}*/
 	start_execute(&parc, env);
 	//main_pipe_proc(&parc, env); //handle pipes & exec cmd in child process
 	freeall(&token, &parc);
