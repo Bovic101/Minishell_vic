@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 12:27:29 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:13:33 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,11 @@ void		lexer(t_token **token, char *s);
 t_token		*ft_lst_new(int len, char *ptr, enum e_tokentype type);
 void		ft_lst_add_back(t_token **token, t_token *new);
 void		ft_lst_print(t_token **token);
-//free memory: token, parc
+//free memory: token, parc, env
 void		freeall(t_token **token, t_parc **parc);
+void		ft_free_token(t_token **token);
+void		ft_free_parc(t_parc **parc);
+void		ft_free_env(t_env	**env);
 //parcer in lex_parc
 //void		parcer(t_token **token, t_parc **parc, t_env **env);
 void		parcer(t_token **token, t_parc **parc, \
@@ -133,7 +136,6 @@ void		ft_env_sort_declare(t_env *env);
 void		add_env(char *key, char *value, t_env **env);
 void		add_set_env(char *key, char *value, t_env **env);
 int			ft_strcmp(char *s1, char *s2);
-void		ft_free_env(t_env	**env);
 //return value of the key-variable from env
 char		*get_value(char *key, t_env **env);
 //set a new value to env (new_value must be allocated)
@@ -178,8 +180,9 @@ int			ft_redirections(t_parc *node);
 int			redir_out(t_parc *node);
 int			redir_in(t_parc *node);
 int			start_execute(t_parc **parc, t_env **env);
-void		ft_execute(t_parc *node, t_env **env);
+int			ft_execute(t_parc *node, t_env **env);
 //errors and exit status
 void		save_exit_status_parc(t_parc **parc, int *exit_status);
 void		print_error_msg(char *cmd, char *arg, char *msg);
+int			exit_mini(t_parc **parc, t_env **env);
 #endif
