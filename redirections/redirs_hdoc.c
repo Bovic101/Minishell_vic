@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs_hdoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 20:48:49 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/27 20:48:50 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:35:39 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ char	*save_last_hdoc(t_parc *node)
 }
 
 /*
-    redirections <<
-    saves all last hdoc for every node in node->hdoc (structutr parc)
-    if there is no <<, saves NULL
+	redirections <<
+	saves all last hdoc for every node in node->hdoc (structutr parc)
+	if there is no <<, saves NULL
 */
 int	save_all_hdoc(t_parc **parc)
 {
@@ -86,10 +86,10 @@ int	save_all_hdoc(t_parc **parc)
 	while (node)
 	{
 		if (node->redirs_in != NULL)
-            node->hdoc = save_last_hdoc(node);
-        else
-            node->hdoc = NULL;
+			node->hdoc = save_last_hdoc(node);
+		else
+			node->hdoc = NULL;
 		node = node->next;
 	}
-    return (0);
+	return (0);
 }

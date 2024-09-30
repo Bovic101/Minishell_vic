@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:30:32 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/23 17:01:44 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:34:50 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,27 +65,4 @@ int redir_in(t_parc *node)
 	return (0);
 }
 
-/*
-int	redir_in(t_parc *node)
-{
-	char		*hdoc;
-	t_redirect	*last;
-
-	hdoc = save_last_hdoc(node);
-	//printf("%s", hdoc);
-	//printf("|\n");
-	last = ft_redir_last(node->redirs_in);
-	//printf("last type: %s\n", last->rtype);
-	if (ft_strcmp(last->rtype, "<<") == 0)
-	{
-		redir_in_hdoc(hdoc);
-		free(hdoc);
-	}
-	else
-		free(hdoc);
-	if (redir_in_file(node) == -1)
-		return (-1);
-	return (0);
-}
-*/
 
