@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 11:40:30 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:11:57 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	cmd_processing(char *s, t_env **env, int *exit_status)
 
 	lexer(&token, s);
 	parcer(&token, &parc, env, exit_status);
+	ft_free_token(&token);
 	//ft_plst_print(&parc);
 	//we don't need this part anymore ?
 	/*if (parc && parc->cmd != NULL && ft_strcmp(parc->cmd, "./minishell") == 0)//check if the cmd is minishell
@@ -31,7 +32,7 @@ int	cmd_processing(char *s, t_env **env, int *exit_status)
 		return(0);
 	}*/
 	start_execute(&parc, env);
-	freeall(&token, &parc);
+	ft_free_parc(&parc);
 	return (0);
 }
 
