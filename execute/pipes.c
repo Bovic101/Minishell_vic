@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/26 12:49:39 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:36:55 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,67 +114,7 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 	waitpid(pid, NULL, 0);
 	return (0);
 }
-/*
-int	main_pipe_proc(t_parc **parc, t_env **env)  //remove
-{
-	pid_t	c_pid;
-	int		status;
-	int		fd0_before;
-	int		fd1_before;
-	// check if cmd exist -> if cmd not found - > err
-	int ncount = ft_size_parc(*parc);
-	if (ncount == 1)
-	{
-		if (if_builtin((*parc)->cmd) == 0)
-		{
-			fd0_before = dup(0);
-			fd1_before = dup(1);
-			ft_redirections(parc);
-			execute_builtin(*parc, env);
-			dup2(fd0_before, 0);
-			dup2(fd1_before, 1);
-		}
-		else
-		{
-			c_pid = fork();
-			if (c_pid == 0)
-			{
-				ft_redirections(parc);
-				executor_func(*parc, env);
-				exit(0);
-			}
-			else if (c_pid > 0)
-			{
-				waitpid(c_pid, &status, 0);
-			}
-			else
-			{
-				perror("Forking failed");
-			}
-		}
-	}
-	else
-	{
-		c_pid = fork();
-		if (c_pid == 0)
-		{
-			//ft_redirections(parc);
-			redirections_in(parc);
-			execute_proces(parc, env, ncount);
-			exit(0);
-		}
-		else if (c_pid > 0)
-		{
-			waitpid(c_pid, &status, 0);
-		}
-		else
-		{
-			perror("Forking failed");
-		}
-	}
-	return (0);
-}
-*/
+
 void	print_all_hdoc(t_parc **parc) //remove -> tmp to print last hdocs
 {
 	t_parc *node;
