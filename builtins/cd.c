@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:44:06 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/20 22:28:38 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:23:10 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	exe_cd(t_parc *node, t_env **env)
+int	exe_cd(t_parc *node, t_env **env)
 {
 	char	*cur_pwd;
 	char	buf[PATH_MAX];
@@ -25,14 +25,15 @@ void	exe_cd(t_parc *node, t_env **env)
 		res = chdir(node->args->value);
 	if (res == 0)
 	{
-		//printf("pwd buf: %s\n", getcwd(buf, sizeof(buf)));
-		//printf("pwd before: %s\n", get_value("PWD", env));
-		set_value("PWD", getcwd(buf, sizeof(buf)), env);  //allocate? what return getcwd - err?
-		//printf("pwd after: %s\n", get_value("PWD", env));
-		//printf("old after: %s\n", get_value("OLDPWD", env));
-		set_value("OLDPWD", cur_pwd, env);
-		//printf("old after: %s\n", get_value("OLDPWD", env));
+		//what return getcwd - err?
+		set_value("OLDPWD", ft_strdup(cur_pwd), env);
+		set_value("PWD", ft_strdup(getcwd(buf, sizeof(buf))), env);
 	}
 	else
-		return ; //err hanling (file not found,..)
+	{
+		print_error_msg(node->cmd, node->args->value, \
+			"No such file or directory");
+		return (res);
+	}
+	return (res);
 }
