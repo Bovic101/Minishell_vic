@@ -6,13 +6,13 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 10:45:58 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:40:30 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cmd_processing(char *s, t_env **env)
+int	cmd_processing(char *s, t_env **env, int *exit_status)
 {
 	t_token	*token;
 	t_parc	*parc;
@@ -21,7 +21,8 @@ int	cmd_processing(char *s, t_env **env)
 	parc = NULL;
 
 	lexer(&token, s);
-	parcer(&token, &parc, env);
+	parcer(&token, &parc, env, exit_status);
+	//ft_plst_print(&parc);
 	//we don't need this part anymore ?
 	/*if (parc && parc->cmd != NULL && ft_strcmp(parc->cmd, "./minishell") == 0)//check if the cmd is minishell
 	{
@@ -39,8 +40,10 @@ int	main(int argc, char **argv, char **envp)
 	char		*s;
 	t_env		*env;
 	int			loop_condition;
+	int			exit_status;
 
 	loop_condition = 0;
+	exit_status = 0;
 	(void)argc;
 	(void)argv;
 	env = NULL;
@@ -69,10 +72,10 @@ int	main(int argc, char **argv, char **envp)
 				loop_condition = 1;
 				continue ;
 			}
-			cmd_processing(s, &env);
+			cmd_processing(s, &env, &exit_status);
 		}
 		free(s);
 	}
 	ft_free_env(&env);
-	return (0);
+	return (exit_status);
 }
