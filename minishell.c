@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/27 22:07:17 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:45:58 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	cmd_processing(char *s, t_env **env)
 		return(0);
 	}*/
 	start_execute(&parc, env);
-	//main_pipe_proc(&parc, env); //handle pipes & exec cmd in child process
 	freeall(&token, &parc);
 	return (0);
 }
@@ -39,14 +38,12 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*s;
 	t_env		*env;
-	//t_history	*history;
 	int			loop_condition;
 
 	loop_condition = 0;
 	(void)argc;
 	(void)argv;
 	env = NULL;
-	//history = NULL;
 	save_environment(envp, &env);
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
@@ -64,9 +61,8 @@ int	main(int argc, char **argv, char **envp)
 			if (unclosed_quote_checker(s) != 0) //check unclosed quote before cmd processing
 			{
 				free(s);
-				continue;
+				continue ;
 			}
-			
 			if (ft_strcmp(s, "exit") == 0)
 			{
 				free(s);
@@ -78,6 +74,5 @@ int	main(int argc, char **argv, char **envp)
 		free(s);
 	}
 	ft_free_env(&env);
-	//ft_free_history(&history);
 	return (0);
 }
