@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:43:58 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/20 11:48:24 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:26:56 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	right_varname_u(char *str)
 	return (0);
 }
 
-void	exe_unset(t_parc *node, t_env **env)
+int	exe_unset(t_parc *node, t_env **env)
 {
 	t_arg	*arg;
 
@@ -59,4 +59,5 @@ void	exe_unset(t_parc *node, t_env **env)
 	}
 	//ft_env_sort_declare(*env);
 	//ft_env_print(env);
+	return (0);
 }
