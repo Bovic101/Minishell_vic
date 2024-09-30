@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 12:39:13 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:30:35 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ int	execute_builtin(t_parc *node, t_env **env)
 	if (return_status == 0)
 		return (0);
 	else
-		return (-1);
+		return (1);
 }
 
 /*
 	check if from PATH or from builtins or cmd == NULL -> execute
 */
-void	ft_execute(t_parc *node, t_env **env)
+int	ft_execute(t_parc *node, t_env **env)
 {
 	pid_t	c_pid;
 	int		status;
@@ -73,16 +73,18 @@ void	ft_execute(t_parc *node, t_env **env)
 	fd1_before = dup(1);
 	if (node->cmd == NULL)
 	{
-		ft_redirections(node);
+		status = ft_redirections(node);
 	}
 	else if (if_builtin(node->cmd) == 0)
 	{
-		if (ft_redirections(node) == 0)
-			execute_builtin(node, env);
+		status = ft_redirections(node);
+		if (status == 0)
+			status = execute_builtin(node, env);
 	}
 	else
 	{
-		if (ft_redirections(node) == 0)
+		status = ft_redirections(node);
+		if (status == 0)
 		{
 			c_pid = fork();
 			if (c_pid == 0)
@@ -96,16 +98,18 @@ void	ft_execute(t_parc *node, t_env **env)
 			}
 			else
 			{
+				//free before, exit?
 				perror("Forking failed");
 			}
 		}
 	}
 	dup2(fd0_before, 0);
 	dup2(fd1_before, 1);
+	return (status);
+}
 
-	/*Here examples: 
+/*Here examples: 
 	ls -l | grep mini | wc -l
 	env | wc -l
 	pwd | echo "abc" klm "$PWD"
 	*/
-}
