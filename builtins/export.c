@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:44:01 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 12:26:17 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:01:12 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int	exe_export(t_parc *node, t_env **env)
 	t_arg	*arg;
 	int		len;
 	int		fl;
+	int		return_status;
 
+	return_status = 0;
 	if (node->args == NULL)
 		ft_env_sort_declare(*env);
 	else
@@ -68,15 +70,12 @@ int	exe_export(t_parc *node, t_env **env)
 			}
 			else
 			{
-				perror("export not a valid identifier\n");
-				//write(2, "msg", len);
-				//printf("export: `%s': not a valid identifier\n", arg->value);
-				//err handler
+				print_error_msg(node->cmd, arg->value, \
+					"not a valid identifier");
+				return_status = 1;
 			}
 			arg = arg->next;
 		}
-		//ft_env_sort_declare(*env);
-		//ft_env_print(env);
 	}
-	return (0);
+	return (return_status);
 }

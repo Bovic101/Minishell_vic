@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:43:58 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 12:26:56 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:42:15 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ int	right_varname_u(char *str)
 int	exe_unset(t_parc *node, t_env **env)
 {
 	t_arg	*arg;
+	int		return_status;
 
+	return_status = 0;
 	if (node->args != NULL)
 	{
 		arg = node->args;
@@ -50,14 +52,12 @@ int	exe_unset(t_parc *node, t_env **env)
 			}
 			else
 			{
-				perror("unset not a valid identifier\n");
-				//printf("export: `%s': not a valid identifier\n", arg->value);
-				//err handler
+				print_error_msg(node->cmd, arg->value, \
+					"not a valid identifier");
+				return_status = 1;
 			}
 			arg = arg->next;
 		}
 	}
-	//ft_env_sort_declare(*env);
-	//ft_env_print(env);
-	return (0);
+	return (return_status);
 }
