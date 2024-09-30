@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:41:54 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/02 14:52:02 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:37:04 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	ft_free_parc(t_parc **parc)
 	while (tmp)
 	{
 		free(tmp->cmd);
+		free(tmp->hdoc);
 		ft_free_args(&tmp->args);
 		ft_free_redirs(&tmp->redirs_in);
 		ft_free_redirs(&tmp->redirs_out);
