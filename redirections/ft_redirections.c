@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:33:30 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 10:34:37 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:56:54 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_redirections(t_parc *node)
 	if (node->redirs_in != NULL)
 	{
 		if (redir_in(node) != 0)
-			return (-1);
+			return (1);
 	}
 	//>> && >
 	if (node->redirs_out != NULL)

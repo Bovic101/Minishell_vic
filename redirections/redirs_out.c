@@ -6,17 +6,16 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:31:15 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/26 11:40:18 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:23:52 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int redir_out(t_parc *node)
+int	redir_out(t_parc *node)
 {
-	t_redirect  *r_out;
-	int         fd_file;
-	int         err_close;
+	t_redirect	*r_out;
+	int			fd_file;
 
 	r_out = node->redirs_out;
 	while (r_out)
@@ -27,17 +26,12 @@ int redir_out(t_parc *node)
 			fd_file = open(r_out->rfile, O_CREAT | O_RDWR | O_TRUNC, 0664);
 		if (fd_file == -1)
 		{
-			printf("Error to open file\n");
-			return (-1); //err handling
+			print_error_msg(NULL, r_out->rfile, "Error opening file");
+			return (1);
 		}
 		if (r_out->next == NULL)
 			dup2(fd_file, 1);
-		err_close = close(fd_file);
-		if (err_close == -1)
-		{
-			printf("Error to close file\n");
-			return (-1); //err handling
-		}
+		close(fd_file);
 		r_out = r_out->next;
 	}
 	return (0);

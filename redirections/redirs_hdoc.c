@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 20:48:49 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/30 10:35:39 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:15:40 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ char	*ft_hdoc(char *s_end)
 		{
 			if (ft_strcmp(s, s_end) != 0)
 			{
-				//if (ft_strlen(value) != 0)
-					//value = ft_wordjoin(value, "\n");
 				value = ft_wordjoin(value, s);
 				value = ft_wordjoin(value, "\n");
 				free(s);
