@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/27 20:45:53 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:27:29 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_parc
 	int					fd_0; //read
 	int					fd_1; //write
 	char				*hdoc;
+	int					*exit_status;
 	struct s_parc		*next;
 }	t_parc;
 
@@ -105,7 +106,9 @@ void		ft_lst_print(t_token **token);
 //free memory: token, parc
 void		freeall(t_token **token, t_parc **parc);
 //parcer in lex_parc
-void		parcer(t_token **token, t_parc **parc, t_env **env);
+//void		parcer(t_token **token, t_parc **parc, t_env **env);
+void		parcer(t_token **token, t_parc **parc, \
+				t_env **env, int *exit_status);
 t_parc		*ft_plst_new(char *cmd, t_arg *args, \
 				t_redirect *redirs_in, t_redirect *redirs_out);
 void		ft_plst_add_back(t_parc **parc, t_parc *new);
@@ -139,14 +142,6 @@ void		set_value(char *key, char *new_value, t_env **env);
 void		remove_node(char *key, t_env **env);
 //find key in env: 1-found, 0-not found
 int			find_key_env(char *key, t_env **env);
-//funtions for the history of commands:
-/*
-void		save_history(char *s, t_history **history);
-t_history	*ft_history_new(char *rvalue);
-void		ft_history_add_back(t_history **lst, t_history *new);
-void		ft_free_history(t_history	**history);
-void		ft_history_print(t_history **history);
-*/
 //execution part:
 //int			main_pipe_proc(t_parc **parc, t_env **env);
 int			execute_builtin(t_parc *parc, t_env **env);
@@ -172,16 +167,19 @@ void		sigint_handler(int signal);
 void		sigquit_handler(int signal);
 //builtin
 int			exe_echo(t_parc *node);
-void		exe_cd(t_parc *node, t_env **env);
-void		exe_env(t_env **env);
-void		exe_export(t_parc *node, t_env **env);
-void		exe_pwd(t_env **env);
-void		exe_unset(t_parc *node, t_env **env);
+int			exe_cd(t_parc *node, t_env **env);
+int			exe_env(t_env **env);
+int			exe_export(t_parc *node, t_env **env);
+int			exe_pwd(t_env **env);
+int			exe_unset(t_parc *node, t_env **env);
 //redirections
 int			save_all_hdoc(t_parc **parc);
 int			ft_redirections(t_parc *node);
-int 		redir_out(t_parc *node);
-int 		redir_in(t_parc *node);
+int			redir_out(t_parc *node);
+int			redir_in(t_parc *node);
 int			start_execute(t_parc **parc, t_env **env);
 void		ft_execute(t_parc *node, t_env **env);
+//errors and exit status
+void		save_exit_status_parc(t_parc **parc, int *exit_status);
+void		print_error_msg(char *cmd, char *arg, char *msg);
 #endif
