@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 15:30:35 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:03:49 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	if_builtin(char *cmd)
 		return (0);
 	if (ft_strcmp(cmd, "env") == 0)
 		return (0);
-	//if (ft_strcmp(cmd, "exit") == 0)
-		//return (0);
+	if (ft_strcmp(cmd, "exit") == 0)
+		return (0);
 	return (1);
 }
 
@@ -51,13 +51,16 @@ int	execute_builtin(t_parc *node, t_env **env)
 		return_status = exe_unset(node, env);
 	else if (ft_strcmp(node->cmd, "env") == 0)
 		return_status = exe_env(env);
-	//else if (ft_strcmp(node->cmd, "exit") == 0)
+	else if (ft_strcmp(node->cmd, "exit") == 0)
+		return (0);
 		//exe_exit(node, env);
 	if (return_status == 0)
 		return (0);
 	else
 		return (1);
 }
+
+
 
 /*
 	check if from PATH or from builtins or cmd == NULL -> execute
@@ -87,7 +90,13 @@ int	ft_execute(t_parc *node, t_env **env)
 		if (status == 0)
 		{
 			c_pid = fork();
-			if (c_pid == 0)
+			if (c_pid < 0)
+			{
+				print_error_msg(NULL, NULL, "Forking error");
+				//return (-1);
+				status = -1;
+			}
+			else if (c_pid == 0)
 			{
 				executor_func(node, env);
 				exit(0);
@@ -96,11 +105,6 @@ int	ft_execute(t_parc *node, t_env **env)
 			{
 				waitpid(c_pid, &status, 0);
 			}
-			else
-			{
-				//free before, exit?
-				perror("Forking failed");
-			}
 		}
 	}
 	dup2(fd0_before, 0);
@@ -108,8 +112,3 @@ int	ft_execute(t_parc *node, t_env **env)
 	return (status);
 }
 
-/*Here examples: 
-	ls -l | grep mini | wc -l
-	env | wc -l
-	pwd | echo "abc" klm "$PWD"
-	*/
