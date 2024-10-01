@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/01 15:59:43 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:11:35 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct s_parc
 	int					fd_0; //read
 	int					fd_1; //write
 	char				*hdoc;
-	int					*exit_status;
 	struct s_parc		*next;
 }	t_parc;
 
@@ -93,6 +92,7 @@ $? - status of the most recently executed pipeline
 
 typedef struct s_env
 {
+	int				*exit_status;
 	char			*key;
 	char			*value;
 	struct s_env	*next;
@@ -110,8 +110,7 @@ void		ft_free_parc(t_parc **parc);
 void		ft_free_env(t_env	**env);
 //parcer in lex_parc
 //void		parcer(t_token **token, t_parc **parc, t_env **env);
-void		parcer(t_token **token, t_parc **parc, \
-				t_env **env, int *exit_status);
+void		parcer(t_token **token, t_parc **parc, t_env **env);
 t_parc		*ft_plst_new(char *cmd, t_arg *args, \
 				t_redirect *redirs_in, t_redirect *redirs_out);
 void		ft_plst_add_back(t_parc **parc, t_parc *new);
@@ -125,7 +124,7 @@ void		add_args(char *value, t_arg **args);
 void		ft_arg_print(t_arg **args);
 char		*ft_strndup(const char *str, size_t n);
 //environment
-void		save_environment(char **envp, t_env **env);
+void		save_environment(char **envp, t_env **env, int *exit_status);
 t_env		*ft_env_new(char *key, char *value);
 void		ft_env_add_back(t_env **lst, t_env *new);
 //to print env
@@ -182,7 +181,5 @@ int			redir_in(t_parc *node);
 int			start_execute(t_parc **parc, t_env **env);
 int			ft_execute(t_parc *node, t_env **env);
 //errors and exit status
-void		save_exit_status_parc(t_parc **parc, int *exit_status);
 void		print_error_msg(char *cmd, char *arg, char *msg);
-int			exit_mini(t_parc **parc, t_env **env);
 #endif
