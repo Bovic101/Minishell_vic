@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:41:54 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 15:32:40 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:58:31 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void	ft_free_parc(t_parc **parc)
 	*parc = NULL;
 }
 
-void	freeall(t_token **token, t_parc **parc)
+void	freeall(t_env **env, t_parc **parc)
 {
-	ft_free_token(token);
+	ft_free_env(env);
 	ft_free_parc(parc);
 }
