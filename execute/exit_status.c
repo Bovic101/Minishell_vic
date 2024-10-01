@@ -6,12 +6,12 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:35:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 16:14:05 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:10:16 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
+/*
 void	save_exit_status_parc(t_parc **parc, int *exit_status)
 {
 	t_parc	*node;
@@ -23,6 +23,7 @@ void	save_exit_status_parc(t_parc **parc, int *exit_status)
 		node = node->next;
 	}
 }
+*/
 
 void	print_error_msg(char *cmd, char *arg, char *msg)
 {
@@ -41,9 +42,11 @@ void	print_error_msg(char *cmd, char *arg, char *msg)
 	write(2, "\n", 1);
 }
 
+/*
 int	exit_mini(t_parc **parc, t_env **env)
 {
 	ft_free_parc(parc);
 	ft_free_env(env);
 	exit(1);
 }
+*/

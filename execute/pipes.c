@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/01 16:17:17 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:04:35 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,9 @@ int	start_execute(t_parc **parc, t_env **env)
 	{
 		status = execute_proces(parc, env, ncount);
 	}
-	printf("status = %d\n", status);
+	//printf("status = %d\n", status);
 	//save exit status in parc
-	*parc[0]->exit_status = status;
+	*env[0]->exit_status = status;
+	//*parc[0]->exit_status = status;
 	return (0);
 }
