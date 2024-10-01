@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 16:13:33 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:59:43 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_token		*ft_lst_new(int len, char *ptr, enum e_tokentype type);
 void		ft_lst_add_back(t_token **token, t_token *new);
 void		ft_lst_print(t_token **token);
 //free memory: token, parc, env
-void		freeall(t_token **token, t_parc **parc);
+void		freeall(t_env **env, t_parc **parc);
 void		ft_free_token(t_token **token);
 void		ft_free_parc(t_parc **parc);
 void		ft_free_env(t_env	**env);
