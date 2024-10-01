@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 13:22:43 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/15 11:55:22 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:04:26 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ char	*join_parts(char *str, t_env **env, int type)
 	/*
 	if key == "?"
 	$? - status of the most recently executed pipeline
-	-> value of the variable "exit_code" in env
+	-> value of the variable "exit_status" in env
 	*/
 	if (ft_strcmp(key, "?") == 0)
-		value = get_value("_exit_code", env);
+		value = ft_itoa(*env[0]->exit_status); //value = get_value("_exit_code", env);
 	else
 		value = get_value(key, env);
 	if (value == NULL)

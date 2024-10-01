@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:33:46 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 11:35:22 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:13:43 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_token	*save_pipe(t_token *node, char *cmd, t_env **env, t_parc **parc)
 	return (node); /*free redirs, args ?*/
 }
 
-void	parcer(t_token **token, t_parc **parc, t_env **env, int *exit_status)
+void	parcer(t_token **token, t_parc **parc, t_env **env)
 {
 	t_token		*node;
 	char		*cmd;
@@ -95,5 +95,5 @@ void	parcer(t_token **token, t_parc **parc, t_env **env, int *exit_status)
 			node = node->next;
 		//free cmd ?
 	}
-	save_exit_status_parc(parc, exit_status);
+	//save_exit_status_parc(parc, exit_status);
 }

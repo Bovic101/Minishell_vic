@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:53:35 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 11:19:30 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:12:47 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_plst_print(t_parc **parc)
 		ft_redir_print(&node->redirs_in);
 		printf("redirs_out:\n");
 		ft_redir_print(&node->redirs_out);
-		printf("exit status: %d\n", *node->exit_status);
+		//printf("exit status: %d\n", *node->exit_status);
 		printf("\n");
 		node = node->next;
 	}
