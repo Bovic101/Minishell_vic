@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_sort_declare.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:38:26 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/01 23:42:40 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:25:14 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	ft_sort_env_print(t_env **env)
 	node = *env;
 	while (node)
 	{
-		if (ft_strcmp(node->key, "_") != 0 \
-			&& ft_strcmp(node->key, "_exit_code") != 0)
+		//if (ft_strcmp(node->key, "_") != 0 \
+			//&& ft_strcmp(node->key, "_exit_code") != 0)
+		if (ft_strcmp(node->key, "_") != 0)
 		{
 			printf("declare -x ");
 			printf("%s", node->key);

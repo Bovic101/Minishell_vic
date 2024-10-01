@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:49:12 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/17 12:10:14 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:25:56 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	add_set_env(char *key, char *value, t_env **env)
 		set_value(key, value, env);
 }
 
-void	add_exitstatus(t_env **env)
+/*void	add_exitstatus(t_env **env)
 {
 	char	*key;
 	char	*value;
@@ -41,7 +41,7 @@ void	add_exitstatus(t_env **env)
 	key = ft_strdup("_exit_code");
 	value = ft_strdup("0");
 	add_env(key, value, env);
-}
+}*/
 
 void	save_env(char **envp, t_env **env)
 {
@@ -69,7 +69,7 @@ void	save_env(char **envp, t_env **env)
 		add_env(key, ft_strndup(ptr, len), env);
 		i++;
 	}
-	add_exitstatus(env);
+	//add_exitstatus(env);
 }
 
 void	save_env_empty(t_env **env)
@@ -83,7 +83,7 @@ void	save_env_empty(t_env **env)
 	value = ft_strjoin(ft_strdup(getcwd(cwd, sizeof(cwd))), \
 		ft_strdup("./minishell"));
 	add_env(ft_strdup("_"), value, env);
-	add_exitstatus(env);
+	//add_exitstatus(env);
 }
 
 void	save_environment(char **envp, t_env **env)

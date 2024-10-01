@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:11:32 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/15 12:02:48 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:24:14 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ void	ft_env_print(t_env **env)
 	node = *env;
 	while (node)
 	{
-		if (node->value != 0 && ft_strcmp(node->key, "_exit_code") != 0)
-		{
+		//if (node->value != 0 && ft_strcmp(node->key, "_exit_code") != 0)
+		//{
 			printf("%s=", node->key);
 			if (ft_strcmp(node->key, "_") == 0)
 				printf("%s\n", "/usr/bin/env");
 			else
 				printf("%s\n", node->value);
-		}
+		//}
 		node = node->next;
 	}
 }
