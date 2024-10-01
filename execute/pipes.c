@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 17:57:33 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:17:17 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 	if (create_pipes(parc) == -1)
 	{
 		print_error_msg(NULL, NULL, "Pipe error");
-		return (-1);
+		freeall(env, parc);
+		exit(1);
 	}
 	while (i < ncount)
 	{
@@ -77,32 +78,30 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 		if (pid < 0)
 		{
 			print_error_msg(NULL, NULL, "Forking error");
-			return (-1);
+			freeall(env, parc);
+			exit(1);
 		}
 		if (pid == 0)
 		{
 			if (i == 0)
 			{
 				dup2(node->fd_1, 1);
-				close_fds(parc);
-				status = ft_execute(node, env);
-				return (status);
 			}
 			else if (i == ncount - 1)
 			{
 				dup2(prev->fd_0, 0);
-				close_fds(parc);
-				status = ft_execute(node, env);
-				return (status);
 			}
 			else
 			{
 				dup2(prev->fd_0, 0);
 				dup2(node->fd_1, 1);
-				close_fds(parc);
-				status = ft_execute(node, env);
-				return (status);
 			}
+			close_fds(parc);
+			status = ft_execute(node, env);
+			freeall(env, parc);
+			if (status == -1)
+				exit(1);
+			exit(status);
 		}
 		prev = node;
 		node = node->next;
@@ -111,9 +110,16 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount)
 	// parent
 	close_fds(parc);
 	waitpid(pid, &status, 0);
+	/*if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else
+	{
+		return (WIFSIGNALED(status)); ??
+	}*/
 	//waitpid(pid, NULL, 0);
 	//printf("status in execute_proc = %d\n", status);
-	return (status);
+	//printf("Failure with status code %d\n", WEXITSTATUS(status));
+	return (WEXITSTATUS(status));
 }
 
 void	print_all_hdoc(t_parc **parc) //remove -> tmp to print last hdocs
@@ -126,33 +132,6 @@ void	print_all_hdoc(t_parc **parc) //remove -> tmp to print last hdocs
 		printf("%s: %s\n", node->cmd, node->hdoc);
 		node = node->next;
 	}
-}
-
-int	execute_pipes(t_parc **parc, t_env **env, int ncount)
-{
-	pid_t	c_pid;
-	int		status;
-	//int		wstatus;
-
-	status = 0;
-	c_pid = fork();
-	if (c_pid < 0)
-	{
-		print_error_msg(NULL, NULL, "Forking error");
-		return (-1);
-	}
-	else if (c_pid == 0)
-	{
-		status = execute_proces(parc, env, ncount);
-		//printf("status from execute_proc = %d\n", status);
-		exit (status);
-	}
-	else
-	{
-		waitpid(c_pid, &status, 0);
-		//printf("wstatus in fork = %d\n", wstatus);
-	}
-	return (status);
 }
 
 int	start_execute(t_parc **parc, t_env **env)
@@ -170,11 +149,10 @@ int	start_execute(t_parc **parc, t_env **env)
 	}
 	else
 	{
-		status = execute_pipes(parc, env, ncount);
+		status = execute_proces(parc, env, ncount);
 	}
+	printf("status = %d\n", status);
 	//save exit status in parc
-	//printf("status = %d\n", status);
-	if (status == -1)
-		exit_mini(parc, env);
+	*parc[0]->exit_status = status;
 	return (0);
 }
