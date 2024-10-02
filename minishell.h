@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/01 18:11:35 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:05:05 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <sys/types.h>//PID
-# include <sys/wait.h>// waitpid
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <fcntl.h>
 # include <stddef.h>
 # include <stdbool.h>
 # include <string.h>
 # include <signal.h>
-#include <limits.h> //used for cd
+# include <limits.h>
 
 enum e_tokentype
 {
@@ -69,6 +69,7 @@ typedef struct s_redirect
 /*
 structure to execute: 
 command - array_struct_of_arguments - array_struct_of_redirection
+fd_0 - read, fd_1 - write
 */
 
 typedef struct s_parc
@@ -77,17 +78,16 @@ typedef struct s_parc
 	struct s_arg		*args;
 	struct s_redirect	*redirs_in;
 	struct s_redirect	*redirs_out;
-	int					fd_0; //read
-	int					fd_1; //write
+	int					fd_0;
+	int					fd_1;
 	char				*hdoc;
 	struct s_parc		*next;
 }	t_parc;
 
 /*
-structure to save env: key=value
-$? - status of the most recently executed pipeline
--> value of the variable "exit_code" in env
-"exit_code" is a nonprintable variable
+structure to save env: key = value
+($? - exit status of the most recently executed pipeline
+-> variable "exit_status" in env)
 */
 
 typedef struct s_env
@@ -109,7 +109,6 @@ void		ft_free_token(t_token **token);
 void		ft_free_parc(t_parc **parc);
 void		ft_free_env(t_env	**env);
 //parcer in lex_parc
-//void		parcer(t_token **token, t_parc **parc, t_env **env);
 void		parcer(t_token **token, t_parc **parc, t_env **env);
 t_parc		*ft_plst_new(char *cmd, t_arg *args, \
 				t_redirect *redirs_in, t_redirect *redirs_out);
@@ -144,16 +143,12 @@ void		remove_node(char *key, t_env **env);
 //find key in env: 1-found, 0-not found
 int			find_key_env(char *key, t_env **env);
 //execution part:
-//int			main_pipe_proc(t_parc **parc, t_env **env);
-int			execute_builtin(t_parc *parc, t_env **env);
-int			if_builtin(char *cmd); // func returns 0 if cmd is builtin
 char		**arg_to_array_converter(t_arg *arg, char *command);
 char		**env_to_array_converter(t_env *env);
 char		*ft_strcpy(char *dest, const char *src);
 char		*ft_strcat(char *dest, const char *src);
 char		*str_tokenizer(char *str, const char *delim);
 char		*command_fullpath_finder(char *command, t_env **env);
-//void		pipe_func(t_parc *command, t_env **env);
 void		executor_func(t_parc *command, t_env **env);
 void		handle_error_msg(const char *cmd);
 void		run_2nd_minishell(t_parc *parc, t_env **env);
@@ -167,6 +162,8 @@ int			ft_size_env(t_env *lst);
 void		sigint_handler(int signal);
 void		sigquit_handler(int signal);
 //builtin
+int			execute_builtin(t_parc *parc, t_env **env);
+int			if_builtin(char *cmd); // func returns 0 if cmd is builtin
 int			exe_echo(t_parc *node);
 int			exe_cd(t_parc *node, t_env **env);
 int			exe_env(t_env **env);
@@ -180,6 +177,6 @@ int			redir_out(t_parc *node);
 int			redir_in(t_parc *node);
 int			start_execute(t_parc **parc, t_env **env);
 int			ft_execute(t_parc *node, t_env **env);
-//errors and exit status
+//errors
 void		print_error_msg(char *cmd, char *arg, char *msg);
 #endif
