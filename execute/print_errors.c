@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_status.c                                      :+:      :+:    :+:   */
+/*   print_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:35:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/01 18:10:16 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:10:20 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	save_exit_status_parc(t_parc **parc, int *exit_status)
 
 void	print_error_msg(char *cmd, char *arg, char *msg)
 {
-	//write(STDERR_FILENO, msg, ft_strlen(msg));
+	//write(STDERR_FILENO, ...);
 	if (cmd != NULL)
 	{
 		write(2, cmd, ft_strlen(cmd));
