@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/02 14:05:05 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:30:10 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ int			exe_env(t_env **env);
 int			exe_export(t_parc *node, t_env **env);
 int			exe_pwd(t_env **env);
 int			exe_unset(t_parc *node, t_env **env);
+int			exe_exit(t_parc *node, t_env **env);
 //redirections
 int			save_all_hdoc(t_parc **parc);
 int			ft_redirections(t_parc *node);

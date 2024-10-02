@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/01 16:03:49 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:32:40 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int	execute_builtin(t_parc *node, t_env **env)
 	else if (ft_strcmp(node->cmd, "env") == 0)
 		return_status = exe_env(env);
 	else if (ft_strcmp(node->cmd, "exit") == 0)
-		return (0);
-		//exe_exit(node, env);
+		return_status = exe_exit(node, env);
 	if (return_status == 0)
 		return (0);
 	else
