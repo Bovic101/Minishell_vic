@@ -104,6 +104,7 @@ int	ft_execute(t_parc *node, t_env **env)
 			else if (c_pid > 0)
 			{
 				waitpid(c_pid, &status, 0);
+				status = WEXITSTATUS(status);
 			}
 		}
 	}
