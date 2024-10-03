@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/02 18:32:40 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:14:29 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,18 +92,20 @@ int	ft_execute(t_parc *node, t_env **env)
 			if (c_pid < 0)
 			{
 				print_error_msg(NULL, NULL, "Forking error");
-				//return (-1);
 				status = -1;
 			}
 			else if (c_pid == 0)
 			{
 				executor_func(node, env);
-				exit(0);
+				exit(127); // If execve fails
 			}
 			else if (c_pid > 0)
 			{
 				waitpid(c_pid, &status, 0);
-				status = WEXITSTATUS(status);
+				if (WIFEXITED(status))
+					status = WEXITSTATUS(status);
+				else
+					status = 1;
 			}
 		}
 	}

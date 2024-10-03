@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/02 18:30:10 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:16:14 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ enum e_tokentype
 	EXPAND_VAR_Q,
 	PIPE
 };
-
 typedef struct s_token
 {
 	int					len;
@@ -161,6 +160,8 @@ int			ft_size_env(t_env *lst);
 //signals
 void		sigint_handler(int signal);
 void		sigquit_handler(int signal);
+int			eof_handler(int count, int key);
+void		signal_handlers_caller();
 //builtin
 int			execute_builtin(t_parc *parc, t_env **env);
 int			if_builtin(char *cmd); // func returns 0 if cmd is builtin

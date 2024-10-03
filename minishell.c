@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/03 12:59:32 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:57:41 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = NULL;
 	save_environment(envp, &env, &exit_status);
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
+	//signal(SIGINT, sigint_handler);
+	//signal(SIGQUIT, sigquit_handler);
+	signal_handlers_caller();
 	while (!loop_condition)
 	{
 		s = readline("Our_shell:~$ ");
-		if (s == NULL) // Handle Ctrl+D (EOF)
+		if (s == NULL) //(EOF)
 		{
 			loop_condition = 1;
 			continue ; // Avoid further processing if s is NULL
