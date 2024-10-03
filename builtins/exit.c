@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:27:47 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/02 18:29:51 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:10:55 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,29 @@ int	exe_exit(t_parc *node, t_env **env)
 
 	arg = node->args;
 	if (arg == NULL)
+	{
+		//freeall(env, &node);
 		exit (*env[0]->exit_status);
+	}
 	printf("exit\n");
 	if (if_arg_num(arg->value) == 0)
 	{
 		if (arg->next == NULL)
+		{
+			freeall(env, &node);
 			exit (ft_atoi(arg->value));
+		}
 		else
 		{
 			print_error_msg(node->cmd, NULL, "too many arguments");
+			freeall(env, &node);
 			exit (1);
 		}
 	}
 	else
 	{
 		print_error_msg(node->cmd, arg->value, "numeric argument required");
+		freeall(env, &node);
 		exit (255);
 	}
 	exit (*env[0]->exit_status);
