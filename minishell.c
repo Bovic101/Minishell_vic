@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/01 18:12:24 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:59:32 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,14 @@ int	main(int argc, char **argv, char **envp)
 				free(s);
 				continue ;
 			}
+			/*
 			if (ft_strcmp(s, "exit") == 0)
 			{
 				free(s);
 				loop_condition = 1;
 				continue ;
 			}
+			*/
 			cmd_processing(s, &env);
 		}
 		free(s);
