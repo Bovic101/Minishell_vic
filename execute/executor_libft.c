@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:17:41 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/02 13:57:24 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/03 23:15:09 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ char	*ft_strcat(char *dest, const char *src)
 	*dest_end = '\0';
 	return (dest);
 }
-
-/*Function to run another minishell program in our custom minishell*/
+/** 
+//Function to run another minishell program in our  minishell
 void run_2nd_minishell(t_parc *parc, t_env **env)
 {
     pid_t c_pid;
@@ -71,4 +71,4 @@ void run_2nd_minishell(t_parc *parc, t_env **env)
         waitpid(c_pid, &status, 0);//wait for the child (minishell) to finish
     else
         perror("Fork failed");
-}
+}*/
