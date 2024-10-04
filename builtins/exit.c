@@ -58,8 +58,10 @@ int	exe_exit(t_parc *node, t_env **env)
 		else
 		{
 			print_error_msg(node->cmd, NULL, "too many arguments");
-			freeall(env, &node);
-			exit (1);
+			*env[0]->exit_status = 1;
+			return (1);
+			//freeall(env, &node);
+			//exit (1);
 		}
 	}
 	else
