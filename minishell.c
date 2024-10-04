@@ -23,6 +23,7 @@ int	cmd_processing(char *s, t_env **env)
 	lexer(&token, s);
 	parcer(&token, &parc, env);
 	ft_free_token(&token);
+	free(s);
 	//ft_plst_print(&parc);
 	//we don't need this part anymore ?
 	/*if (parc && parc->cmd != NULL && ft_strcmp(parc->cmd, "./minishell") == 0)//check if the cmd is minishell

@@ -34,20 +34,26 @@ int	if_arg_num(char *arg)
 int	exe_exit(t_parc *node, t_env **env)
 {
 	t_arg	*arg;
+	int		exit_code;
 
 	arg = node->args;
+	exit_code = 0;
 	if (arg == NULL)
 	{
-		//freeall(env, &node);
-		exit (*env[0]->exit_status);
+		exit_code = *env[0]->exit_status;
+		freeall(env, &node);
+		exit(exit_code);
+		//exit (*env[0]->exit_status);
 	}
 	printf("exit\n");
 	if (if_arg_num(arg->value) == 0)
 	{
 		if (arg->next == NULL)
 		{
+			exit_code = ft_atoi(arg->value);
 			freeall(env, &node);
-			exit (ft_atoi(arg->value));
+			exit(exit_code);
+			//exit (ft_atoi(arg->value));
 		}
 		else
 		{
@@ -62,5 +68,5 @@ int	exe_exit(t_parc *node, t_env **env)
 		freeall(env, &node);
 		exit (255);
 	}
-	exit (*env[0]->exit_status);
+	exit (exit_code);
 }
