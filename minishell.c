@@ -79,7 +79,7 @@ int	main(int argc, char **argv, char **envp)
 			*/
 			cmd_processing(s, &env);
 		}
-		free(s);
+		//free(s);
 	}
 	ft_free_env(&env);
 	return (exit_status);
