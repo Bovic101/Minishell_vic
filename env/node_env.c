@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:11:32 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 11:55:05 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:04:36 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,3 @@ void	ft_free_env(t_env	**env)
 	}
 	*env = NULL;
 }
-
