@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:44:01 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 11:34:49 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:03:59 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	right_varname_e(char *str)
 	int	i;
 
 	i = 1;
-
 	if (str[0] == '_' || (str[0] >= 'a' && str[0] <= 'z') || \
 		(str[0] >= 'A' && str[0] <= 'Z'))
 	{
