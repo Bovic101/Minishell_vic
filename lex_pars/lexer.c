@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:02:58 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 17:29:37 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:06:06 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,8 @@ t_token	*lexer_new_token(char *s, int *i)
 
 void	lexer(t_token **token, char *s)
 {
-	t_token				*new;
-	int					i;
-
+	t_token	*new;
+	int		i;
 
 	if (s == NULL)
 		return ;

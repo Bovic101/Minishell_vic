@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:53:35 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 16:21:28 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:06:31 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,3 @@ void	ft_plst_print(t_parc **parc)
 		node = node->next;
 	}
 }
-

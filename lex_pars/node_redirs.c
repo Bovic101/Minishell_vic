@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 15:00:04 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/04 16:45:42 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:06:46 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,3 @@ void	ft_redir_print(t_redirect **redirs)
 		node = node->next;
 	}
 }
-
