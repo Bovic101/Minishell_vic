@@ -6,28 +6,22 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 12:56:13 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/05 11:16:44 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:59:01 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <signal.h>
 
-/*
-void	prompt(void)
+void sigint_handler(int signal)
 {
-	printf("Our_shell$");
-}
-**/
-
-void	sigint_handler(int signal)
-{
-	(void)signal;
-	write(STDOUT_FILENO, "\n",1);
-	rl_on_new_line();//func inform readline that user pressed ctrl +c
-    rl_point= 0;//manually clearing the input
-    rl_end=0;
-	rl_redisplay();//func redsisplay the prompt
+    (void)signal;
+    write(STDOUT_FILENO, "\n", 1);// Print nl
+    rl_replace_line("", 0);// Clear the input line buffer
+    rl_on_new_line();// Inform readline to start a new line
+    /**rl_point= 0;//manually clearing the input
+	rl_end=0;*/
+    rl_redisplay();
 }
 
 void	sigquit_handler(int signal)
@@ -42,12 +36,12 @@ int eof_handler(int count, int key)
 	{
         printf("\nexit\n");
         exit(0);
-        return 0; // Return a value
+        return(0); // Return a value
     }
-    return 0;
+    return(0);
 }
 
-// Set up signal handlers
+/**Set up signal handlers */
 void signal_handlers_caller()
 {
 	struct sigaction sa_int;

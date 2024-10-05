@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:35:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/02 14:10:20 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:06:15 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
