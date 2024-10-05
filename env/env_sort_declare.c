@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_sort_declare.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:38:26 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/02 13:59:26 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/05 12:02:02 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	ft_sort_env_print(t_env **env)
 	node = *env;
 	while (node)
 	{
-		/*if (ft_strcmp(node->key, "_") != 0 \
-			&& ft_strcmp(node->key, "_exit_code") != 0)*/
 		if (ft_strcmp(node->key, "_") != 0)
 		{
 			printf("declare -x ");
@@ -51,12 +49,22 @@ void	ft_copy_env(t_env *src, t_env **copy)
 	}
 }
 
+void	change_order(t_env *prev, t_env *node)
+{
+	char	*tmp;
+
+	tmp = ft_strdup(prev->key);
+	prev->key = ft_strdup(node->key);
+	node->key = tmp;
+	tmp = ft_strdup(prev->value);
+	prev->value = ft_strdup(node->value);
+	node->value = tmp;
+}
 
 void	ft_sort_env(t_env **env)
 {
 	t_env	*node;
 	t_env	*prev;
-	char	*tmp;
 
 	if (env == NULL)
 		return ;
@@ -69,12 +77,7 @@ void	ft_sort_env(t_env **env)
 		{
 			if (ft_strcmp(prev->key, node->key) > 0)
 			{
-				tmp = ft_strdup(prev->key);
-				prev->key = ft_strdup(node->key);
-				node->key = tmp;
-				tmp = ft_strdup(prev->value);
-				prev->value = ft_strdup(node->value);
-				node->value = tmp;
+				change_order(prev, node);
 			}
 			node = node->next;
 		}
