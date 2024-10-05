@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 15:52:34 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:02:07 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void		ft_plst_print(t_parc **parc);
 char		*save_word(t_token **pnode, t_env **env);
 char		*ft_wordjoin(char *value, char *str);
 char		*expand(char *ptr, int len, t_env **env, int type);
+char		*ft_remove_spaces(char *value);
 void		add_redir(char *rtype, char	*rfile, t_redirect **redirs);
 void		ft_redir_print(t_redirect **redirs);
 void		add_args(char *value, t_arg **args);
