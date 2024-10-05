@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 13:22:43 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/01 18:04:26 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:01:47 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,39 +44,6 @@ char	*find_key(char *ptr, char **s1, char **s2)
 	return (ft_strndup(key, len_key));
 }
 
-char	*ft_remove_spaces(char *value)
-{
-	char	**tmp;
-	int		i;
-	int		j;
-	char	*new;
-
-	i = 0;
-	new = NULL;
-	tmp = ft_split(value, ' ');
-	if (tmp == NULL)
-		return (value);
-	while (tmp[i] != NULL)
-		i++;
-	if (i > 1)
-	{
-		j = 0;
-		while (tmp[j] != NULL)
-		{
-			if (new == NULL)
-				new = ft_strjoin(tmp[j], " ");
-			else if (j < (i - 1))
-				new = ft_strjoin(ft_strjoin(new, tmp[j]), " ");
-			else
-				new = ft_strjoin(new, tmp[j]);
-			j++;
-		}
-	}
-	else
-		return (value);
-	return (new);
-}
-
 char	*join_parts(char *str, t_env **env, int type)
 {
 	char	*key;
@@ -93,13 +60,13 @@ char	*join_parts(char *str, t_env **env, int type)
 	-> value of the variable "exit_status" in env
 	*/
 	if (ft_strcmp(key, "?") == 0)
-		value = ft_itoa(*env[0]->exit_status); //value = get_value("_exit_code", env);
+		value = ft_itoa(*env[0]->exit_status);
 	else
 		value = get_value(key, env);
 	if (value == NULL)
 		return (ft_strjoin(s1, s2));
 	if (type == 6)
-		value = ft_remove_spaces(value);  //free before ?
+		value = ft_remove_spaces(value);
 	return (ft_strjoin(ft_strjoin(s1, value), s2));
 }
 
