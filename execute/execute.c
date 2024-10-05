@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 15:06:44 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:10:17 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,3 @@ int	ft_execute(t_parc *node, t_env **env)
 	dup2(fd1_before, 1);
 	return (status);
 }
-
