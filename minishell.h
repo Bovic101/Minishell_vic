@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/03 20:16:14 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:52:34 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,9 @@ void		set_value(char *key, char *new_value, t_env **env);
 void		remove_node(char *key, t_env **env);
 //find key in env: 1-found, 0-not found
 int			find_key_env(char *key, t_env **env);
+//pipes
+void		create_pipes(t_parc **parc, t_env **env);
+void		close_fds(t_parc **parc);
 //execution part:
 char		**arg_to_array_converter(t_arg *arg, char *command);
 char		**env_to_array_converter(t_env *env);
@@ -161,7 +164,7 @@ int			ft_size_env(t_env *lst);
 void		sigint_handler(int signal);
 void		sigquit_handler(int signal);
 int			eof_handler(int count, int key);
-void		signal_handlers_caller();
+void		signal_handlers_caller(void);
 //builtin
 int			execute_builtin(t_parc *parc, t_env **env);
 int			if_builtin(char *cmd); // func returns 0 if cmd is builtin
