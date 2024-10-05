@@ -6,10 +6,9 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 20:48:49 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/05 16:32:06 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:11:29 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../minishell.h"
 
@@ -74,11 +73,6 @@ char	*save_last_hdoc(t_parc *node)
 	return (value);
 }
 
-/*
-	redirections <<
-	saves all last hdoc for every node in node->hdoc (structutr parc)
-	if there is no <<, saves NULL
-*/
 int	save_all_hdoc(t_parc **parc)
 {
 	t_parc		*node;
