@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 17:32:45 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:09:53 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,13 @@ void		lexer(t_token **token, char *s);
 t_token		*ft_lst_new(int len, char *ptr, enum e_tokentype type);
 void		ft_lst_add_back(t_token **token, t_token *new);
 void		ft_lst_print(t_token **token);
+void		lexer_redir_in(char *s, int *i, int *len, enum e_tokentype *type);
+void		lexer_redir_out(char *s, int *i, int *len, enum e_tokentype *type);
+char		*lexer_double_quotes(char *s, int *i, \
+				int *len, enum e_tokentype *type);
+char		*lexer_single_quotes(char *s, int *i, \
+				int *len, enum e_tokentype *type);
+void		lexer_word(char *s, int *i, int *len, enum e_tokentype *type);
 //free memory: token, parc, env
 void		freeall(t_env **env, t_parc **parc);
 void		ft_free_token(t_token **token);
@@ -116,6 +123,7 @@ void		ft_plst_print(t_parc **parc);
 char		*save_word(t_token **pnode, t_env **env);
 char		*ft_wordjoin(char *value, char *str);
 char		*expand(char *ptr, int len, t_env **env, int type);
+char		*ft_remove_spaces(char *value);
 void		add_redir(char *rtype, char	*rfile, t_redirect **redirs);
 void		ft_redir_print(t_redirect **redirs);
 void		add_args(char *value, t_arg **args);
@@ -141,6 +149,9 @@ void		set_value(char *key, char *new_value, t_env **env);
 void		remove_node(char *key, t_env **env);
 //find key in env: 1-found, 0-not found
 int			find_key_env(char *key, t_env **env);
+//pipes
+void		create_pipes(t_parc **parc, t_env **env);
+void		close_fds(t_parc **parc);
 //execution part:
 char		**arg_to_array_converter(t_arg *arg, char *command);
 char		**env_to_array_converter(t_env *env);
@@ -163,7 +174,7 @@ int			ft_size_env(t_env *lst);
 void		sigint_handler(int signal);
 void		sigquit_handler(int signal);
 int			eof_handler(int count, int key);
-void		signal_handlers_caller();
+void		signal_handlers_caller(void);
 //builtin
 int			execute_builtin(t_parc *parc, t_env **env);
 int			if_builtin(char *cmd); // func returns 0 if cmd is builtin

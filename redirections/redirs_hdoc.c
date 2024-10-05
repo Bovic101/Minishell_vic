@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 20:48:49 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/30 15:15:40 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:32:06 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,11 @@
 /*
 starts heredoc
 */
-char	*ft_hdoc(char *s_end)
+char	*ft_hdoc(char *s_end, char *value)
 {
-	char	*value;
 	char	*s;
 
 	s = NULL;
-	value = NULL;
-	value = malloc(1);
-	if (!value)
-		return (NULL);
-	value[0] = '\0';
 	while (1)
 	{
 		s = readline("> ");
@@ -55,6 +49,7 @@ char	*save_last_hdoc(t_parc *node)
 {
 	t_redirect	*r_in;
 	char		*value;
+	char		*val;
 
 	value = NULL;
 	r_in = node->redirs_in;
@@ -64,7 +59,15 @@ char	*save_last_hdoc(t_parc *node)
 		{
 			if (value != NULL)
 				free(value);
-			value = ft_hdoc(r_in->rfile);
+			val = NULL;
+			val = malloc(1);
+			if (!val)
+				value = NULL;
+			else
+			{
+				val[0] = '\0';
+				value = ft_hdoc(r_in->rfile, val);
+			}
 		}
 		r_in = r_in->next;
 	}
