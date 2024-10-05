@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:20:14 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/15 14:44:08 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:35:59 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ char	**arg_to_array_converter(t_arg *arg, char *command)
 	}
 	argv = (char **)malloc(sizeof(char *) * (arg_counter + 1));
 	if (!argv)
-	{
 		return (NULL);
-	}
 	argv[0] = command;
 	cur_arg = arg;
 	i = 1;
@@ -46,31 +44,36 @@ char	**arg_to_array_converter(t_arg *arg, char *command)
 	argv[i] = NULL; // end of array
 	return (argv);
 }
-//// convert linked list of environment var (t_env) to an array of strings
-char	**env_to_array_converter(t_env *env) // Corrected t_arg to t_env
+/* get the total number of environment variables 
+before allocating memory for the array*/
+
+int count_env_vars(t_env *env)
+{
+	int count;
+	
+	count = 0;
+	while (env)
+	{
+		count++;
+		env = env->next;
+	}
+	return(count);
+}
+
+/**Convert linked list of environment var (t_env) to an array of strings */
+char **env_to_array_converter(t_env *env)
 {
 	int		i;
-	int		env_var_count;
 	t_env	*cur_env;
 	char	**env_array;
 
-	env_var_count = 0;
-	cur_env = env;
-	while (cur_env)
-	{
-		env_var_count++;
-		cur_env = cur_env->next;
-	}
-	env_array = (char **)malloc(sizeof(char *) * (env_var_count + 1));
-	if (!env_array)
-		return (NULL);
-	cur_env = env;
 	i = 0;
+	cur_env = env;
+	if (!(env_array = (char **)malloc(sizeof(char *) * (count_env_vars(env) + 1))))
+		return (NULL);
 	while (cur_env)
 	{
-		env_array[i] = (char *)malloc(ft_strlen(cur_env->key)
-				+ ft_strlen(cur_env->value) + 2); // +2 for '=' and null term
-		if (!env_array[i])
+		if (!(env_array[i] = (char *)malloc(ft_strlen(cur_env->key) + ft_strlen(cur_env->value) + 2)))
 		{
 			while (i > 0)
 				free(env_array[--i]);
@@ -79,36 +82,20 @@ char	**env_to_array_converter(t_env *env) // Corrected t_arg to t_env
 		}
 		ft_strcpy(env_array[i], cur_env->key);
 		ft_strcat(env_array[i], "=");
-		ft_strcat(env_array[i], cur_env->value);
+		ft_strcat(env_array[i++], cur_env->value);
 		cur_env = cur_env->next;
-		i++;
 	}
-	env_array[i] = NULL; // end of array
+	env_array[i] = NULL;
 	return (env_array);
 }
 
-// Locate the full path in which a command is stored in directories listed in PATH env-var
-char	*command_fullpath_finder(char *command, t_env **env)
+/*Function to search forcommand in the directories specified by 
+the PATH environment variable.*/
+char	*find_in_path_env(char *command, char *path_env_copy)
 {
-	char	*path_env;
-	char	*complete_path;
 	char	*tmp;
 	char	*path;
-	char	*path_env_copy;
-
-	path_env = get_value("PATH", env);
-	complete_path = NULL;
-	if (path_env == NULL)
-	{
-		write(2, "PATH environment variable not found\n", 36);
-		return (NULL);
-	}
-	path_env_copy = ft_strdup(path_env);// Create a duplicate of path_env to use with str_token
-	if (!path_env_copy)
-	{
-		perror("Failed to duplicate PATH environment variable");
-		return (NULL);
-	}
+	char	*complete_path = NULL;
 
 	path = strtok(path_env_copy, ":");
 	while (path != NULL)
@@ -117,13 +104,12 @@ char	*command_fullpath_finder(char *command, t_env **env)
 		if (!tmp)
 		{
 			perror("Failure to allocate memory for full path");
-			free(path_env_copy);
 			return (NULL);
 		}
 		ft_strcpy(tmp, path);   // copy dir path
 		ft_strcat(tmp, "/");    // append a slash
 		ft_strcat(tmp, command); // append the command
-		if (access(tmp, X_OK) == 0)// check if the command exists and is executable
+		if (access(tmp, X_OK) == 0) // check if the command exists and is executable
 		{
 			complete_path = tmp;
 			break;
@@ -131,6 +117,29 @@ char	*command_fullpath_finder(char *command, t_env **env)
 		free(tmp);
 		path = strtok(NULL, ":");
 	}
+	return (complete_path);
+}
+/**Funtion retriev the PATH environment variable,
+ * calls (find_in_path_env) to search cmd*/
+char	*command_fullpath_finder(char *command, t_env **env)
+{
+	char	*path_env;
+	char	*complete_path;
+	char	*path_env_copy;
+
+	path_env = get_value("PATH", env);
+	if (path_env == NULL)
+	{
+		write(2, "PATH environment variable not found\n", 36);
+		return (NULL);
+	}
+	path_env_copy = ft_strdup(path_env); // Create a duplicate of path_env to use with str_token
+	if (!path_env_copy)
+	{
+		perror("Failed to duplicate PATH environment variable");
+		return (NULL);
+	}
+	complete_path = find_in_path_env(command, path_env_copy);
 	free(path_env_copy);
 	return (complete_path);
 }

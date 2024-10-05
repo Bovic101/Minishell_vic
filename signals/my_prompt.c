@@ -3,30 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   my_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 12:56:13 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/05 15:53:46 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:09:29 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <signal.h>
 
-/*
-void	prompt(void)
-{
-	printf("Our_shell$");
-}
-**/
-
-void	sigint_handler(int signal)
+void sigint_handler(int signal)
 {
 	(void)signal;
 	write(STDOUT_FILENO, "\n",1);
 	rl_on_new_line();//func inform readline that user pressed ctrl +c
-	rl_point= 0;//manually clearing the input
-	rl_end=0;
+    rl_point= 0;//manually clearing the input
+    rl_end=0;
 	rl_redisplay();//func redsisplay the prompt
 }
 
@@ -40,15 +33,15 @@ int eof_handler(int count, int key)
 	(void)key;
 	if (count == 0)  // If the line is empty (count is 0 when hit Ctrl-D 
 	{
-		printf("\nexit\n");
-		exit(0);
-		return 0; // Return a value
-	}
-	return 0;
+        printf("\nexit\n");
+        exit(0);
+        return 0; // Return a value
+    }
+    return 0;
 }
 
 // Set up signal handlers
-void	signal_handlers_caller(void)
+void signal_handlers_caller()
 {
 	struct sigaction sa_int;
 	struct sigaction sa_quit;

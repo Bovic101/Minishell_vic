@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:37:36 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/09/21 00:33:53 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:30:23 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ int	unclosed_quote_checker(const char *str)
 	while (str[i] != '\0')
 	{
 		if ((str[i] == '"' || str[i] == '\'') && check == 0)
-		{
 			check = str[i];
-		}
 		else if (str[i] == check) //quote opening
 		{
 			
