@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:19:40 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/03 22:23:03 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/05 13:03:10 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,4 @@ void	handle_error_msg(const char *cmd)
 	write(STDERR_FILENO, error_msg, ft_strlen(error_msg));
 	write(STDERR_FILENO, cmd, ft_strlen(cmd));
 	write(STDERR_FILENO, "\n", 1);
-	exit(EXIT_FAILURE);
 }
