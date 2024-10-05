@@ -6,11 +6,21 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 13:22:43 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 16:01:47 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:19:26 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	ft_len_key(char *ptr, int *i, int *len_key)
+{
+	while (ptr[*i] != '\0' && ((ptr[*i] >= 'a' && ptr[*i] <= 'z') || \
+			(ptr[*i] >= 'A' && ptr[*i] <= 'Z') || ptr[*i] == '_'))
+	{
+		(*len_key)++;
+		(*i)++;
+	}
+}
 
 char	*find_key(char *ptr, char **s1, char **s2)
 {
@@ -33,17 +43,17 @@ char	*find_key(char *ptr, char **s1, char **s2)
 	}
 	else
 	{
-		while (ptr[i] != '\0' && ((ptr[i] >= 'a' && ptr[i] <= 'z') || \
-			(ptr[i] >= 'A' && ptr[i] <= 'Z') || ptr[i] == '_'))
-		{
-			len_key++;
-			i++;
-		}
+		ft_len_key(ptr, &i, &len_key);
 	}
 	*s2 = ft_strndup(&ptr[i], (ft_strlen(ptr) - i));
 	return (ft_strndup(key, len_key));
 }
 
+	/*
+	if key == "?"
+	$? - status of the most recently executed pipeline
+	-> value of the variable "exit_status" in env
+	*/
 char	*join_parts(char *str, t_env **env, int type)
 {
 	char	*key;
@@ -54,11 +64,6 @@ char	*join_parts(char *str, t_env **env, int type)
 	s1 = NULL;
 	s2 = NULL;
 	key = find_key(str, &s1, &s2);
-	/*
-	if key == "?"
-	$? - status of the most recently executed pipeline
-	-> value of the variable "exit_status" in env
-	*/
 	if (ft_strcmp(key, "?") == 0)
 		value = ft_itoa(*env[0]->exit_status);
 	else
