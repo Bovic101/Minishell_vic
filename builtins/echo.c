@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:40:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/20 13:02:53 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 11:48:23 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,8 @@ int	ft_if_newline(char *s)
 	return (0);
 }
 
-int	exe_echo(t_parc *node)
+void	echo_print(t_arg *arg, int len)
 {
-	t_arg	*arg;
-	int		fl_n;
-	int		len;
-
-	if (node->args != NULL)
-	{
-	arg = node->args;
-	len = ft_size_arg(arg) - 1;
-	fl_n = ft_if_newline(arg->value);
-	if (fl_n == 1)
-	{
-		arg = arg->next;
-		len--;
-	}
 	while (arg != NULL)
 	{
 		printf("%s", arg->value);
@@ -59,8 +45,27 @@ int	exe_echo(t_parc *node)
 		arg = arg->next;
 		len--;
 	}
-	if (fl_n == 0)
-		printf("\n");
+}
+
+int	exe_echo(t_parc *node)
+{
+	t_arg	*arg;
+	int		fl_n;
+	int		len;
+
+	if (node->args != NULL)
+	{
+		arg = node->args;
+		len = ft_size_arg(arg) - 1;
+		fl_n = ft_if_newline(arg->value);
+		if (fl_n == 1)
+		{
+			arg = arg->next;
+			len--;
+		}
+		echo_print(arg, len);
+		if (fl_n == 0)
+			printf("\n");
 	}
 	return (0);
 }

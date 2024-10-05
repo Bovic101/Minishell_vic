@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:27:47 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/03 13:10:55 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 11:13:09 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,37 +38,22 @@ int	exe_exit(t_parc *node, t_env **env)
 
 	arg = node->args;
 	exit_code = 0;
-	if (arg == NULL)
-	{
-		exit_code = *env[0]->exit_status;
-		freeall(env, &node);
-		exit(exit_code);
-		//exit (*env[0]->exit_status);
-	}
 	printf("exit\n");
-	if (if_arg_num(arg->value) == 0)
+	if (arg == NULL)
+		exit_code = *env[0]->exit_status;
+	else if (if_arg_num(arg->value) == 0)
 	{
 		if (arg->next == NULL)
-		{
 			exit_code = ft_atoi(arg->value);
-			freeall(env, &node);
-			exit(exit_code);
-			//exit (ft_atoi(arg->value));
-		}
 		else
 		{
 			print_error_msg(node->cmd, NULL, "too many arguments");
 			*env[0]->exit_status = 1;
 			return (1);
-			//freeall(env, &node);
-			//exit (1);
 		}
 	}
 	else
-	{
 		print_error_msg(node->cmd, arg->value, "numeric argument required");
-		freeall(env, &node);
-		exit (255);
-	}
+	freeall(env, &node);
 	exit (exit_code);
 }

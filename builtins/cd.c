@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:44:06 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/30 12:23:10 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 11:39:40 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	exe_cd(t_parc *node, t_env **env)
 		res = chdir(node->args->value);
 	if (res == 0)
 	{
-		//what return getcwd - err?
 		set_value("OLDPWD", ft_strdup(cur_pwd), env);
 		set_value("PWD", ft_strdup(getcwd(buf, sizeof(buf))), env);
 	}

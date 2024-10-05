@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:44:01 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/02 18:18:11 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 11:34:49 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,31 @@ int	right_varname_e(char *str)
 	return (0);
 }
 
+void	set_variable(t_arg *arg, int len, t_env **env)
+{
+	int	fl;
+
+	fl = 0;
+	while (arg->value[len] != '\0')
+	{
+		if (arg->value[len] == '=')
+		{
+			fl = 1;
+			break ;
+		}
+		len++;
+	}
+	if (fl == 1)
+		add_set_env(ft_strndup(arg->value, len), \
+			ft_strdup(&arg->value[len + 1]), env);
+	else
+		add_set_env(ft_strndup(arg->value, len), NULL, env);
+}
+
 int	exe_export(t_parc *node, t_env **env)
 {
 	t_arg	*arg;
 	int		len;
-	int		fl;
 	int		return_status;
 
 	return_status = 0;
@@ -51,23 +71,8 @@ int	exe_export(t_parc *node, t_env **env)
 		while (arg != NULL)
 		{
 			len = 0;
-			fl = 0;
 			if (right_varname_e(arg->value) == 0)
-			{
-				while (arg->value[len] != '\0')
-				{
-					if (arg->value[len] == '=')
-					{
-						fl = 1;
-						break ;
-					}
-					len++;
-				}
-				if (fl == 1)
-					add_set_env(ft_strndup(arg->value, len), ft_strdup(&arg->value[len + 1]), env);
-				else
-					add_set_env(ft_strndup(arg->value, len), NULL, env);
-			}
+				set_variable(arg, len, env);
 			else
 			{
 				print_error_msg(node->cmd, arg->value, \
