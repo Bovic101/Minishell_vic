@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/03 20:57:41 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:14:05 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,10 @@ int	cmd_processing(char *s, t_env **env)
 
 	token = NULL;
 	parc = NULL;
-
 	lexer(&token, s);
 	parcer(&token, &parc, env);
 	ft_free_token(&token);
 	free(s);
-	//ft_plst_print(&parc);
-	//we don't need this part anymore ?
-	/*if (parc && parc->cmd != NULL && ft_strcmp(parc->cmd, "./minishell") == 0)//check if the cmd is minishell
-	{
-		run_2nd_minishell(parc, env);
-		freeall(&token, &parc);
-		return(0);
-	}*/
 	start_execute(&parc, env);
 	ft_free_parc(&parc);
 	return (0);
@@ -50,36 +41,25 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = NULL;
 	save_environment(envp, &env, &exit_status);
-	//signal(SIGINT, sigint_handler);
-	//signal(SIGQUIT, sigquit_handler);
 	signal_handlers_caller();
 	while (!loop_condition)
 	{
 		s = readline("Our_shell:~$ ");
-		if (s == NULL) //(EOF)
+		if (s == NULL)
 		{
 			loop_condition = 1;
-			continue ; // Avoid further processing if s is NULL
+			continue ;
 		}
-		if (*s)//Non_empty input
+		if (*s)
 		{
-			add_history(s); // Only add to history
-			if (unclosed_quote_checker(s) != 0) //check unclosed quote before cmd processing
+			add_history(s);
+			if (unclosed_quote_checker(s) != 0)
 			{
 				free(s);
 				continue ;
 			}
-			/*
-			if (ft_strcmp(s, "exit") == 0)
-			{
-				free(s);
-				loop_condition = 1;
-				continue ;
-			}
-			*/
 			cmd_processing(s, &env);
 		}
-		//free(s);
 	}
 	ft_free_env(&env);
 	return (exit_status);
