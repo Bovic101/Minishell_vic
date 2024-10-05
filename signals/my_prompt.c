@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 12:56:13 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/04 17:30:14 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/05 11:16:44 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	sigint_handler(int signal)
 	(void)signal;
 	write(STDOUT_FILENO, "\n",1);
 	rl_on_new_line();//func inform readline that user pressed ctrl +c
-	rl_replace_line("", 0);//clear the cur line buf
+    rl_point= 0;//manually clearing the input
+    rl_end=0;
 	rl_redisplay();//func redsisplay the prompt
 }
 
