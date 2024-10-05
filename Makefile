@@ -6,7 +6,7 @@
 #    By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 14:24:13 by kdvarako          #+#    #+#              #
-#    Updated: 2024/09/24 23:16:35 by vodebunm         ###   ########.fr        #
+#    Updated: 2024/10/05 10:44:36 by vodebunm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJ_7 = ${SRC_7:.c=.o}
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-LIBS = -lreadline
+LIBS = -lreadline -lncurses
 
 LIBFT = ./libft/libft.a
 
