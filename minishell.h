@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 16:02:07 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:32:17 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,13 @@ void		lexer(t_token **token, char *s);
 t_token		*ft_lst_new(int len, char *ptr, enum e_tokentype type);
 void		ft_lst_add_back(t_token **token, t_token *new);
 void		ft_lst_print(t_token **token);
+void		lexer_redir_in(char *s, int *i, int *len, enum e_tokentype *type);
+void		lexer_redir_out(char *s, int *i, int *len, enum e_tokentype *type);
+char		*lexer_double_quotes(char *s, int *i, \
+				int *len, enum e_tokentype *type);
+char		*lexer_single_quotes(char *s, int *i, \
+				int *len, enum e_tokentype *type);
+void		lexer_word(char *s, int *i, int *len, enum e_tokentype *type);
 //free memory: token, parc, env
 void		freeall(t_env **env, t_parc **parc);
 void		ft_free_token(t_token **token);
