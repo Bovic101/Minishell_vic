@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:49:12 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/01 16:37:13 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/05 11:56:18 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,6 @@ void	add_set_env(char *key, char *value, t_env **env)
 	else
 		set_value(key, value, env);
 }
-
-/*void	add_exitstatus(t_env **env)
-{
-	char	*key;
-	char	*value;
-
-	key = ft_strdup("_exit_code");
-	value = ft_strdup("0");
-	add_env(key, value, env);
-}*/
 
 void	save_env(char **envp, t_env **env, int *exit_status)
 {
@@ -70,7 +60,6 @@ void	save_env(char **envp, t_env **env, int *exit_status)
 		i++;
 	}
 	env[0]->exit_status = exit_status;
-	//add_exitstatus(env);
 }
 
 void	save_env_empty(t_env **env, int *exit_status)
@@ -85,7 +74,6 @@ void	save_env_empty(t_env **env, int *exit_status)
 		ft_strdup("./minishell"));
 	add_env(ft_strdup("_"), value, env);
 	env[0]->exit_status = exit_status;
-	//add_exitstatus(env);
 }
 
 void	save_environment(char **envp, t_env **env, int *exit_status)
@@ -95,7 +83,6 @@ void	save_environment(char **envp, t_env **env, int *exit_status)
 	else
 	{
 		save_env(envp, env, exit_status);
-		/* to print right echo $_ :*/
 		set_value("_", ft_strdup("./minishell"), env);
 	}
 }
