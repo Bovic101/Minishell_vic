@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/03 22:14:29 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:06:44 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+/*
+function returns 0 if cmd is one of builtin
+*/
 int	if_builtin(char *cmd)
 {
-	/*
-	function returns 0 if cmd is one of builtin
-	*/
 	if (ft_strcmp(cmd, "echo") == 0)
 		return (0);
 	if (ft_strcmp(cmd, "cd") == 0)
@@ -59,14 +59,37 @@ int	execute_builtin(t_parc *node, t_env **env)
 		return (1);
 }
 
+void	ft_execve_fork(t_parc *node, t_env **env, int *status)
+{
+	pid_t	c_pid;
 
+	*status = ft_redirections(node);
+	if (*status == 0)
+	{
+		c_pid = fork();
+		if (c_pid < 0)
+		{
+			print_error_msg(NULL, NULL, "Forking error");
+			*status = -1;
+		}
+		else if (c_pid == 0)
+		{
+			executor_func(node, env);
+			exit(0);
+		}
+		else if (c_pid > 0)
+		{
+			waitpid(c_pid, status, 0);
+			*status = WEXITSTATUS(*status);
+		}
+	}
+}
 
 /*
 	check if from PATH or from builtins or cmd == NULL -> execute
 */
 int	ft_execute(t_parc *node, t_env **env)
 {
-	pid_t	c_pid;
 	int		status;
 	int		fd0_before;
 	int		fd1_before;
@@ -85,29 +108,7 @@ int	ft_execute(t_parc *node, t_env **env)
 	}
 	else
 	{
-		status = ft_redirections(node);
-		if (status == 0)
-		{
-			c_pid = fork();
-			if (c_pid < 0)
-			{
-				print_error_msg(NULL, NULL, "Forking error");
-				status = -1;
-			}
-			else if (c_pid == 0)
-			{
-				executor_func(node, env);
-				exit(127); // If execve fails
-			}
-			else if (c_pid > 0)
-			{
-				waitpid(c_pid, &status, 0);
-				if (WIFEXITED(status))
-					status = WEXITSTATUS(status);
-				else
-					status = 1;
-			}
-		}
+		ft_execve_fork(node, env, &status);
 	}
 	dup2(fd0_before, 0);
 	dup2(fd1_before, 1);
