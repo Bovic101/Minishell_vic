@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:27:47 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 11:13:09 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/06 14:30:44 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ int	if_arg_num(char *arg)
 	return (0);
 }
 
+int	non_numeric_exit(char *cmd, char *value)
+{
+	print_error_msg(cmd, value, "numeric argument required");
+	return (255);
+}
+
 int	exe_exit(t_parc *node, t_env **env)
 {
 	t_arg	*arg;
@@ -53,7 +59,7 @@ int	exe_exit(t_parc *node, t_env **env)
 		}
 	}
 	else
-		print_error_msg(node->cmd, arg->value, "numeric argument required");
+		exit_code = non_numeric_exit(node->cmd, arg->value);
 	freeall(env, &node);
 	exit (exit_code);
 }
