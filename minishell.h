@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/06 12:14:48 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/06 17:22:18 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void		ft_redir_print(t_redirect **redirs);
 void		add_args(char *value, t_arg **args);
 void		ft_arg_print(t_arg **args);
 char		*ft_strndup(const char *str, size_t n);
+char		*ft_strjoin_free(char *s1, char *s2);
 //environment
 void		save_environment(char **envp, t_env **env, int *exit_status);
 t_env		*ft_env_new(char *key, char *value);
