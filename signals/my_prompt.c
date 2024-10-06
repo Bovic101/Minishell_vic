@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 12:56:13 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/06 10:10:19 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/06 23:05:45 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void sigint_handler(int signal)
 void	sigquit_handler(int signal)
 {
 	(void)signal;
-	exit(0);
 }
 
 int eof_handler(int count, int key) 
@@ -47,16 +46,16 @@ void signal_handlers_caller()
 {
 	struct sigaction sa_int;
 	struct sigaction sa_quit;
-	
+
 	ft_memset(&sa_int, 0, sizeof(sa_int));
 	ft_memset(&sa_quit, 0, sizeof(sa_quit));
 
-	sigemptyset(&sa_int.sa_mask);  // Set up SIGQUIT handler (Ctrl + c)
+	sigemptyset(&sa_int.sa_mask);  // Set up SIGINT handler (Ctrl + C)
 	sa_int.sa_handler = sigint_handler;
 	sa_int.sa_flags = 0;
 	sigaction(SIGINT, &sa_int, NULL);
 
-	sigemptyset(&sa_quit.sa_mask); // Set up SIGQUIT handler (Ctrl-\)
+	sigemptyset(&sa_quit.sa_mask); // Set up SIGQUIT handler (Ct
 	sa_quit.sa_handler = sigquit_handler;
 	sa_quit.sa_flags = 0;
 	sigaction(SIGQUIT, &sa_quit, NULL);
