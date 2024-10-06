@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 16:01:08 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 16:09:41 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/06 17:27:52 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ void	new_str(char *new, char **tmp, int i)
 	}
 }
 
+void	free_tmp(char **tmp)
+{
+	int	i;
+
+	i = 0;
+	while (tmp[i] != NULL)
+	{
+		free(tmp[i]);
+		i++;
+	}
+	free(tmp);
+}
+
 char	*ft_remove_spaces(char *value)
 {
 	char	**tmp;
@@ -47,7 +60,10 @@ char	*ft_remove_spaces(char *value)
 		new_str(new, tmp, i);
 	}
 	else
+	{
+		free_tmp(tmp);
 		return (value);
-	free(value);
-	return (new);
+	}
+	free_tmp(tmp);
+	return (free(value), new);
 }
