@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 18:09:53 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/06 11:00:28 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ char		*ft_strndup(const char *str, size_t n);
 void		save_environment(char **envp, t_env **env, int *exit_status);
 t_env		*ft_env_new(char *key, char *value);
 void		ft_env_add_back(t_env **lst, t_env *new);
+void		shell_loop(t_env **env);
 //to print env
 void		ft_env_print(t_env **env);
 void		prompt(void);
@@ -164,6 +165,7 @@ void		handle_error_msg(const char *cmd);
 void		run_2nd_minishell(t_parc *parc, t_env **env);
 int			unclosed_quote_checker(const char *str);
 int			count_env_vars(t_env *env);
+char		*prepare_command(t_parc *command, t_env **env, char ***argv, char ***env_list);
 char		*find_in_path_env(char *command, char *path_env_copy);
 //find size of structures (how many nodes) - in the file ft_list_size.c:
 int			ft_size_parc(t_parc *lst);

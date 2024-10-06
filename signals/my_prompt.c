@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 12:56:13 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/05 18:17:26 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/06 10:10:19 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void sigint_handler(int signal)
 void	sigquit_handler(int signal)
 {
 	(void)signal;
+	exit(0);
 }
 
 int eof_handler(int count, int key) 

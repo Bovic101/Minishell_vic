@@ -3,36 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   my_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:19:40 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/05 13:03:10 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/06 10:02:45 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/*
- * Function to execute external commands by converting arguments and env to arrays
- * Finds the full path of the command and then executes it.
- */
-void executor_func(t_parc *command, t_env **env)
+/**Function that convert arg and envvariables to arrays 
+ * and finding the command path. */
+char *prepare_command(t_parc *command, t_env **env, char ***argv, char ***env_list)
 {
-    char **argv;
-    char **env_list;
     char *command_path;
+    
+    *argv = arg_to_array_converter(command->args, command->cmd);
+    *env_list = env_to_array_converter(*env);
 
-    argv = arg_to_array_converter(command->args, command->cmd);
-    env_list = env_to_array_converter(*env);
-
-    if (!argv || !env_list)
+    if (!*argv || !*env_list)
     {
         perror("Memory allocation failed");
-        free(argv);
-        free(env_list);
+        free(*argv);
+        free(*env_list);
         exit(EXIT_FAILURE);
     }
-
     if (command->cmd[0] == '/' || command->cmd[0] == '.')
     {
         command_path = ft_strdup(command->cmd);  // Absolute or relative path
@@ -41,7 +36,17 @@ void executor_func(t_parc *command, t_env **env)
     {
         command_path = command_fullpath_finder(command->cmd, env);  // Search in PATH
     }
-    if (command_path != NULL && access(command_path, X_OK) == 0)// If the command was found and is executable
+    
+    return(command_path);
+}
+void executor_func(t_parc *command, t_env **env)
+{
+    char **argv;
+    char **env_list;
+    char *command_path;
+
+    command_path= prepare_command(command, env, &argv, &env_list);
+    if (command_path != NULL && access(command_path, X_OK) == 0)
     {
         if (execve(command_path, argv, env_list) == -1)
         {
@@ -54,12 +59,11 @@ void executor_func(t_parc *command, t_env **env)
     }
     else
     {
-        // Command not found: Print error message and exit with status 127
-        handle_error_msg(command->cmd);  // Call the error printing function
+        handle_error_msg(command->cmd);  // Command not found
         free(argv);
         free(env_list);
         free(command_path);
-        exit(127);  // Set the exit code to 127 for "command not found"
+        exit(127);
     }
 }
 
