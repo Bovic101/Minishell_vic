@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/06 11:00:28 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/06 12:14:48 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ void		executor_func(t_parc *command, t_env **env);
 void		handle_error_msg(const char *cmd);
 void		run_2nd_minishell(t_parc *parc, t_env **env);
 int			unclosed_quote_checker(const char *str);
+char		*ft_strncpy(char *dest, const char *src, size_t n);
 int			count_env_vars(t_env *env);
 char		*prepare_command(t_parc *command, t_env **env, char ***argv, char ***env_list);
 char		*find_in_path_env(char *command, char *path_env_copy);

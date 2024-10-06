@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:17:41 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/03 23:15:09 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/06 12:14:00 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,23 @@ char	*ft_strcat(char *dest, const char *src)
 	}
 	*dest_end = '\0';
 	return (dest);
+}
+char *ft_strncpy(char *dest, const char *src, size_t n)
+{
+    size_t i;
+
+    i = 0;
+    while (i < n && src[i] != '\0')
+    {
+        dest[i] = src[i];
+        i++;
+    }
+    while (i < n)
+    {
+        dest[i] = '\0';
+        i++;
+    }
+    return dest;
 }
 /** 
 //Function to run another minishell program in our  minishell

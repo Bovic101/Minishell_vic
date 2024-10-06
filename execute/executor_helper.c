@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:20:14 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/05 17:35:59 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/06 12:23:58 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,59 +88,53 @@ char **env_to_array_converter(t_env *env)
 	env_array[i] = NULL;
 	return (env_array);
 }
+/**Funtion retriev the PATH environment variable,
+ * calls (find_in_path_env) to search cmd*/
+char *command_fullpath_finder(char *command, t_env **env)
+{
+    char *path_env;
+    char *path_env_copy;
+    char *complete_path;
+	
+	path_env = get_value("PATH", env);
+    if (!path_env)
+        return (write(2, "PATH not found\n", 15), NULL);
+    path_env_copy = ft_strdup(path_env);
+    if (!path_env_copy)
+        return (perror("Failed to duplicate PATH"), NULL);
+    complete_path = find_in_path_env(command, path_env_copy);
+    free(path_env_copy);
+    return (complete_path);
+}
 
 /*Function to search forcommand in the directories specified by 
 the PATH environment variable.*/
-char	*find_in_path_env(char *command, char *path_env_copy)
+char *find_in_path_env(char *command, char *path_env_copy)
 {
-	char	*tmp;
-	char	*path;
-	char	*complete_path = NULL;
+    char *tmp = NULL;
+    char *path = NULL;
+    char *complete_path = NULL;
+    int i = 0;
+    int len = 0;
 
-	path = strtok(path_env_copy, ":");
-	while (path != NULL)
-	{
-		tmp = malloc(ft_strlen(path) + ft_strlen(command) + 2); // +2 for '/' and null terminator
-		if (!tmp)
-		{
-			perror("Failure to allocate memory for full path");
-			return (NULL);
-		}
-		ft_strcpy(tmp, path);   // copy dir path
-		ft_strcat(tmp, "/");    // append a slash
-		ft_strcat(tmp, command); // append the command
-		if (access(tmp, X_OK) == 0) // check if the command exists and is executable
-		{
-			complete_path = tmp;
-			break;
-		}
-		free(tmp);
-		path = strtok(NULL, ":");
-	}
-	return (complete_path);
-}
-/**Funtion retriev the PATH environment variable,
- * calls (find_in_path_env) to search cmd*/
-char	*command_fullpath_finder(char *command, t_env **env)
-{
-	char	*path_env;
-	char	*complete_path;
-	char	*path_env_copy;
-
-	path_env = get_value("PATH", env);
-	if (path_env == NULL)
-	{
-		write(2, "PATH environment variable not found\n", 36);
-		return (NULL);
-	}
-	path_env_copy = ft_strdup(path_env); // Create a duplicate of path_env to use with str_token
-	if (!path_env_copy)
-	{
-		perror("Failed to duplicate PATH environment variable");
-		return (NULL);
-	}
-	complete_path = find_in_path_env(command, path_env_copy);
-	free(path_env_copy);
-	return (complete_path);
+    while (path_env_copy[i] != '\0')
+    {
+        path = &path_env_copy[i];
+        while (path_env_copy[i] != ':' && path_env_copy[i] != '\0')
+            i++;
+        len = i - (path - path_env_copy);
+        tmp = malloc(len + ft_strlen(command) + 2);
+        if (!tmp)
+            return (perror("Memory allocation failed"), NULL);
+        ft_strncpy(tmp, path, len);
+        tmp[len] = '/';
+        ft_strcpy(&tmp[len + 1], command);
+        if (access(tmp, X_OK) == 0)
+            return (complete_path = tmp);
+        free(tmp);
+        if (path_env_copy[i] != '\0')
+            i++;
+    }
+    return (complete_path);
 }
 
