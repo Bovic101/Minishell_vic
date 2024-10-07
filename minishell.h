@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/07 14:47:36 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/07 21:59:52 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ int			count_env_vars(t_env *env);
 char		*prepare_command(t_parc *command, t_env **env, \
 				char ***argv, char ***env_list);
 char		*find_in_path_env(char *command, char *path_env_copy);
+void		free_string_array(char **arr);
 //find size of structures (how many nodes) - in the file ft_list_size.c:
 int			ft_size_parc(t_parc *lst);
 int			ft_size_arg(t_arg *lst);
