@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:49:12 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 11:56:18 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:53:13 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	add_set_env(char *key, char *value, t_env **env)
 		ft_env_add_back(env, new);
 	}
 	else
+	{
 		set_value(key, value, env);
+		free (key);
+	}
 }
 
 void	save_env(char **envp, t_env **env, int *exit_status)
