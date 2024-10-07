@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:38:26 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 12:02:02 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:30:15 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	change_order(t_env *prev, t_env *node)
 {
 	char	*tmp;
 
-	tmp = ft_strdup(prev->key);
-	prev->key = ft_strdup(node->key);
+	tmp = prev->key;
+	prev->key = node->key;
 	node->key = tmp;
-	tmp = ft_strdup(prev->value);
-	prev->value = ft_strdup(node->value);
+	tmp = prev->value;
+	prev->value = node->value;
 	node->value = tmp;
 }
 
