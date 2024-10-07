@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:27:47 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/06 14:30:44 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:28:30 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	exe_exit(t_parc *node, t_env **env)
 
 	arg = node->args;
 	exit_code = 0;
-	printf("exit\n");
 	if (arg == NULL)
 		exit_code = *env[0]->exit_status;
 	else if (if_arg_num(arg->value) == 0)

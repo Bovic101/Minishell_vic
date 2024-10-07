@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 15:46:01 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 15:49:29 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:24:03 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	start_execute(t_parc **parc, t_env **env)
 	ncount = ft_size_parc(*parc);
 	if (ncount == 1)
 	{
+		if (ft_strcmp(parc[0]->cmd, "exit") == 0)
+			printf("exit\n");
 		status = ft_execute(parc[0], env);
 	}
 	else
