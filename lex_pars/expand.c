@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 13:22:43 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/06 17:35:47 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/07 10:50:55 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ char	*join_parts(char *str, t_env **env, int type)
 	if (ft_strcmp(key, "?") == 0)
 		value = ft_itoa(*env[0]->exit_status);
 	else
-		value = get_value(key, env);
+		value = ft_strdup(get_value(key, env));
 	if (value == NULL)
-		return (ft_strjoin_free(s1, s2));
+		return (free(key), ft_strjoin_free(s1, s2));
 	if (type == 6)
-		value = ft_remove_spaces(value);
-	return (ft_strjoin_free(ft_strjoin_free(s1, value), s2));
+	printf("type 6 remove spaces?\n");
+		//value = ft_remove_spaces(value);
+	return (free(key), ft_strjoin_free(ft_strjoin_free(s1, value), s2));
 }
 
 char	*expand(char *ptr, int len, t_env **env, int type)
