@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 13:22:43 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/07 10:50:55 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:40:16 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*find_key(char *ptr, char **s1, char **s2)
 	$? - status of the most recently executed pipeline
 	-> value of the variable "exit_status" in env
 	*/
-char	*join_parts(char *str, t_env **env, int type)
+char	*join_parts(char *str, t_env **env)
 {
 	char	*key;
 	char	*value;
@@ -71,13 +71,10 @@ char	*join_parts(char *str, t_env **env, int type)
 		value = ft_strdup(get_value(key, env));
 	if (value == NULL)
 		return (free(key), ft_strjoin_free(s1, s2));
-	if (type == 6)
-	printf("type 6 remove spaces?\n");
-		//value = ft_remove_spaces(value);
 	return (free(key), ft_strjoin_free(ft_strjoin_free(s1, value), s2));
 }
 
-char	*expand(char *ptr, int len, t_env **env, int type)
+char	*expand(char *ptr, int len, t_env **env)
 {
 	char	*str;
 
@@ -87,7 +84,7 @@ char	*expand(char *ptr, int len, t_env **env, int type)
 		return (NULL);
 	while (ft_strchr(str, '$') != NULL)
 	{
-		str = join_parts(str, env, type);
+		str = join_parts(str, env);
 	}
 	return (str);
 }

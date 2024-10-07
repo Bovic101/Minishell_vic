@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/06 17:22:18 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:47:36 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void		ft_plst_add_back(t_parc **parc, t_parc *new);
 void		ft_plst_print(t_parc **parc);
 char		*save_word(t_token **pnode, t_env **env);
 char		*ft_wordjoin(char *value, char *str);
-char		*expand(char *ptr, int len, t_env **env, int type);
+char		*expand(char *ptr, int len, t_env **env);
 char		*ft_remove_spaces(char *value);
 void		add_redir(char *rtype, char	*rfile, t_redirect **redirs);
 void		ft_redir_print(t_redirect **redirs);
@@ -167,7 +167,8 @@ void		run_2nd_minishell(t_parc *parc, t_env **env);
 int			unclosed_quote_checker(const char *str);
 char		*ft_strncpy(char *dest, const char *src, size_t n);
 int			count_env_vars(t_env *env);
-char		*prepare_command(t_parc *command, t_env **env, char ***argv, char ***env_list);
+char		*prepare_command(t_parc *command, t_env **env, \
+				char ***argv, char ***env_list);
 char		*find_in_path_env(char *command, char *path_env_copy);
 //find size of structures (how many nodes) - in the file ft_list_size.c:
 int			ft_size_parc(t_parc *lst);

@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:17:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/17 13:41:41 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:41:59 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*save_word(t_token **pnode, t_env **env)
 		if (node->type == WORD)
 			str = ft_strndup(node->ptr, node->len);
 		else if (node->type == EXPAND_VAR || node->type == EXPAND_VAR_Q)
-			str = expand(node->ptr, node->len, env, node->type);
+			str = expand(node->ptr, node->len, env);
 		value = ft_wordjoin(value, str);
 		free (str);
 		*pnode = node;
