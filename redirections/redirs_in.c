@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:30:32 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 18:08:44 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:57:25 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	redir_in_hdoc(char *hdoc)
 		print_error_msg(NULL, NULL, "Pipe error");
 		return (-1);
 	}
-	if (write(fd_h[1], hdoc, ft_strlen(hdoc) + 1) < 0)
+	if (write(fd_h[1], hdoc, ft_strlen(hdoc)) < 0)
 	{
 		print_error_msg(NULL, NULL, "Write error");
 		return (-1);
