@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 13:22:43 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/07 14:40:16 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:21:15 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_len_key(char *ptr, int *i, int *len_key)
 {
-	while (ptr[*i] != '\0' && ((ptr[*i] >= 'a' && ptr[*i] <= 'z') || \
-			(ptr[*i] >= 'A' && ptr[*i] <= 'Z') || ptr[*i] == '_'))
+	while (ptr[*i] != '\0' && ((ptr[*i] >= 'a' && ptr[*i] <= 'z')
+			|| (ptr[*i] >= 'A' && ptr[*i] <= 'Z') || ptr[*i] == '_'))
 	{
 		(*len_key)++;
 		(*i)++;
@@ -49,11 +49,11 @@ char	*find_key(char *ptr, char **s1, char **s2)
 	return (ft_strndup(key, len_key));
 }
 
-	/*
-	if key == "?"
-	$? - status of the most recently executed pipeline
-	-> value of the variable "exit_status" in env
-	*/
+/*
+if key == "?"
+$? - status of the most recently executed pipeline
+-> value of the variable "exit_status" in env
+*/
 char	*join_parts(char *str, t_env **env)
 {
 	char	*key;

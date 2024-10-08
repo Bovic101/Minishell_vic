@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:41:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 15:47:03 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:12:42 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/* 
+/*
  * Function to create pipes between child proces
  */
 

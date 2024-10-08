@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   node_redirs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 15:00:04 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 18:06:46 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:28:27 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_redirect	*ft_redir_new(char *rtype, char	*rfile)
+t_redirect	*ft_redir_new(char *rtype, char *rfile)
 {
 	t_redirect	*a;
 
@@ -54,7 +54,7 @@ void	ft_redir_add_back(t_redirect **lst, t_redirect *new)
 	last->next = new;
 }
 
-void	add_redir(char *rtype, char	*rfile, t_redirect **redirs)
+void	add_redir(char *rtype, char *rfile, t_redirect **redirs)
 {
 	t_redirect	*new;
 

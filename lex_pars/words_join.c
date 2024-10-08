@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   words_join.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:17:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/07 14:41:59 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:29:26 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*save_word(t_token **pnode, t_env **env)
 		else if (node->type == EXPAND_VAR || node->type == EXPAND_VAR_Q)
 			str = expand(node->ptr, node->len, env);
 		value = ft_wordjoin(value, str);
-		free (str);
+		free(str);
 		*pnode = node;
 		node = node->next;
 	}

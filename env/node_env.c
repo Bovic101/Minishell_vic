@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:11:32 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 18:04:36 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:07:48 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_env_print(t_env **env)
 	}
 }
 
-void	ft_free_env(t_env	**env)
+void	ft_free_env(t_env **env)
 {
 	t_env	*node;
 	t_env	*tmp;

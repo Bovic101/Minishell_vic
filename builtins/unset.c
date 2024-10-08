@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:43:58 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 18:04:12 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:06:22 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ int	right_varname_u(char *str)
 	int	i;
 
 	i = 1;
-	if (str[0] == '_' || (str[0] >= 'a' && str[0] <= 'z') \
-		|| (str[0] >= 'A' && str[0] <= 'Z'))
+	if (str[0] == '_' || (str[0] >= 'a' && str[0] <= 'z') || (str[0] >= 'A'
+			&& str[0] <= 'Z'))
 	{
 		while (str[i] != '\0')
 		{
-			if (!(str[i] == '_' || (str[i] >= 'a' && str[i] <= 'z') || \
-				(str[i] >= 'A' && str[i] <= 'Z') \
-					|| (str[i] >= '0' && str[i] <= '9')))
+			if (!(str[i] == '_' || (str[i] >= 'a' && str[i] <= 'z')
+					|| (str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= '0'
+						&& str[i] <= '9')))
 				return (1);
 			i++;
 		}
@@ -51,7 +51,7 @@ int	exe_unset(t_parc *node, t_env **env)
 			}
 			else
 			{
-				print_error_msg(node->cmd, arg->value, \
+				print_error_msg(node->cmd, arg->value,
 					"not a valid identifier");
 				return_status = 1;
 			}

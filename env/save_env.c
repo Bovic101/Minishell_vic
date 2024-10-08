@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:49:12 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/07 11:53:13 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:08:01 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	add_set_env(char *key, char *value, t_env **env)
 	else
 	{
 		set_value(key, value, env);
-		free (key);
+		free(key);
 	}
 }
 
@@ -73,8 +73,8 @@ void	save_env_empty(t_env **env, int *exit_status)
 	add_env(ft_strdup("PWD"), ft_strdup(getcwd(cwd, sizeof(cwd))), env);
 	add_env(ft_strdup("OLDPWD"), NULL, env);
 	add_env(ft_strdup("SHLVL"), ft_strdup("1"), env);
-	value = ft_strjoin(ft_strdup(getcwd(cwd, sizeof(cwd))), \
-		ft_strdup("./minishell"));
+	value = ft_strjoin(ft_strdup(getcwd(cwd, sizeof(cwd))),
+			ft_strdup("./minishell"));
 	add_env(ft_strdup("_"), value, env);
 	env[0]->exit_status = exit_status;
 }

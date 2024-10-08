@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:44:01 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 18:03:59 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:05:56 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ int	right_varname_e(char *str)
 	int	i;
 
 	i = 1;
-	if (str[0] == '_' || (str[0] >= 'a' && str[0] <= 'z') || \
-		(str[0] >= 'A' && str[0] <= 'Z'))
+	if (str[0] == '_' || (str[0] >= 'a' && str[0] <= 'z') || (str[0] >= 'A'
+			&& str[0] <= 'Z'))
 	{
 		while (str[i] != '\0' && str[i] != '=')
 		{
-			if (!(str[i] == '_' || (str[i] >= 'a' && str[i] <= 'z') || \
-				(str[i] >= 'A' && str[i] <= 'Z') \
-					|| (str[i] >= '0' && str[i] <= '9')))
+			if (!(str[i] == '_' || (str[i] >= 'a' && str[i] <= 'z')
+					|| (str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= '0'
+						&& str[i] <= '9')))
 				return (1);
 			i++;
 		}
@@ -49,8 +49,8 @@ void	set_variable(t_arg *arg, int len, t_env **env)
 		len++;
 	}
 	if (fl == 1)
-		add_set_env(ft_strndup(arg->value, len), \
-			ft_strdup(&arg->value[len + 1]), env);
+		add_set_env(ft_strndup(arg->value, len), ft_strdup(&arg->value[len
+				+ 1]), env);
 	else
 		add_set_env(ft_strndup(arg->value, len), NULL, env);
 }
@@ -74,7 +74,7 @@ int	exe_export(t_parc *node, t_env **env)
 				set_variable(arg, len, env);
 			else
 			{
-				print_error_msg(node->cmd, arg->value, \
+				print_error_msg(node->cmd, arg->value,
 					"not a valid identifier");
 				return_status = 1;
 			}

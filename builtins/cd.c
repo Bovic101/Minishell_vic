@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:44:06 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 11:39:40 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:04:55 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	exe_cd(t_parc *node, t_env **env)
 	}
 	else
 	{
-		print_error_msg(node->cmd, node->args->value, \
+		print_error_msg(node->cmd, node->args->value,
 			"No such file or directory");
 		return (res);
 	}

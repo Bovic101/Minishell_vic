@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:27:47 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/07 14:28:30 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:05:38 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ int	exe_exit(t_parc *node, t_env **env)
 	else
 		exit_code = non_numeric_exit(node->cmd, arg->value);
 	freeall(env, &node);
-	exit (exit_code);
+	exit(exit_code);
 }

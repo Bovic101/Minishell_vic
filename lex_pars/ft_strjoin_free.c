@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 17:21:01 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/06 17:23:07 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:26:19 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	j = 0;
 	while (s2[j] != '\0')
 	{
-		s[i] = s2 [j];
+		s[i] = s2[j];
 		i++;
 		j++;
 	}

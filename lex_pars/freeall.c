@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   freeall.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:41:54 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/01 15:58:31 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:23:08 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-/*
-void	ft_free_arrstr(char **str)
-{
-	int	i;
-
-	if (!str)
-		return ;
-	i = 0;
-	while (str[i] != NULL)
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-	str = NULL;
-}*/
 
 void	ft_free_token(t_token **token)
 {

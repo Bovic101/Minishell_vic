@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:33:46 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 16:24:42 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:29:06 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	if_any_word(enum e_tokentype type)
 
 char	*save_cmd(char *cmd)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (cmd[i] != '\0')
@@ -43,7 +43,7 @@ t_token	*save_redir(t_token *node, t_env **env, t_redirect **redirs)
 	node = node->next;
 	while (node->type == SEPARATOR)
 		node = node->next;
-	if (node->type == WORD || node->type == EXPAND_VAR \
+	if (node->type == WORD || node->type == EXPAND_VAR
 		|| node->type == EXPAND_VAR_Q)
 		rfile = save_word(&node, env);
 	add_redir(rtype, rfile, redirs);
@@ -63,11 +63,11 @@ t_token	*save_pipe(t_token *node, char *cmd, t_env **env, t_parc **parc)
 	{
 		if (node != NULL && (if_any_word(node->type) == 1) && cmd == NULL)
 			cmd = save_cmd(save_word(&node, env));
-		else if (node != NULL && (node->type == REDIR_IN \
-			|| node->type == REDIR_IN2))
+		else if (node != NULL && (node->type == REDIR_IN
+				|| node->type == REDIR_IN2))
 			node = save_redir(node, env, &redirs_in);
-		else if (node != NULL && (node->type == REDIR_OUT \
-			|| node->type == REDIR_OUT2))
+		else if (node != NULL && (node->type == REDIR_OUT
+				|| node->type == REDIR_OUT2))
 			node = save_redir(node, env, &redirs_out);
 		else if (node != NULL && (if_any_word(node->type) == 1))
 			add_args(save_word(&node, env), &args);
@@ -79,8 +79,8 @@ t_token	*save_pipe(t_token *node, char *cmd, t_env **env, t_parc **parc)
 
 void	parcer(t_token **token, t_parc **parc, t_env **env)
 {
-	t_token		*node;
-	char		*cmd;
+	t_token	*node;
+	char	*cmd;
 
 	if (!token)
 		return ;

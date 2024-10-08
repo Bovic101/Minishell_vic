@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 17:24:01 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 17:51:35 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:26:59 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	lexer_word(char *s, int *i, int *len, enum e_tokentype *type)
 	int	fl;
 
 	fl = 0;
-	while (s[*i] != '\0' && s[*i] != ' ' && s[*i] != 34 && s[*i] != 39 \
-			&& s[*i] != '|')
+	while (s[*i] != '\0' && s[*i] != ' ' && s[*i] != 34 && s[*i] != 39
+		&& s[*i] != '|')
 	{
 		if (s[*i] == '$')
 			fl = 1;

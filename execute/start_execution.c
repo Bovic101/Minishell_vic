@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 15:46:01 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/07 14:24:03 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:13:29 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	execute_proces(t_parc **parc, t_env **env, int ncount, int status)
 
 int	start_execute(t_parc **parc, t_env **env)
 {
-	int		ncount;
-	int		status;
+	int	ncount;
+	int	status;
 
 	status = 0;
 	save_all_hdoc(parc);

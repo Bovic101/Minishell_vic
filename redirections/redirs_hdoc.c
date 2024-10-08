@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs_hdoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 20:48:49 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/05 18:11:29 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:30:14 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ char	*ft_hdoc(char *s_end, char *value)
 }
 
 /*
-goes through all redirections << in node, starts heredoc and returns the last one
+goes through all redirections << in node,
+	starts heredoc and returns the last one
 */
 char	*save_last_hdoc(t_parc *node)
 {
@@ -75,7 +76,7 @@ char	*save_last_hdoc(t_parc *node)
 
 int	save_all_hdoc(t_parc **parc)
 {
-	t_parc		*node;
+	t_parc	*node;
 
 	node = *parc;
 	while (node)

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   node_parc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:53:35 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 18:06:31 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:28:05 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_parc	*ft_plst_new(char *cmd, t_arg *args, \
-	t_redirect *redirs_in, t_redirect *redirs_out)
+t_parc	*ft_plst_new(char *cmd, t_arg *args, t_redirect *redirs_in,
+		t_redirect *redirs_out)
 {
 	t_parc	*a;
 

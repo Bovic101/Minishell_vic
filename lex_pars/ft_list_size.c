@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list_size.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 12:33:14 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/02 12:45:51 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:25:11 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//find size of t_parc structure - count nodes
+/*find size of t_parc structure - count nodes*/
 int	ft_size_parc(t_parc *lst)
 {
 	int		count;
@@ -30,7 +30,7 @@ int	ft_size_parc(t_parc *lst)
 	return (count);
 }
 
-//find size of t_arg structure - count nodes
+/*find size of t_arg structure - count nodes*/
 int	ft_size_arg(t_arg *lst)
 {
 	int		count;
@@ -48,7 +48,7 @@ int	ft_size_arg(t_arg *lst)
 	return (count);
 }
 
-//find size of t_redirect structure - count nodes
+/*find size of t_redirect structure - count nodes*/
 int	ft_size_redirect(t_redirect *lst)
 {
 	int			count;
@@ -66,7 +66,7 @@ int	ft_size_redirect(t_redirect *lst)
 	return (count);
 }
 
-//find size of t_env structure - count nodes except _exit_code & value=NULL
+/**find size of t_env structure - count nodes except _exit_code & value=NULL*/
 int	ft_size_env(t_env *lst)
 {
 	int		count;

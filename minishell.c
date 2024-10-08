@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:26:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/06 11:35:38 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:38:28 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ int	cmd_processing(char *s, t_env **env)
 	ft_free_parc(&parc);
 	return (0);
 }
+
 /* Implements cmd loop for the shell, wait for user input,
  processing cmd, and managing history*/
-void shell_loop(t_env **env)
+
+void	shell_loop(t_env **env)
 {
-	char *s;
-	int loop_condition;
+	char	*s;
+	int		loop_condition;
 
 	s = NULL;
 	loop_condition = 0;
@@ -54,13 +56,13 @@ void shell_loop(t_env **env)
 	}
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	t_env *env;
-	int exit_status;
+	t_env	*env;
+	int		exit_status;
+
 	(void)argc;
 	(void)argv;
-
 	env = NULL;
 	exit_status = 0;
 	save_environment(envp, &env, &exit_status);

@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:37:36 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/05 15:30:23 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:15:22 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 
 int	unclosed_quote_checker(const char *str)
 {
-	int	i;
-	char	check;
-	
+	int			i;
+	char		check;
+	const char	*message;
+
+	message = "Error:check for unclosed quote\n";
 	i = 0;
-	check = 0; //no open quote when check is set to 0
+	check = 0;
 	while (str[i] != '\0')
 	{
 		if ((str[i] == '"' || str[i] == '\'') && check == 0)
 			check = str[i];
-		else if (str[i] == check) //quote opening
+		else if (str[i] == check)
 		{
-			
-			check = 0;//check current opening quote & close it
+			check = 0;
 		}
 		i++;
 	}
-	if (check != 0)//check if their is an unclosed quote after 1st loop
+	if (check != 0)
 	{
-		const char *message= "Error:check for unclosed quote\n";
 		write(2, message, ft_strlen(message));
-		return(1);
+		return (1);
 	}
-	return(0);
+	return (0);
 }
-

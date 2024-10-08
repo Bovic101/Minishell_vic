@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:17:41 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/06 12:14:00 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:16:26 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	*ft_strcat(char *dest, const char *src)
 {
 	char	*dest_end;
 
-	// Find the end of the destination string
 	dest_end = dest;
 	while (*dest_end != '\0')
 	{
@@ -45,47 +44,21 @@ char	*ft_strcat(char *dest, const char *src)
 	*dest_end = '\0';
 	return (dest);
 }
-char *ft_strncpy(char *dest, const char *src, size_t n)
-{
-    size_t i;
 
-    i = 0;
-    while (i < n && src[i] != '\0')
-    {
-        dest[i] = src[i];
-        i++;
-    }
-    while (i < n)
-    {
-        dest[i] = '\0';
-        i++;
-    }
-    return dest;
+char	*ft_strncpy(char *dest, const char *src, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n && src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }
-/** 
-//Function to run another minishell program in our  minishell
-void run_2nd_minishell(t_parc *parc, t_env **env)
-{
-    pid_t c_pid;
-    int status;
-    char **argv;
-    char **env_list;
-
-    c_pid = fork();
-    if (c_pid == 0)  // In the child process
-    {
-        argv = arg_to_array_converter(parc->args, parc->cmd); // Convert the arga & env to arrays
-        env_list = env_to_array_converter(*env);
-        if (execve("./minishell", argv, env_list) == -1)// Execute minishell in the child process
-        {
-            perror("Minishell execution error");
-            free(argv);
-            free(env_list);
-            exit(EXIT_FAILURE);
-        }
-    }
-    else if (c_pid > 0)
-        waitpid(c_pid, &status, 0);//wait for the child (minishell) to finish
-    else
-        perror("Fork failed");
-}*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:41 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 18:10:17 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:09:43 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void	ft_execve_fork(t_parc *node, t_env **env, int *status)
 */
 int	ft_execute(t_parc *node, t_env **env)
 {
-	int		status;
-	int		fd0_before;
-	int		fd1_before;
+	int	status;
+	int	fd0_before;
+	int	fd1_before;
 
 	fd0_before = dup(0);
 	fd1_before = dup(1);
