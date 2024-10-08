@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:40:29 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/05 11:48:23 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:32:17 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ int	exe_echo(t_parc *node)
 		if (fl_n == 0)
 			printf("\n");
 	}
+	else
+		printf("\n");
 	return (0);
 }
