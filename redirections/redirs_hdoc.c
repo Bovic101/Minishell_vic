@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   redirs_hdoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 20:48:49 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/08 03:30:14 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:07:55 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/*
-starts heredoc
-*/
 char	*ft_hdoc(char *s_end, char *value)
 {
 	char	*s;
