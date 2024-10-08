@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_remove_spaces.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 16:01:08 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/06 17:27:52 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 20:37:18 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_tmp(char **tmp)
 	}
 	free(tmp);
 }
-
+/*
 char	*ft_remove_spaces(char *value)
 {
 	char	**tmp;
@@ -66,4 +66,4 @@ char	*ft_remove_spaces(char *value)
 	}
 	free_tmp(tmp);
 	return (free(value), new);
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 12:56:13 by vodebunm          #+#    #+#             */
-/*   Updated: 2024/10/08 03:33:10 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/08 20:35:21 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	signal_handlers_caller(void)
 	sa_int.sa_flags = 0;
 	sigaction(SIGINT, &sa_int, NULL);
 	sigemptyset(&sa_quit.sa_mask);
-	sa_quit.sa_handler = SIG_IGN;
+	sa_quit.sa_handler = sigquit_handler;
 	sa_quit.sa_flags = 0;
 	sigaction(SIGQUIT, &sa_quit, NULL);
 }

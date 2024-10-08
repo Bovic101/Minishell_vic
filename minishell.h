@@ -6,7 +6,7 @@
 /*   By: vodebunm <vodebunm@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:18:18 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/08 03:35:10 by vodebunm         ###   ########.fr       */
+/*   Updated: 2024/10/08 20:36:50 by vodebunm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void					ft_plst_print(t_parc **parc);
 char					*save_word(t_token **pnode, t_env **env);
 char					*ft_wordjoin(char *value, char *str);
 char					*expand(char *ptr, int len, t_env **env);
-char					*ft_remove_spaces(char *value);
+//char					*ft_remove_spaces(char *value);
 void					add_redir(char *rtype, char *rfile,
 							t_redirect **redirs);
 void					ft_redir_print(t_redirect **redirs);
